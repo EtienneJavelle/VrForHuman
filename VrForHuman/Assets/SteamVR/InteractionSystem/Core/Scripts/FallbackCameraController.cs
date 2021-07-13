@@ -5,32 +5,28 @@
 //=============================================================================
 
 using UnityEngine;
-using System.Collections;
 
-namespace Valve.VR.InteractionSystem
-{
-	//-------------------------------------------------------------------------
-	[RequireComponent( typeof( Camera ) )]
-	public class FallbackCameraController : MonoBehaviour
-	{
-		public float speed = 4.0f;
-		public float shiftSpeed = 16.0f;
-		public bool showInstructions = true;
+namespace Valve.VR.InteractionSystem {
+    //-------------------------------------------------------------------------
+    [RequireComponent(typeof(Camera))]
+    public class FallbackCameraController : MonoBehaviour {
+        public float speed = 4.0f;
+        public float shiftSpeed = 16.0f;
+        public bool showInstructions = true;
 
-		private Vector3 startEulerAngles;
-		private Vector3 startMousePosition;
-		private float realTime;
+        private Vector3 startEulerAngles;
+        private Vector3 startMousePosition;
+        private float realTime;
 
-		//-------------------------------------------------
-		void OnEnable()
-		{
-			realTime = Time.realtimeSinceStartup;
-		}
+        //-------------------------------------------------
+        private void OnEnable() {
+            realTime = Time.realtimeSinceStartup;
+        }
 
 
-		//-------------------------------------------------
-		void Update()
-		{
+        //-------------------------------------------------
+        private void Update() {
+#if ENABLE_LEGACY_INPUT_MANAGER
 			float forward = 0.0f;
 			if ( Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.UpArrow ) )
 			{
@@ -88,19 +84,18 @@ namespace Valve.VR.InteractionSystem
 				Vector3 offset = mousePosition - startMousePosition;
 				transform.localEulerAngles = startEulerAngles + new Vector3( -offset.y * 360.0f / Screen.height, offset.x * 360.0f / Screen.width, 0.0f );
 			}
-		}
+#endif
+        }
 
 
-		//-------------------------------------------------
-		void OnGUI()
-		{
-			if ( showInstructions )
-			{
-				GUI.Label( new Rect( 10.0f, 10.0f, 600.0f, 400.0f ),
-					"WASD EQ/Arrow Keys to translate the camera\n" +
-					"Right mouse click to rotate the camera\n" +
-					"Left mouse click for standard interactions.\n" );
-			}
-		}
-	}
+        //-------------------------------------------------
+        private void OnGUI() {
+            if(showInstructions) {
+                GUI.Label(new Rect(10.0f, 10.0f, 600.0f, 400.0f),
+                    "WASD EQ/Arrow Keys to translate the camera\n" +
+                    "Right mouse click to rotate the camera\n" +
+                    "Left mouse click for standard interactions.\n");
+            }
+        }
+    }
 }
