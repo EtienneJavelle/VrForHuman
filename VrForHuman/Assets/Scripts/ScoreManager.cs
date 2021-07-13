@@ -11,9 +11,10 @@ public class ScoreManager : MonoBehaviour
     private int score;
     private TextMeshProUGUI scoreAmountText;
 
-    private Transform scorePointAmountSpawn;
+    private List<Transform> scorePointAmountSpawns = new List<Transform>();
 
     private Vector3 minSize;
+    private bool pointsLost;
 
     #endregion
 
@@ -23,7 +24,7 @@ public class ScoreManager : MonoBehaviour
 
     [Space]
 
-    public Vector3 maxSize;
+    public Vector3 maxSizeUp, maxSizeDown;
     public float extendSizeDuration;
 
     #endregion
@@ -36,9 +37,13 @@ public class ScoreManager : MonoBehaviour
     void Awake()
     {
         scoreAmountText = GetComponentInChildren<TextMeshProUGUI>();
-        scorePointAmountSpawn = GameObject.FindGameObjectWithTag("ScorePointAmountSpawn").transform;
+        var _scoreUiSpawnPoints = GameObject.FindGameObjectsWithTag("ScorePointAmountSpawn");
+        for (int i = 0; i < _scoreUiSpawnPoints.Length; i++)
+        {
+            scorePointAmountSpawns.Add(_scoreUiSpawnPoints[i].transform);
+        }
 
-        SetScore();
+        SetScore(0);
 
         minSize = scoreAmountText.transform.localScale;
     }
@@ -47,7 +52,9 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
-        if(scoreAmountText.transform.localScale.x >= maxSize.x && scoreAmountText.transform.localScale.y >= maxSize.y && scoreAmountText.transform.localScale.z >= maxSize.z)
+        if((scoreAmountText.transform.localScale.x >= maxSizeUp.x && scoreAmountText.transform.localScale.y >= maxSizeUp.y 
+            && scoreAmountText.transform.localScale.z >= maxSizeUp.z) || (scoreAmountText.transform.localScale.x <= maxSizeDown.x 
+            && scoreAmountText.transform.localScale.y <= maxSizeDown.y && scoreAmountText.transform.localScale.z <= maxSizeDown.z))
         {
             scoreAmountText.transform.DOScale(minSize, extendSizeDuration);
         }
@@ -69,12 +76,27 @@ public class ScoreManager : MonoBehaviour
     {
         this.score += _amount;
 
-        if (scorePointAmountSpawn != null)
+        if (scorePointAmountSpawns.Count >= 4)
         {
-            GameObject _uiPointsAmount = Instantiate(uIPointsAmount.gameObject);
+            int aleat = Random.Range(1, 101);
+            Transform scorePointAmountSpawn = scorePointAmountSpawns[0];
+            if (aleat >= 25 && aleat < 50)
+            {
+                scorePointAmountSpawn = scorePointAmountSpawns[1];
+            }
+            else if (aleat >= 50 && aleat < 75)
+            {
+                scorePointAmountSpawn = scorePointAmountSpawns[2];
+            }
+            else if (aleat >= 75)
+            {
+                scorePointAmountSpawn = scorePointAmountSpawns[3];
+            }
+            UIPointsAmount _uiPointsAmount = Instantiate(uIPointsAmount);
             _uiPointsAmount.transform.SetParent(scorePointAmountSpawn);
             _uiPointsAmount.transform.localPosition = Vector3.zero;
             _uiPointsAmount.transform.rotation = Quaternion.identity;
+            _uiPointsAmount.SetPoints(_amount);
         }
         else
         {
@@ -91,17 +113,24 @@ public class ScoreManager : MonoBehaviour
             this.score = 999999999;
         }
 
-        SetScore();
+        SetScore(_amount);
         
     }
 
-    public void SetScore()
+    public void SetScore(int _amount)
     {
         if (scoreAmountText != null)
         {
             scoreAmountText.text = this.score.ToString();
 
-            scoreAmountText.transform.DOScale(maxSize, extendSizeDuration);
+            if (_amount >= 0)
+            {
+                scoreAmountText.transform.DOScale(maxSizeUp, extendSizeDuration);
+            }
+            else
+            {
+                scoreAmountText.transform.DOScale(maxSizeDown, extendSizeDuration);
+            }
         }
         else
         {

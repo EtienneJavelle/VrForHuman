@@ -21,7 +21,14 @@ public class UIPointsAmount : MonoBehaviour
 
     public void SetPoints(int amount)
     {
-        pointsText.text = "+ " + amount.ToString();
+        if (amount >= 0)
+        {
+            pointsText.text = "+ " + amount.ToString();
+        }
+        else
+        {
+            pointsText.text = amount.ToString();
+        }
         transform.position += new Vector3(Random.Range(-placementJitter, placementJitter), Random.Range(-placementJitter, placementJitter), 0f);
     }
 }
