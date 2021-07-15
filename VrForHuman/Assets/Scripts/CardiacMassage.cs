@@ -45,12 +45,12 @@ public class CardiacMassage : MonoBehaviour {
             isGoingDown = velocity.y < 0;
             isGoingUp = velocity.y > 0;
 
-            if(velocity.y < 0) {
+            if(isGoingDown) {
                 SetState(State.Down);
-            } else if(velocity.y > 0) {
+            } else if(isGoingUp) {
                 SetState(State.Up);
             } else {
-                SetState(State.Idle);
+                // SetState(State.Idle);
             }
             if(isGoingDown && transform.position.y < startPosition.y) {
                 maxPosition = transform.position;
