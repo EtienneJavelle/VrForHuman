@@ -158,17 +158,3 @@ public class CardiacMassage : MonoBehaviour {
 
 
 }
-
-[System.Serializable]
-public struct CardiacMassagePressureData {
-    public float Time => time;
-    public float Depth => depth;
-
-    [SerializeField] private float depth;
-    [SerializeField] private float time;
-
-    public CardiacMassagePressureData(float depth, float time) {
-        this.depth = depth;
-        this.time = time;
-    }
-}
