@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiText: {fileID: 3830838561528316475}
-  lifeTime: 1
-  moveSpeed: 100
-  placementJitter: 0.5
+  lifeTime: 0.75
+  moveSpeed: 250
+  placementJitter: 0.75
 --- !u!1 &7647680922241161192
 GameObject:
   m_ObjectHideFlags: 0

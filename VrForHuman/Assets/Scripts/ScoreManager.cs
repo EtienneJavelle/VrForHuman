@@ -5,6 +5,15 @@ using UnityEngine;
 
 namespace CardiacMassage {
     public class ScoreManager : MonoBehaviour {
+        
+        [System.Serializable]
+        public class DepthRank
+        {
+            public string depthRankText;
+            public float depthRankValue;
+            public Color[] depthRanksColors;
+        }
+        
         #region Fields
 
         private CardiacMassage cardiacMassage;
@@ -16,7 +25,6 @@ namespace CardiacMassage {
         private Transform successTextPointSpawn;
 
         private Vector3 minSize;
-        private bool pointsLost;
 
         #endregion
 
@@ -26,7 +34,7 @@ namespace CardiacMassage {
 
         [Space]
 
-        [SerializeField] private string depthSuccessText, depthFailedText;
+        [SerializeField] DepthRank[] depthRanks;
 
         [Space]
 
@@ -96,6 +104,16 @@ namespace CardiacMassage {
                 _scoreValue = 1000;
             }
             ChangeScore((int)_scoreValue);
+
+            for (int i = 0; i < depthRanks.Length; i++)
+            {
+                if ((Mathf.Abs(_pushData.Depth)) >= depthRanks[i].depthRankValue)
+                {
+                    SetSuccessText(depthRanks[i].depthRankText, depthRanks[i].depthRanksColors);
+                    return;
+                }
+            }
+            SetSuccessText(depthRanks[depthRanks.Length-1].depthRankText, depthRanks[depthRanks.Length-1].depthRanksColors);
         }
 
         public void ChangeScore(int _amount) {
@@ -146,14 +164,17 @@ namespace CardiacMassage {
             }
         }
 
-        private void SetSuccessText(string _text) {
+        private void SetSuccessText(string _text, Color[] _colors) {
             if(successTextPointSpawn != null) {
 
                 UITextDisplay _uiTextDisplay = Instantiate(uiTextDisplay);
                 _uiTextDisplay.transform.SetParent(successTextPointSpawn);
                 _uiTextDisplay.transform.localPosition = Vector3.zero;
                 _uiTextDisplay.transform.rotation = Quaternion.identity;
-                _uiTextDisplay.SetText(_text);
+
+                _uiTextDisplay.SetText(_text, _colors);
+
+
             } else {
                 Debug.LogWarning("Not SuccessTextPointSpawn founded");
             }

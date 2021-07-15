@@ -1609,15 +1609,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f66ecbbfa350e4eafcc6e33a1ea18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TESTPointRanksName:
-  - Perfect
-  - Good
-  - Poor
-  - Mediocre
-  - Late
-  - Early
-  TESTPointRanks: e803000020030000f4010000640000000a0000000a000000
-  TESTPointRanksTimeOffset: 320000006400000096000000c8000000fa000000f6ffffff
+  ranks:
+  - displayName: Perfect
+    points: 1000
+    offset: 50
+  - displayName: Good
+    points: 800
+    offset: 100
+  - displayName: Poor
+    points: 500
+    offset: 150
+  - displayName: Mediocre
+    points: 100
+    offset: 200
+  - displayName: Late
+    points: 10
+    offset: 250
   beat: 500
   cardiacMassage: {fileID: 0}
   TESTBeatClips:
@@ -1627,7 +1634,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 737a6618d669e4740862cd8ddf59e793, type: 3}
   - {fileID: 8300000, guid: 7ae8d8155c5f0df4b8948d4fa4fb14c5, type: 3}
   - {fileID: 8300000, guid: 891b9c1d17e50204a85ebdf71b6670f5, type: 3}
-  TESTaudio: {fileID: 0}
+  TESTAudio: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
