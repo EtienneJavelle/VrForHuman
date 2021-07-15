@@ -36,7 +36,7 @@ public class TimingHandeler : MonoBehaviour {
     private CardiacMassagePressureData CalcutaleTimingAccuracy(CardiacMassagePressureData pressure) {
         float time = (pressure.Time - lastPressure.Time) * 1000;
         print(time - beat);
-        int rank = 0;
+        int rank = TESTPointRanksName.Length - 1;
         for(int i = 0; i < TESTPointRanksTimeOffset.Length; i++) {
             if(Mathf.Abs(time - beat) <= TESTPointRanksTimeOffset[i]) {
                 rank = i;
