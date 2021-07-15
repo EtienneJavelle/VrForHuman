@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-internal class MyClass {
-    private CardiacMassage g;
-
-    private void uuu() {
-        //g.
-    }
-}
 public class CardiacMassage : MonoBehaviour {
+    public event Action OnMassageStart, OnMassageStop;
     public event Action OnPressureBegin;
     public event Action<CardiacMassagePressureData> OnPressureDone;
 
     [SerializeField] private float pressureDepth;
-    [SerializeField] private float beat = 500;
     [SerializeField] private State state;
     [SerializeField] private Interactable interactable;
     [SerializeField] private AnimationCurve pushes;
@@ -38,8 +31,6 @@ public class CardiacMassage : MonoBehaviour {
         interactable.onAttachedToHand += _ => StartMassage();
         interactable.onDetachedFromHand += _ => StopMassage();
 
-        OnPressureBegin += () => print("Begin");
-        OnPressureDone += push => print(push.Depth);
     }
 
     private void Update() {
@@ -81,19 +72,18 @@ public class CardiacMassage : MonoBehaviour {
         isStarted = true;
         startPosition = transform.position;
         startMassageTime = Time.realtimeSinceStartup;
+        OnMassageStart?.Invoke();
     }
 
     [ContextMenu("Stop Massage")]
     private void StopMassage() {
-
         isStarted = false;
+        OnMassageStop?.Invoke();
     }
 
     private void SetState(State state) {
         if(state == this.state)
             return;
-
-        Debug.Log($"Changed state from {this.state} to {state}");
 
         ExitState();
 
