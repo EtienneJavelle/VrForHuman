@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ffd4bb55ad4cf45ac4b21355ec98da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsText: {fileID: 3830838561528316475}
+  uiText: {fileID: 3830838561528316475}
   lifeTime: 1
   moveSpeed: 100
   placementJitter: 0.5

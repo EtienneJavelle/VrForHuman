@@ -6,12 +6,15 @@ using DG.Tweening;
 
 public class ScoreManager : MonoBehaviour
 {
-    #region Properties
+    #region Fields
+
+    private CardiacMassage cardiacMassage;
 
     private int score;
     private TextMeshProUGUI scoreAmountText;
 
     private List<Transform> scorePointAmountSpawns = new List<Transform>();
+    private Transform successTextPointSpawn;
 
     private Vector3 minSize;
     private bool pointsLost;
@@ -20,12 +23,16 @@ public class ScoreManager : MonoBehaviour
 
     #region Unity Inspector
 
-    public UIPointsAmount uIPointsAmount;
+    [SerializeField] private UITextDisplay uiTextDisplay;
 
     [Space]
 
-    public Vector3 maxSizeUp, maxSizeDown;
-    public float extendSizeDuration;
+    [SerializeField] private string depthSuccessText, depthFailedText;
+
+    [Space]
+
+    [SerializeField] private Vector3 maxSizeUp, maxSizeDown;
+    [SerializeField] private float extendSizeDuration;
 
     #endregion
 
@@ -36,16 +43,30 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        cardiacMassage = FindObjectOfType<CardiacMassage>();
+
         scoreAmountText = GetComponentInChildren<TextMeshProUGUI>();
+
         var _scoreUiSpawnPoints = GameObject.FindGameObjectsWithTag("ScorePointAmountSpawn");
         for (int i = 0; i < _scoreUiSpawnPoints.Length; i++)
         {
             scorePointAmountSpawns.Add(_scoreUiSpawnPoints[i].transform);
         }
 
+        successTextPointSpawn = GameObject.FindGameObjectWithTag("SuccessTextPointSpawn").transform;
+
+
         SetScore(0);
 
         minSize = scoreAmountText.transform.localScale;
+
+        if (cardiacMassage != null)
+        {
+            cardiacMassage.OnPressureBegin += () => Debug.Log("TestBegin");
+
+            cardiacMassage.OnPressureDone += _ => Debug.Log("TestPressure");
+            cardiacMassage.OnPressureDone += pushData => CalculateScoreValue(pushData);
+        }
     }
 
     #endregion
@@ -59,6 +80,8 @@ public class ScoreManager : MonoBehaviour
             scoreAmountText.transform.DOScale(minSize, extendSizeDuration);
         }
 
+        
+
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -70,6 +93,21 @@ public class ScoreManager : MonoBehaviour
             ChangeScore(-1000);
         }
 #endif
+    }
+
+    private void CalculateScoreValue(CardiacMassagePressureData _pushData)
+    {
+        Debug.Log("PushData :" + (Mathf.Abs(_pushData.Depth)));
+        float _scoreValue = 1.0f;
+        if ((Mathf.Abs(_pushData.Depth)) < 0.5f)
+        {
+            _scoreValue = (Mathf.Abs(_pushData.Depth)) * 1000;
+        }
+        else
+        {
+            _scoreValue = 1000;
+        }
+        ChangeScore((int)_scoreValue);
     }
 
     public void ChangeScore(int _amount)
@@ -92,11 +130,11 @@ public class ScoreManager : MonoBehaviour
             {
                 scorePointAmountSpawn = scorePointAmountSpawns[3];
             }
-            UIPointsAmount _uiPointsAmount = Instantiate(uIPointsAmount);
-            _uiPointsAmount.transform.SetParent(scorePointAmountSpawn);
-            _uiPointsAmount.transform.localPosition = Vector3.zero;
-            _uiPointsAmount.transform.rotation = Quaternion.identity;
-            _uiPointsAmount.SetPoints(_amount);
+            UITextDisplay _uiTextDisplay = Instantiate(uiTextDisplay);
+            _uiTextDisplay.transform.SetParent(scorePointAmountSpawn);
+            _uiTextDisplay.transform.localPosition = Vector3.zero;
+            _uiTextDisplay.transform.rotation = Quaternion.identity;
+            _uiTextDisplay.SetPoints(_amount);
         }
         else
         {
@@ -135,6 +173,23 @@ public class ScoreManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Not ScoreAmountText founded !");
+        }
+    }
+
+    private void SetSuccessText(string _text)
+    {
+        if (successTextPointSpawn != null)
+        {
+           
+            UITextDisplay _uiTextDisplay = Instantiate(uiTextDisplay);
+            _uiTextDisplay.transform.SetParent(successTextPointSpawn);
+            _uiTextDisplay.transform.localPosition = Vector3.zero;
+            _uiTextDisplay.transform.rotation = Quaternion.identity;
+            _uiTextDisplay.SetText(_text);
+        }
+        else
+        {
+            Debug.LogWarning("Not SuccessTextPointSpawn founded");
         }
     }
 

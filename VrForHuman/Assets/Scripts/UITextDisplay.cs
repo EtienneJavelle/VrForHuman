@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UIPointsAmount : MonoBehaviour
+public class UITextDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI pointsText;
+    public TextMeshProUGUI uiText;
 
     public float lifeTime = 1f;
     public float moveSpeed = 1f;
@@ -19,16 +19,29 @@ public class UIPointsAmount : MonoBehaviour
         transform.position += new Vector3(0f, moveSpeed * Time.deltaTime, 0f);
     }
 
+    private void Move()
+    {
+        transform.position += new Vector3(Random.Range(-placementJitter, placementJitter), Random.Range(-placementJitter, placementJitter), 0f);
+    }
+
     public void SetPoints(int amount)
     {
         if (amount >= 0)
         {
-            pointsText.text = "+ " + amount.ToString();
+            uiText.text = "+ " + amount.ToString();
         }
         else
         {
-            pointsText.text = amount.ToString();
+            uiText.text = amount.ToString();
         }
-        transform.position += new Vector3(Random.Range(-placementJitter, placementJitter), Random.Range(-placementJitter, placementJitter), 0f);
+
+        Move();
+    }
+
+    public void SetText(string _text)
+    {
+        uiText.text = _text;
+
+        Move();
     }
 }

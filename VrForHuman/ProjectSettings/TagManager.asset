@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ScorePointAmountSpawn
+  - SuccessTextPointSpawn
   layers:
   - Default
   - TransparentFX
