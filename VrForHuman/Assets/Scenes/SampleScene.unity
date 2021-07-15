@@ -1247,6 +1247,7 @@ GameObject:
   - component: {fileID: 635898486}
   - component: {fileID: 635898485}
   - component: {fileID: 635898484}
+  - component: {fileID: 635898492}
   - component: {fileID: 635898491}
   - component: {fileID: 635898490}
   - component: {fileID: 635898489}
@@ -1270,7 +1271,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressureDepth: 0
-  beat: 500
   state: 0
   interactable: {fileID: 635898491}
   pushes:
@@ -1279,7 +1279,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pushDatas: []
+  TestChestBone: {fileID: 1532651353}
 --- !u!65 &635898485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1478,6 +1478,37 @@ MonoBehaviour:
   highlightOnHover: 1
   hideHighlight: []
   hoverPriority: 0
+--- !u!114 &635898492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635898483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f66ecbbfa350e4eafcc6e33a1ea18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TESTPointRanksName:
+  - Perfect
+  - Good
+  - Poor
+  - Mediocre
+  - Late
+  - Early
+  TESTPointRanks: e803000020030000f4010000640000000a0000000a000000
+  TESTPointRanksTimeOffset: 320000006400000096000000c8000000fa000000f6ffffff
+  beat: 500
+  cardiacMassage: {fileID: 0}
+  TESTBeatClips:
+  - {fileID: 8300000, guid: 465e24e196f24c3498bbd20246f9f1ca, type: 3}
+  - {fileID: 8300000, guid: 2ec0e14254efe4040b7ae3a0da46d5a6, type: 3}
+  - {fileID: 8300000, guid: 39cd38d16e194ab47ae7ae092c5f9e07, type: 3}
+  - {fileID: 8300000, guid: 737a6618d669e4740862cd8ddf59e793, type: 3}
+  - {fileID: 8300000, guid: 7ae8d8155c5f0df4b8948d4fa4fb14c5, type: 3}
+  - {fileID: 8300000, guid: 891b9c1d17e50204a85ebdf71b6670f5, type: 3}
+  TESTaudio: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2092,6 +2123,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &1532651353 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4452175843212108, guid: d6d06c887a1aae94f8c6e8cc2c0c557b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1152620546}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1719250851
 PrefabInstance:
   m_ObjectHideFlags: 0
