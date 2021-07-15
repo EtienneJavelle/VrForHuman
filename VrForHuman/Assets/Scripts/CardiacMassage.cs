@@ -1,8 +1,19 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
+internal class MyClass {
+    private CardiacMassage g;
+
+    private void uuu() {
+        //g.
+    }
+}
 public class CardiacMassage : MonoBehaviour {
+    public event Action OnPressureBegin;
+    public event Action OnPressureDone;
+
     [SerializeField] private float pressureDepth;
     [SerializeField] private float beat = 500;
     [SerializeField] private State state;
@@ -18,7 +29,7 @@ public class CardiacMassage : MonoBehaviour {
     private Vector3 oldPosition;
     private bool isGoingUp, isGoingDown;
     private float startMassageTime;
-    public List<CardiacMassagePressureData> pushDatas = new List<CardiacMassagePressureData>();
+    private List<CardiacMassagePressureData> pushDatas = new List<CardiacMassagePressureData>();
 
     private void Awake() {
         interactable ??= GetComponent<Interactable>();
@@ -68,27 +79,20 @@ public class CardiacMassage : MonoBehaviour {
             return;
 
         Debug.Log($"Changed state from {this.state} to {state}");
-        switch(this.state) {
-            case State.Idle:
-                break;
-            case State.Up:
-                minPosition = transform.position;
-                Keyframe keyframe = new Keyframe(Time.realtimeSinceStartup - startMassageTime,
-                    Mathf.Min(
-                    Mathf.Abs(startPosition.sqrMagnitude),
-                    Mathf.Abs(minPosition.sqrMagnitude)
-                    ) * 10,
-                    0, 0, 0, 0);
-                pushes.AddKey(keyframe);
-                break;
-            case State.Down:
-                break;
-        }
 
+        ExitState();
+
+        EnterState(state);
+
+        this.state = state;
+    }
+
+    private void EnterState(State state) {
         switch(state) {
             case State.Idle:
                 break;
             case State.Up:
+                OnPressureDone?.Invoke();
                 pressureDepth =
                     -Mathf.Abs(maxPosition.sqrMagnitude - startPosition.sqrMagnitude)
                     //-Mathf.Min(
@@ -104,7 +108,26 @@ public class CardiacMassage : MonoBehaviour {
             case State.Down:
                 break;
         }
-        this.state = state;
+    }
+
+    private void ExitState() {
+        switch(state) {
+            case State.Idle:
+                break;
+            case State.Up:
+                OnPressureBegin?.Invoke();
+                minPosition = transform.position;
+                Keyframe keyframe = new Keyframe(Time.realtimeSinceStartup - startMassageTime,
+                    Mathf.Min(
+                    Mathf.Abs(startPosition.sqrMagnitude),
+                    Mathf.Abs(minPosition.sqrMagnitude)
+                    ) * 10,
+                    0, 0, 0, 0);
+                pushes.AddKey(keyframe);
+                break;
+            case State.Down:
+                break;
+        }
     }
 
     private void OnDrawGizmosSelected() {
