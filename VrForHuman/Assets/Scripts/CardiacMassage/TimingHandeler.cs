@@ -3,11 +3,7 @@ using UnityEngine;
 
 namespace CardiacMassage {
     public class TimingHandeler : MonoBehaviour {
-        public Rank kasnd;
         [SerializeField] private Rank[] ranks;
-        [SerializeField] private string[] TESTPointRanksName = new string[] { "Perfect", "Good", "Poor", "Mediocre", "Late" };
-        [SerializeField] private int[] TESTPointRanks = new int[] { 1000, 800, 500, 100, 10 };
-        [SerializeField] private int[] TESTPointRanksTimeOffset = new int[] { 50, 100, 150, 200, 250 };
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
         [SerializeField] private AudioClip[] TESTBeatClips;
@@ -39,14 +35,14 @@ namespace CardiacMassage {
         private CardiacMassagePressureData CalcutaleTimingAccuracy(CardiacMassagePressureData pressure) {
             float time = (pressure.Time - lastPressure.Time) * 1000;
             print(time - beat);
-            int rank = TESTPointRanksName.Length - 1;
-            for(int i = 0; i < TESTPointRanksTimeOffset.Length; i++) {
-                if(Mathf.Abs(time - beat) <= TESTPointRanksTimeOffset[i]) {
+            int rank = ranks.Length - 1;
+            for(int i = 0; i < ranks.Length; i++) {
+                if(Mathf.Abs(time - beat) <= ranks[i].Offset) {
                     rank = i;
                     break;
                 }
             }
-            Debug.Log(TESTPointRanksName[rank]);
+            Debug.Log(ranks[rank].DisplayName);
             lastPressure = pressure;
             return pressure;
         }
