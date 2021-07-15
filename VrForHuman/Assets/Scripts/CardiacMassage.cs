@@ -12,7 +12,7 @@ internal class MyClass {
 }
 public class CardiacMassage : MonoBehaviour {
     public event Action OnPressureBegin;
-    public event Action OnPressureDone;
+    public event Action<CardiacMassagePressureData> OnPressureDone;
 
     [SerializeField] private float pressureDepth;
     [SerializeField] private float beat = 500;
@@ -39,7 +39,7 @@ public class CardiacMassage : MonoBehaviour {
         interactable.onDetachedFromHand += _ => StopMassage();
 
         OnPressureBegin += () => print("Begin");
-        OnPressureDone += () => print("Done");
+        OnPressureDone += push => print(push.Depth);
     }
 
     private void Update() {
@@ -108,7 +108,6 @@ public class CardiacMassage : MonoBehaviour {
             case State.Idle:
                 break;
             case State.Up:
-                OnPressureDone?.Invoke();
                 pressureDepth =
                     -Mathf.Abs(maxPosition.sqrMagnitude - startPosition.sqrMagnitude)
                     //-Mathf.Min(
@@ -120,6 +119,7 @@ public class CardiacMassage : MonoBehaviour {
                 pushDatas.Add(push);
                 keyframe = new Keyframe(push.Time, push.Depth, 0, 0, 0, 0);
                 pushes.AddKey(keyframe);
+                OnPressureDone?.Invoke(push);
                 break;
             case State.Down:
                 OnPressureBegin?.Invoke();
