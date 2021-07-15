@@ -19,6 +19,8 @@ public class CardiacMassage : MonoBehaviour {
     [SerializeField] private State state;
     [SerializeField] private Interactable interactable;
     [SerializeField] private AnimationCurve pushes;
+    [Tooltip("TEST")]
+    [SerializeField] private Transform TestChestBone;
 
     private enum State { Idle, Up, Down }
     private bool isStarted;
@@ -35,6 +37,9 @@ public class CardiacMassage : MonoBehaviour {
         interactable ??= GetComponent<Interactable>();
         interactable.onAttachedToHand += _ => StartMassage();
         interactable.onDetachedFromHand += _ => StopMassage();
+
+        OnPressureBegin += () => print("Begin");
+        OnPressureDone += () => print("Done");
     }
 
     private void Update() {
@@ -55,6 +60,16 @@ public class CardiacMassage : MonoBehaviour {
             if(isGoingDown && transform.position.y < startPosition.y) {
                 maxPosition = transform.position;
             }
+            TestChestBone.localScale = new Vector3(1, 1, Mathf.Min(transform.position.y, startPosition.y) / startPosition.y);
+            //for(int i = 0; i < TestChestBone.GetChild(0).childCount; i++) {
+            //    Transform child = TestChestBone.GetChild(0).GetChild(i);
+            //    child.transform.localScale = new Vector3(
+            //    child.transform.localScale.x / TestChestBone.localScale.x,
+            //    child.transform.localScale.y / TestChestBone.localScale.y,
+            //    child.transform.localScale.z / TestChestBone.localScale.z);
+
+            //}
+
 
             oldPosition = transform.position;
         }
@@ -88,6 +103,7 @@ public class CardiacMassage : MonoBehaviour {
     }
 
     private void EnterState(State state) {
+        Keyframe keyframe;
         switch(state) {
             case State.Idle:
                 break;
@@ -102,10 +118,19 @@ public class CardiacMassage : MonoBehaviour {
                     * 10;
                 CardiacMassagePressureData push = new CardiacMassagePressureData(pressureDepth, Time.realtimeSinceStartup - startMassageTime);
                 pushDatas.Add(push);
-                Keyframe keyframe = new Keyframe(push.Time, push.Depth, 0, 0, 0, 0);
+                keyframe = new Keyframe(push.Time, push.Depth, 0, 0, 0, 0);
                 pushes.AddKey(keyframe);
                 break;
             case State.Down:
+                OnPressureBegin?.Invoke();
+                minPosition = transform.position;
+                keyframe = new Keyframe(Time.realtimeSinceStartup - startMassageTime,
+                   Mathf.Min(
+                   Mathf.Abs(startPosition.sqrMagnitude),
+                   Mathf.Abs(minPosition.sqrMagnitude)
+                   ) * 10,
+                   0, 0, 0, 0);
+                pushes.AddKey(keyframe);
                 break;
         }
     }
@@ -115,15 +140,6 @@ public class CardiacMassage : MonoBehaviour {
             case State.Idle:
                 break;
             case State.Up:
-                OnPressureBegin?.Invoke();
-                minPosition = transform.position;
-                Keyframe keyframe = new Keyframe(Time.realtimeSinceStartup - startMassageTime,
-                    Mathf.Min(
-                    Mathf.Abs(startPosition.sqrMagnitude),
-                    Mathf.Abs(minPosition.sqrMagnitude)
-                    ) * 10,
-                    0, 0, 0, 0);
-                pushes.AddKey(keyframe);
                 break;
             case State.Down:
                 break;
