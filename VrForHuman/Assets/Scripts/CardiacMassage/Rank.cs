@@ -1,19 +1,17 @@
+﻿using TMPro;
 using UnityEngine;
+
 namespace CardiacMassage {
     [System.Serializable]
     public struct Rank {
-        public string DisplayName => displayName;
-        public float Points => points;
+        public string Text => text;
         public float Offset => offset;
+        public int Points => points;
+        public VertexGradient Colors => colors;
 
-        [SerializeField] private string displayName;
-        [SerializeField] private float points;
+        [SerializeField] private string text;
         [SerializeField] private float offset;
-
-        public Rank(string displayName, float points, float offset) {
-            this.displayName = displayName;
-            this.points = points;
-            this.offset = offset;
-        }
+        [SerializeField] private int points;
+        [SerializeField] private VertexGradient colors;
     }
 }

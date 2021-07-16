@@ -1,11 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 
 namespace CardiacMassage {
     public class TimingHandeler : MonoBehaviour {
         [SerializeField] private Rank[] ranks;
-        [SerializeField] private VertexGradient[] ranksColors;
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
         [SerializeField] private AudioClip[] TESTBeatClips;
@@ -36,7 +34,6 @@ namespace CardiacMassage {
 
         private CardiacMassagePressureData CalcutaleTimingAccuracy(CardiacMassagePressureData pressure) {
             float time = (pressure.Time - lastPressure.Time) * 1000;
-            print(time - beat);
             int rank = ranks.Length - 1;
             for(int i = 0; i < ranks.Length; i++) {
                 if(Mathf.Abs(time - beat) <= ranks[i].Offset) {
@@ -44,13 +41,12 @@ namespace CardiacMassage {
                     break;
                 }
             }
-            Debug.Log(ranks[rank].DisplayName);
+            Debug.Log(ranks[rank].Text);
 
             ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
-            if(_scoreManager != null)
-            {
+            if(_scoreManager != null) {
                 _scoreManager.SetScoreModifier(ranks[rank].Points);
-                _scoreManager.SetSuccessText(_scoreManager.timeSuccessTextPointSpawn, ranks[rank].DisplayName, ranksColors[rank]);
+                _scoreManager.SetSuccessText(_scoreManager.timeSuccessTextPointSpawn, ranks[rank].Text, ranks[rank].Colors);
             }
 
             lastPressure = pressure;
