@@ -354,11 +354,6 @@ MonoBehaviour:
   maxSizeUp: {x: 1.25, y: 1.25, z: 1.25}
   maxSizeDown: {x: 0.75, y: 0.75, z: 0.75}
   extendSizeDuration: 0.25
-  myField:
-    topLeft: {r: 0, g: 0, b: 0, a: 0}
-    topRight: {r: 0, g: 0, b: 0, a: 0}
-    bottomLeft: {r: 0, g: 0, b: 0, a: 0}
-    bottomRight: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3785922315283425417
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +389,41 @@ RectTransform:
   m_AnchoredPosition: {x: -192, y: 125}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &5606200060392414644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7005332172312012241}
+  m_Layer: 5
+  m_Name: TimeSuccessTextPointSpawn
+  m_TagString: TimeSuccessTextPointSpawn
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7005332172312012241
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5606200060392414644}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1387025001200504089}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 350, y: 283}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5776700569530002870
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,8 +434,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5776700569530002869}
   m_Layer: 5
-  m_Name: SuccessTextPointSpawn
-  m_TagString: SuccessTextPointSpawn
+  m_Name: DepthSuccessTextPointSpawn
+  m_TagString: DepthSuccessTextPointSpawn
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,7 +456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -112, y: 283}
+  m_AnchoredPosition: {x: -318, y: 283}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6811443825932474678
@@ -459,6 +489,7 @@ RectTransform:
   - {fileID: 3785922315209441484}
   - {fileID: 3785922314683330526}
   - {fileID: 5776700569530002869}
+  - {fileID: 7005332172312012241}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

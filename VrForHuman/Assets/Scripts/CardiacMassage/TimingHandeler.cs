@@ -1,9 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 namespace CardiacMassage {
     public class TimingHandeler : MonoBehaviour {
         [SerializeField] private Rank[] ranks;
+        [SerializeField] private VertexGradient[] ranksColors;
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
         [SerializeField] private AudioClip[] TESTBeatClips;
@@ -43,6 +45,14 @@ namespace CardiacMassage {
                 }
             }
             Debug.Log(ranks[rank].DisplayName);
+
+            ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
+            if(_scoreManager != null)
+            {
+                _scoreManager.SetScoreModifier(ranks[rank].Points);
+                _scoreManager.SetSuccessText(_scoreManager.timeSuccessTextPointSpawn, ranks[rank].DisplayName, ranksColors[rank]);
+            }
+
             lastPressure = pressure;
             return pressure;
         }

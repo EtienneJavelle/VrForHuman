@@ -10,12 +10,19 @@ namespace CardiacMassage {
         private CardiacMassage cardiacMassage;
 
         private int score;
+        private float scoreModifier;
         private TextMeshProUGUI scoreAmountText;
 
         private List<Transform> scorePointAmountSpawns = new List<Transform>();
-        private Transform successTextPointSpawn;
+        private Transform depthSuccessTextPointSpawn;
 
         private Vector3 minSize;
+
+        #endregion
+
+        #region Properties
+
+        public Transform timeSuccessTextPointSpawn { get; protected set; }
 
         #endregion
 
@@ -49,7 +56,8 @@ namespace CardiacMassage {
                 scorePointAmountSpawns.Add(_scoreUiSpawnPoints[i].transform);
             }
 
-            successTextPointSpawn = GameObject.FindGameObjectWithTag("SuccessTextPointSpawn").transform;
+            depthSuccessTextPointSpawn = GameObject.FindGameObjectWithTag("DepthSuccessTextPointSpawn").transform;
+            timeSuccessTextPointSpawn = GameObject.FindGameObjectWithTag("TimeSuccessTextPointSpawn").transform;
 
 
             SetScore(0);
@@ -89,26 +97,35 @@ namespace CardiacMassage {
         private void CalculateScoreValue(CardiacMassagePressureData _pushData) {
             Debug.Log("PushData :" + (Mathf.Abs(_pushData.Depth)));
             float _scoreValue = 1.0f;
-            if((Mathf.Abs(_pushData.Depth)) < 0.5f) {
-                _scoreValue = (Mathf.Abs(_pushData.Depth)) * 1000;
-            } else {
-                _scoreValue = 1000;
+            if ((Mathf.Abs(_pushData.Depth)) < 0.5f)
+            {
+                _scoreValue = (Mathf.Abs(_pushData.Depth)) * 1000 + scoreModifier;
+            }
+            else
+            {
+                _scoreValue = 1000 + scoreModifier;
             }
             ChangeScore((int)_scoreValue);
 
             for(int i = 0; i < depthRanks.Length; i++) {
                 if((Mathf.Abs(_pushData.Depth)) >= depthRanks[i].Value) {
-                    SetSuccessText(depthRanks[i].Text, depthRanks[i].Colors);
+                    SetSuccessText(depthSuccessTextPointSpawn, depthRanks[i].Text, depthRanks[i].Colors);
                     return;
                 }
             }
-            SetSuccessText(depthRanks[depthRanks.Length - 1].Text, depthRanks[depthRanks.Length - 1].Colors);
+            SetSuccessText(depthSuccessTextPointSpawn, depthRanks[depthRanks.Length - 1].Text, depthRanks[depthRanks.Length - 1].Colors);
+        }
+
+        public void SetScoreModifier(float _amount)
+        {
+            this.scoreModifier = _amount;
         }
 
         public void ChangeScore(int _amount) {
             score += _amount;
+            SetScoreModifier(0.0f);
 
-            if(scorePointAmountSpawns.Count >= 4) {
+            if (scorePointAmountSpawns.Count >= 4) {
                 int aleat = Random.Range(1, 101);
                 Transform scorePointAmountSpawn = scorePointAmountSpawns[0];
                 if(aleat >= 25 && aleat < 50) {
@@ -153,18 +170,22 @@ namespace CardiacMassage {
             }
         }
 
-        private void SetSuccessText(string _text, VertexGradient _colors) {
-            if(successTextPointSpawn != null) {
+        public void SetSuccessText(Transform _spawnPoint, string _text, VertexGradient _colors)
+        {
+            if (_spawnPoint != null)
+            {
 
                 UITextDisplay _uiTextDisplay = Instantiate(uiTextDisplay);
-                _uiTextDisplay.transform.SetParent(successTextPointSpawn);
+                _uiTextDisplay.transform.SetParent(_spawnPoint);
                 _uiTextDisplay.transform.localPosition = Vector3.zero;
                 _uiTextDisplay.transform.rotation = Quaternion.identity;
 
                 _uiTextDisplay.SetText(_text, _colors);
 
 
-            } else {
+            }
+            else
+            {
                 Debug.LogWarning("Not SuccessTextPointSpawn founded");
             }
         }
