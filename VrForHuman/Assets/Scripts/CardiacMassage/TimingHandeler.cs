@@ -35,13 +35,24 @@ namespace CardiacMassage {
         private CardiacMassagePressureData CalcutaleTimingAccuracy(CardiacMassagePressureData pressure) {
             float time = (pressure.Time - lastPressure.Time) * 1000;
             int rank = ranks.Length - 1;
-            for(int i = 0; i < ranks.Length; i++) {
+            for(int i = 0; i < ranks.Length; i++) 
+            {
                 if(Mathf.Abs(time - beat) <= ranks[i].Offset) {
                     rank = i;
                     break;
                 }
             }
             Debug.Log(ranks[rank].Text);
+
+            CountTimer _countTimer = FindObjectOfType<CountTimer>();
+            if (_countTimer != null && rank <= 1)
+            {
+                _countTimer.SetInRythmValue(true);
+            }
+            else
+            {
+                _countTimer.SetInRythmValue(false);
+            }
 
             ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
             if(_scoreManager != null) {
@@ -51,10 +62,6 @@ namespace CardiacMassage {
 
             lastPressure = pressure;
             return pressure;
-        }
-
-        private void Update() {
-
         }
 
         private Coroutine beatCoroutine;
