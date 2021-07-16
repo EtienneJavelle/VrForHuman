@@ -330,51 +330,35 @@ MonoBehaviour:
   uiTextDisplay: {fileID: 5404506529476592006, guid: 43e7dfd87d0cf5441800e3d0b5cd44e9,
     type: 3}
   depthRanks:
-  - depthRankText: Perfect
-    depthRankValue: 0.55
-    depthRanksColors:
-    - {r: 0.60784316, g: 0, b: 1, a: 1}
-    - {r: 0.57254905, g: 0.023529412, b: 0.7254902, a: 1}
-    - {r: 0.81960785, g: 0.12941177, b: 0.73333335, a: 1}
-    - {r: 1, g: 0.31764707, b: 0.7764706, a: 1}
-  - depthRankText: Good
-    depthRankValue: 0.45
-    depthRanksColors:
-    - {r: 0, g: 0.5686275, b: 1, a: 1}
-    - {r: 0.023529412, g: 0.29411766, b: 0.7254902, a: 1}
-    - {r: 0.12941177, g: 0.20784314, b: 0.81960785, a: 1}
-    - {r: 0.40784314, g: 0.31764707, b: 1, a: 1}
-  - depthRankText: Average
-    depthRankValue: 0.4
-    depthRanksColors:
-    - {r: 0, g: 1, b: 0.23529412, a: 1}
-    - {r: 0.023529412, g: 0.7254902, b: 0.43137255, a: 1}
-    - {r: 0.12941177, g: 0.81960785, b: 0.7254902, a: 1}
-    - {r: 0.31764707, g: 0.9411765, b: 1, a: 1}
-  - depthRankText: Not Strong Enough
-    depthRankValue: 0.35
-    depthRanksColors:
-    - {r: 0.8509804, g: 1, b: 0, a: 1}
-    - {r: 0.48235294, g: 0.7254902, b: 0.023529412, a: 1}
-    - {r: 0.38431373, g: 0.81960785, b: 0.12941177, a: 1}
-    - {r: 0.33333334, g: 1, b: 0.31764707, a: 1}
-  - depthRankText: Bad
-    depthRankValue: 0.3
-    depthRanksColors:
-    - {r: 1, g: 0, b: 0.019607844, a: 1}
-    - {r: 0.7254902, g: 0.16862746, b: 0.023529412, a: 1}
-    - {r: 0.81960785, g: 0.43529412, b: 0.12941177, a: 1}
-    - {r: 1, g: 0.9137255, b: 0.31764707, a: 1}
-  - depthRankText: Very Bad
-    depthRankValue: 0.2
-    depthRanksColors:
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 0.7372549, g: 0.7372549, b: 0.7372549, a: 1}
-    - {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
-    - {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
+  - text: Too Deep
+    value: 0.65
+    colors:
+      topLeft: {r: 1, g: 0, b: 0, a: 1}
+      topRight: {r: 0.7058824, g: 0.08235294, b: 0.08235294, a: 1}
+      bottomLeft: {r: 0.7176471, g: 0.31764707, b: 0.14509805, a: 1}
+      bottomRight: {r: 0.9058824, g: 1, b: 0.3803922, a: 1}
+  - text: Perfect
+    value: 0.39
+    colors:
+      topLeft: {r: 0.5803922, g: 0.0627451, b: 0.8980393, a: 1}
+      topRight: {r: 0.3529412, g: 0.098039225, b: 0.7725491, a: 1}
+      bottomLeft: {r: 0.7686275, g: 0.003921569, b: 0.7725491, a: 1}
+      bottomRight: {r: 1, g: 0, b: 0.8196079, a: 1}
+  - text: Not Deep Enough
+    value: 0.1
+    colors:
+      topLeft: {r: 1, g: 1, b: 1, a: 1}
+      topRight: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 1}
+      bottomLeft: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+      bottomRight: {r: 0.35686275, g: 0.35686275, b: 0.35686275, a: 1}
   maxSizeUp: {x: 1.25, y: 1.25, z: 1.25}
   maxSizeDown: {x: 0.75, y: 0.75, z: 0.75}
   extendSizeDuration: 0.25
+  myField:
+    topLeft: {r: 0, g: 0, b: 0, a: 0}
+    topRight: {r: 0, g: 0, b: 0, a: 0}
+    bottomLeft: {r: 0, g: 0, b: 0, a: 0}
+    bottomRight: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3785922315283425417
 GameObject:
   m_ObjectHideFlags: 0

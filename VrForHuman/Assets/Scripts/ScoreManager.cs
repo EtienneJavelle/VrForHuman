@@ -5,15 +5,6 @@ using UnityEngine;
 
 namespace CardiacMassage {
     public class ScoreManager : MonoBehaviour {
-        
-        [System.Serializable]
-        public class DepthRank
-        {
-            public string depthRankText;
-            public float depthRankValue;
-            public Color[] depthRanksColors;
-        }
-        
         #region Fields
 
         private CardiacMassage cardiacMassage;
@@ -34,7 +25,7 @@ namespace CardiacMassage {
 
         [Space]
 
-        [SerializeField] DepthRank[] depthRanks;
+        [SerializeField] private DepthRank[] depthRanks;
 
         [Space]
 
@@ -105,15 +96,13 @@ namespace CardiacMassage {
             }
             ChangeScore((int)_scoreValue);
 
-            for (int i = 0; i < depthRanks.Length; i++)
-            {
-                if ((Mathf.Abs(_pushData.Depth)) >= depthRanks[i].depthRankValue)
-                {
-                    SetSuccessText(depthRanks[i].depthRankText, depthRanks[i].depthRanksColors);
+            for(int i = 0; i < depthRanks.Length; i++) {
+                if((Mathf.Abs(_pushData.Depth)) >= depthRanks[i].Value) {
+                    SetSuccessText(depthRanks[i].Text, depthRanks[i].Colors);
                     return;
                 }
             }
-            SetSuccessText(depthRanks[depthRanks.Length-1].depthRankText, depthRanks[depthRanks.Length-1].depthRanksColors);
+            SetSuccessText(depthRanks[depthRanks.Length - 1].Text, depthRanks[depthRanks.Length - 1].Colors);
         }
 
         public void ChangeScore(int _amount) {
@@ -164,7 +153,7 @@ namespace CardiacMassage {
             }
         }
 
-        private void SetSuccessText(string _text, Color[] _colors) {
+        private void SetSuccessText(string _text, VertexGradient _colors) {
             if(successTextPointSpawn != null) {
 
                 UITextDisplay _uiTextDisplay = Instantiate(uiTextDisplay);

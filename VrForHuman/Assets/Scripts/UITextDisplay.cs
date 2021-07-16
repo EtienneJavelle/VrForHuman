@@ -30,10 +30,10 @@ namespace CardiacMassage {
             Move();
         }
 
-        public void SetText(string _text, Color[] _colors) {
+        public void SetText(string _text, VertexGradient _colors) {
             uiText.text = _text;
 
-            uiText.colorGradient = new VertexGradient(_colors[0], _colors[1], _colors[2], _colors[3]);
+            uiText.colorGradient = _colors;
 
             Move();
         }
