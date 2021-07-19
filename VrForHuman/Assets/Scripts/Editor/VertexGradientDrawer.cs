@@ -4,8 +4,7 @@ using UnityEngine;
 namespace TMPro {
     [CustomPropertyDrawer(typeof(VertexGradient))]
     public class VertexGradientDrawer : PropertyDrawer {
-        private bool IsWindowTooSmall => EditorGUIUtility.currentViewWidth < 435;
-        private float SingleLineHeight => EditorGUIUtility.singleLineHeight + 2;
+        private float SingleLineHeight => EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             SerializedProperty[] colors = new SerializedProperty[]{
@@ -16,20 +15,20 @@ namespace TMPro {
             };
             Rect colorsLabelPosition = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, SingleLineHeight);
             Rect colorPosition = new Rect(position.x + EditorGUIUtility.labelWidth,
-                  position.y,
-                  (position.width - EditorGUIUtility.labelWidth) / 2 - 2,
+                  position.y + 2,
+                  (position.width - EditorGUIUtility.labelWidth) / 2 - EditorGUIUtility.standardVerticalSpacing,
                   EditorGUIUtility.singleLineHeight);
             Rect[] colorPositions = new Rect[] {
                 colorPosition,
                 new Rect(colorPosition){
-                    x = colorPosition.x + colorPosition.width + 2,
+                    x = colorPosition.x + colorPosition.width + EditorGUIUtility.standardVerticalSpacing,
                 },
                 new Rect(colorPosition){
-                    y = colorPosition.y + SingleLineHeight * (IsWindowTooSmall?2:1),
+                    y = colorPosition.y + SingleLineHeight * (EditorGUIUtility.wideMode?1:2),
                 },
                 new Rect(colorPosition){
-                    x = colorPosition.x + colorPosition.width + 2,
-                    y = colorPosition.y + SingleLineHeight * (IsWindowTooSmall?2:1),
+                    x = colorPosition.x + colorPosition.width + EditorGUIUtility.standardVerticalSpacing,
+                    y = colorPosition.y + SingleLineHeight * (EditorGUIUtility.wideMode?1:2),
                 },
             };
 
@@ -45,12 +44,12 @@ namespace TMPro {
             float maxWidth = position.width;
             Rect colorPosition = position;
             Rect textPosition = position;
-            if(IsWindowTooSmall) {
-                textPosition.y += textPosition.height + 2;
+            if(!EditorGUIUtility.wideMode) {
+                textPosition.y += textPosition.height + EditorGUIUtility.standardVerticalSpacing;
             } else {
                 colorPosition.width = 50;
                 textPosition.x += colorPosition.width;
-                textPosition.width = Mathf.Min(maxWidth - colorPosition.width - 2, 100);
+                textPosition.width = Mathf.Min(maxWidth - colorPosition.width - EditorGUIUtility.standardVerticalSpacing, 100);
             }
 
             EditorGUI.BeginChangeCheck();
@@ -69,10 +68,10 @@ namespace TMPro {
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
-            if(IsWindowTooSmall) {
-                return SingleLineHeight * 4;
+            if(!EditorGUIUtility.wideMode) {
+                return SingleLineHeight * 4 + EditorGUIUtility.standardVerticalSpacing;
             }
-            return SingleLineHeight * 2;
+            return SingleLineHeight * 2 + EditorGUIUtility.standardVerticalSpacing;
         }
     }
 }
