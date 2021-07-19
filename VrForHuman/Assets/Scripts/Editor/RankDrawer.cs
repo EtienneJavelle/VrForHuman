@@ -11,10 +11,6 @@ namespace CardiacMassage {
             SerializedProperty points = property.FindPropertyRelative("points");
             SerializedProperty offset = property.FindPropertyRelative("offset");
             SerializedProperty colors = property.FindPropertyRelative("colors");
-            SerializedProperty colorTL = colors.FindPropertyRelative("topLeft");
-            SerializedProperty colorTR = colors.FindPropertyRelative("topRight");
-            SerializedProperty colorBL = colors.FindPropertyRelative("bottomLeft");
-            SerializedProperty colorBR = colors.FindPropertyRelative("bottomRight");
 
             float quarter = position.width / 4;
             float rankHeight = EditorGUIUtility.singleLineHeight;
