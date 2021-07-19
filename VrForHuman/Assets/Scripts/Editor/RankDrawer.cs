@@ -4,6 +4,8 @@ using UnityEngine;
 namespace CardiacMassage {
     [CustomPropertyDrawer(typeof(Rank))]
     public class RankDrawer : PropertyDrawer {
+        private bool isWindowTooSmall => EditorGUIUtility.currentViewWidth < 435;
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             SerializedProperty text = property.FindPropertyRelative("text");
             SerializedProperty points = property.FindPropertyRelative("points");
@@ -37,33 +39,48 @@ namespace CardiacMassage {
             DrawColor(colorTL, colorPosition);
             colorPosition.x += colorPosition.width;
             DrawColor(colorTR, colorPosition);
-            colorPosition.y += colorPosition.height + 2;
+            if(isWindowTooSmall) {
+                colorPosition.y += colorPosition.height * 2 + 4;
+            } else {
+                colorPosition.y += colorPosition.height + 2;
+            }
             DrawColor(colorBR, colorPosition);
             colorPosition.x -= colorPosition.width;
             DrawColor(colorBL, colorPosition);
             EditorGUI.EndProperty();
         }
 
-        private static void DrawColor(SerializedProperty colorTL, Rect position) {
+        private void DrawColor(SerializedProperty color, Rect position) {
             float maxWidth = position.width;
-            EditorGUI.BeginChangeCheck();
-            position.width = 50;
-            Color colorvalue = EditorGUI.ColorField(position, colorTL.colorValue);
-            if(EditorGUI.EndChangeCheck()) {
-                colorTL.colorValue = colorvalue;
+            Rect colorPosition = position;
+            Rect textPosition = position;
+            if(isWindowTooSmall) {
+                textPosition.y += textPosition.height + 2;
+            } else {
+                colorPosition.width = 50;
+                textPosition.x += colorPosition.width;
+                textPosition.width = Mathf.Min(maxWidth - colorPosition.width - 2, 100);
             }
-            position.x += position.width;
-            position.width = maxWidth - 50;
-            string colorInHexa = ColorUtility.ToHtmlStringRGBA(colorTL.colorValue);
+
             EditorGUI.BeginChangeCheck();
-            string userEnteredColor = EditorGUI.TextArea(position, $"#{colorInHexa}");
+            Color colorvalue = EditorGUI.ColorField(colorPosition, color.colorValue);
+            if(EditorGUI.EndChangeCheck()) {
+                color.colorValue = colorvalue;
+            }
+
+            string colorInHexa = ColorUtility.ToHtmlStringRGBA(color.colorValue);
+            EditorGUI.BeginChangeCheck();
+            string userEnteredColor = EditorGUI.TextArea(textPosition, $"#{colorInHexa}");
             if(EditorGUI.EndChangeCheck()) {
                 ColorUtility.TryParseHtmlString(userEnteredColor, out Color convertedColor);
-                colorTL.colorValue = convertedColor;
+                color.colorValue = convertedColor;
             }
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
+            if(isWindowTooSmall) {
+                return EditorGUIUtility.singleLineHeight * 5 + 8;
+            }
             return EditorGUIUtility.singleLineHeight * 3 + 4;
         }
     }
