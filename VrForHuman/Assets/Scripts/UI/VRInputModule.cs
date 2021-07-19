@@ -45,11 +45,12 @@ public class VRInputModule : BaseInputModule {
     }
 
     private void ProcessPress(PointerEventData data) {
-
+        Debug.Log("press");
     }
 
     private void ProcessRelease(PointerEventData data) {
 
+        Debug.Log("releaes");
     }
 
 }

@@ -32,7 +32,7 @@ public class VRPointer : MonoBehaviour {
 
         //set LineRenderer
         lineRenderer.SetPosition(0, transform.position);
-        lineRenderer.SetPosition(1, hit.point);
+        lineRenderer.SetPosition(1, endPosition);
     }
 
     private RaycastHit CreateRaycast(float lenght) {
