@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class VRPointer : MonoBehaviour {
     [SerializeField] private float defaultLenght = 5f;
@@ -16,7 +17,8 @@ public class VRPointer : MonoBehaviour {
 
     private void UpdateLine() {
         //defaul or distance
-        float targetLenght = defaultLenght;
+        PointerEventData data = inputModule.GetData;
+        float targetLenght = data.pointerCurrentRaycast.distance == 0 ? defaultLenght : data.pointerCurrentRaycast.distance;
 
         //Raucast
         RaycastHit hit = CreateRaycast(targetLenght);
