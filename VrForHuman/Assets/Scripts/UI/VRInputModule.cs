@@ -17,6 +17,20 @@ public class VRInputModule : BaseInputModule {
         data = new PointerEventData(eventSystem);
     }
 
+    public void ClassicMode() {
+        GameManager.Instance.IsArcadeMode = false;
+        SceneLoader.instance.ChangeScene(Scenes.CardiacMassage);
+    }
+
+    public void ArcadeMode() {
+        GameManager.Instance.IsArcadeMode = true;
+        SceneLoader.instance.ChangeScene(Scenes.CardiacMassage);
+    }
+
+    public void QuitGame() {
+        Application.Quit();
+    }
+
     public override void Process() {
         //reset data, set
         data.Reset();

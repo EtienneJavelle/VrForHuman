@@ -18,6 +18,11 @@ public class CountTimer : MonoBehaviour {
     #region Behaviour
 
     private void Awake() {
+        if(GameManager.Instance.IsArcadeMode == false) {
+            gameObject.SetActive(false);
+            return;
+        }
+
         countText = GetComponentInChildren<TextMeshProUGUI>();
         UpdateCountText();
     }

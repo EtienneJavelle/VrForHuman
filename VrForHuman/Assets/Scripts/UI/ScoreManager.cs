@@ -47,6 +47,11 @@ namespace CardiacMassage {
 
         // Start is called before the first frame update
         private void Awake() {
+            if(GameManager.Instance.IsArcadeMode == false) {
+                transform.parent.gameObject.SetActive(false);
+                return;
+            }
+
             cardiacMassage = FindObjectOfType<CardiacMassage>();
 
             scoreAmountText = GetComponentInChildren<TextMeshProUGUI>();
@@ -57,15 +62,13 @@ namespace CardiacMassage {
             }
 
             GameObject[] _depthSuccessTextPointsSpawns = GameObject.FindGameObjectsWithTag("DepthSuccessTextPointSpawn");
-            for (int i = 0; i < _depthSuccessTextPointsSpawns.Length; i++)
-            {
+            for(int i = 0; i < _depthSuccessTextPointsSpawns.Length; i++) {
                 depthSuccessTextPointSpawns.Add(_depthSuccessTextPointsSpawns[i].transform);
             }
 
             timeSuccessTextPointSpawns = new List<Transform>();
             GameObject[] _timeSuccessTextPointsSpawns = GameObject.FindGameObjectsWithTag("TimeSuccessTextPointSpawn");
-            for (int i = 0; i < _timeSuccessTextPointsSpawns.Length; i++)
-            {
+            for(int i = 0; i < _timeSuccessTextPointsSpawns.Length; i++) {
                 timeSuccessTextPointSpawns.Add(_timeSuccessTextPointsSpawns[i].transform);
             }
 
@@ -101,20 +104,14 @@ namespace CardiacMassage {
 #endif
         }
 
-        public Transform RandomGenerationSpawners(List<Transform> _spawnPoints)
-        {
+        public Transform RandomGenerationSpawners(List<Transform> _spawnPoints) {
             int aleat = Random.Range(1, 101);
             Transform scorePointAmountSpawn = _spawnPoints[0];
-            if (aleat >= 25 && aleat < 50)
-            {
+            if(aleat >= 25 && aleat < 50) {
                 scorePointAmountSpawn = _spawnPoints[1];
-            }
-            else if (aleat >= 50 && aleat < 75)
-            {
+            } else if(aleat >= 50 && aleat < 75) {
                 scorePointAmountSpawn = _spawnPoints[2];
-            }
-            else if (aleat >= 75)
-            {
+            } else if(aleat >= 75) {
                 scorePointAmountSpawn = _spawnPoints[3];
             }
 
@@ -126,17 +123,15 @@ namespace CardiacMassage {
                 if((Mathf.Abs(_pushData.Depth)) >= ranks[i].Offset) {
                     ChangeScore(ranks[i].Points + (int)scoreModifier);
 
-                    if (depthSuccessTextPointSpawns.Count >= 4)
-                    {
+                    if(depthSuccessTextPointSpawns.Count >= 4) {
                         SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[i].Text, ranks[i].Colors);
                     }
 
                     return;
                 }
             }
-            if (depthSuccessTextPointSpawns.Count >= 4)
-            {
-                SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[ranks.Length - 1].Text, 
+            if(depthSuccessTextPointSpawns.Count >= 4) {
+                SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[ranks.Length - 1].Text,
                     ranks[ranks.Length - 1].Colors);
             }
         }
@@ -150,7 +145,7 @@ namespace CardiacMassage {
             SetScoreModifier(0.0f);
 
             if(scorePointAmountSpawns.Count >= 4) {
-                
+
                 UITextDisplay _uiTextDisplay = Instantiate(uiTextDisplay);
                 _uiTextDisplay.transform.SetParent(RandomGenerationSpawners(scorePointAmountSpawns));
                 _uiTextDisplay.transform.localPosition = Vector3.zero;
