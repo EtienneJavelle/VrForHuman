@@ -14,7 +14,7 @@ namespace CardiacMassage {
         private TextMeshProUGUI scoreAmountText;
 
         private List<Transform> scorePointAmountSpawns = new List<Transform>();
-        private Transform depthSuccessTextPointSpawn;
+        private List<Transform> depthSuccessTextPointSpawns = new List<Transform>();
 
         private Vector3 minSize;
 
@@ -22,7 +22,7 @@ namespace CardiacMassage {
 
         #region Properties
 
-        public Transform timeSuccessTextPointSpawn { get; protected set; }
+        public List<Transform> timeSuccessTextPointSpawns { get; protected set; }
 
         #endregion
 
@@ -56,8 +56,18 @@ namespace CardiacMassage {
                 scorePointAmountSpawns.Add(_scoreUiSpawnPoints[i].transform);
             }
 
-            depthSuccessTextPointSpawn = GameObject.FindGameObjectWithTag("DepthSuccessTextPointSpawn").transform;
-            timeSuccessTextPointSpawn = GameObject.FindGameObjectWithTag("TimeSuccessTextPointSpawn").transform;
+            GameObject[] _depthSuccessTextPointsSpawns = GameObject.FindGameObjectsWithTag("DepthSuccessTextPointSpawn");
+            for (int i = 0; i < _depthSuccessTextPointsSpawns.Length; i++)
+            {
+                depthSuccessTextPointSpawns.Add(_depthSuccessTextPointsSpawns[i].transform);
+            }
+
+            timeSuccessTextPointSpawns = new List<Transform>();
+            GameObject[] _timeSuccessTextPointsSpawns = GameObject.FindGameObjectsWithTag("TimeSuccessTextPointSpawn");
+            for (int i = 0; i < _timeSuccessTextPointsSpawns.Length; i++)
+            {
+                timeSuccessTextPointSpawns.Add(_timeSuccessTextPointsSpawns[i].transform);
+            }
 
 
             SetScore(0);
@@ -91,15 +101,44 @@ namespace CardiacMassage {
 #endif
         }
 
+        public Transform RandomGenerationSpawners(List<Transform> _spawnPoints)
+        {
+            int aleat = Random.Range(1, 101);
+            Transform scorePointAmountSpawn = _spawnPoints[0];
+            if (aleat >= 25 && aleat < 50)
+            {
+                scorePointAmountSpawn = _spawnPoints[1];
+            }
+            else if (aleat >= 50 && aleat < 75)
+            {
+                scorePointAmountSpawn = _spawnPoints[2];
+            }
+            else if (aleat >= 75)
+            {
+                scorePointAmountSpawn = _spawnPoints[3];
+            }
+
+            return scorePointAmountSpawn;
+        }
+
         private void CalculateScoreValue(CardiacMassagePressureData _pushData) {
             for(int i = 0; i < ranks.Length; i++) {
                 if((Mathf.Abs(_pushData.Depth)) >= ranks[i].Offset) {
                     ChangeScore(ranks[i].Points + (int)scoreModifier);
-                    SetSuccessText(depthSuccessTextPointSpawn, ranks[i].Text, ranks[i].Colors);
+
+                    if (depthSuccessTextPointSpawns.Count >= 4)
+                    {
+                        SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[i].Text, ranks[i].Colors);
+                    }
+
                     return;
                 }
             }
-            SetSuccessText(depthSuccessTextPointSpawn, ranks[ranks.Length - 1].Text, ranks[ranks.Length - 1].Colors);
+            if (depthSuccessTextPointSpawns.Count >= 4)
+            {
+                SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[ranks.Length - 1].Text, 
+                    ranks[ranks.Length - 1].Colors);
+            }
         }
 
         public void SetScoreModifier(float _amount) {
@@ -111,17 +150,9 @@ namespace CardiacMassage {
             SetScoreModifier(0.0f);
 
             if(scorePointAmountSpawns.Count >= 4) {
-                int aleat = Random.Range(1, 101);
-                Transform scorePointAmountSpawn = scorePointAmountSpawns[0];
-                if(aleat >= 25 && aleat < 50) {
-                    scorePointAmountSpawn = scorePointAmountSpawns[1];
-                } else if(aleat >= 50 && aleat < 75) {
-                    scorePointAmountSpawn = scorePointAmountSpawns[2];
-                } else if(aleat >= 75) {
-                    scorePointAmountSpawn = scorePointAmountSpawns[3];
-                }
+                
                 UITextDisplay _uiTextDisplay = Instantiate(uiTextDisplay);
-                _uiTextDisplay.transform.SetParent(scorePointAmountSpawn);
+                _uiTextDisplay.transform.SetParent(RandomGenerationSpawners(scorePointAmountSpawns));
                 _uiTextDisplay.transform.localPosition = Vector3.zero;
                 _uiTextDisplay.transform.rotation = Quaternion.identity;
                 _uiTextDisplay.SetPoints(_amount);

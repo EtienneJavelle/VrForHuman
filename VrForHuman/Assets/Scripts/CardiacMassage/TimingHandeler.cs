@@ -9,11 +9,17 @@ namespace CardiacMassage {
         [SerializeField] private AudioClip[] TESTBeatClips;
         private CardiacMassagePressureData lastPressure;
         [SerializeField] private AudioSource TESTAudio;
+
+        private CountTimer countTimer;
+
         private void Awake() {
             cardiacMassage ??= GetComponent<CardiacMassage>();
+            countTimer = FindObjectOfType<CountTimer>();
+
             cardiacMassage.OnPressureDone += pressure => CalcutaleTimingAccuracy(pressure);
             cardiacMassage.OnMassageStart += () => beatCoroutine = StartCoroutine(Beat());
             cardiacMassage.OnMassageStop += () => StopCoroutine(beatCoroutine);
+            cardiacMassage.OnMassageStop += () => countTimer.SetInRythmValue(false);
 
 
             TESTAudio ??= GetComponent<AudioSource>();
@@ -44,20 +50,25 @@ namespace CardiacMassage {
             }
             Debug.Log(ranks[rank].Text);
 
-            CountTimer _countTimer = FindObjectOfType<CountTimer>();
-            if (_countTimer != null && rank <= 1)
+            
+            if (countTimer != null && rank <= 1)
             {
-                _countTimer.SetInRythmValue(true);
+                countTimer.SetInRythmValue(true);
             }
             else
             {
-                _countTimer.SetInRythmValue(false);
+                countTimer.SetInRythmValue(false);
             }
 
             ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
             if(_scoreManager != null) {
                 _scoreManager.SetScoreModifier(ranks[rank].Points);
-                _scoreManager.SetSuccessText(_scoreManager.timeSuccessTextPointSpawn, ranks[rank].Text, ranks[rank].Colors);
+
+                if (_scoreManager.timeSuccessTextPointSpawns.Count >= 4)
+                {
+                    _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.timeSuccessTextPointSpawns), 
+                        ranks[rank].Text, ranks[rank].Colors);
+                }
             }
 
             lastPressure = pressure;

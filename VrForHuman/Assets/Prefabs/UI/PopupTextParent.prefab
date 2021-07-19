@@ -53,6 +53,8 @@ MonoBehaviour:
   lifeTime: 0.75
   moveSpeed: 250
   placementJitter: 0.75
+  maxSize: {x: 1.25, y: 1.25, z: 1.25}
+  extendSizeDuration: 0.25
 --- !u!1 &7647680922241161192
 GameObject:
   m_ObjectHideFlags: 0
