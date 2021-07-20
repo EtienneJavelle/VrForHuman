@@ -1,22 +1,7 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
-
-    #region Properties
-
+[AddComponentMenu("Managers/Game Manager")]
+public class GameManager : Etienne.Singleton<GameManager> {
     public bool IsArcadeMode { get; set; }
 
-    public static GameManager Instance => instance;
-    private static GameManager instance;
-
-    #endregion
-
-    private void Awake() {
-        instance = this;
-    }
-
-    // Start is called before the first frame update
-    private void Start() {
-        DontDestroyOnLoad(gameObject);
-    }
 }
