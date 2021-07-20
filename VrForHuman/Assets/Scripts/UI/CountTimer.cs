@@ -7,7 +7,9 @@ public class CountTimer : MonoBehaviour {
     private TextMeshProUGUI countText;
 
     private bool inRythm;
+
     private float countTime;
+    private float maxcountTimeReached;
     #endregion
 
     #region Properties
@@ -25,6 +27,8 @@ public class CountTimer : MonoBehaviour {
 
         countText = GetComponentInChildren<TextMeshProUGUI>();
         UpdateCountText();
+
+        GameManager.Instance.SetCountTimer(this);
     }
 
     private void Update() {
@@ -35,7 +39,16 @@ public class CountTimer : MonoBehaviour {
         }
     }
 
+
+    public float GetMaxCountTimeReached() {
+        return maxcountTimeReached;
+    }
+
+
     public void InitCountTime() {
+        if(countTime > maxcountTimeReached) {
+            maxcountTimeReached = countTime;
+        }
         countTime = 0;
         UpdateCountText();
     }

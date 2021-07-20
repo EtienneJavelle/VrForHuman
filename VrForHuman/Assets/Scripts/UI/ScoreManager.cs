@@ -80,6 +80,12 @@ namespace CardiacMassage {
             if(cardiacMassage != null) {
                 cardiacMassage.OnPressureDone += pushData => CalculateScoreValue(pushData);
             }
+
+            GameManager.Instance.SetScoreManager(this);
+        }
+
+        private void Start() {
+            GameManager.Instance.SetDepthRanks(GetRanks());
         }
 
         #endregion
@@ -90,19 +96,17 @@ namespace CardiacMassage {
                 && scoreAmountText.transform.localScale.y <= maxSizeDown.y && scoreAmountText.transform.localScale.z <= maxSizeDown.z)) {
                 scoreAmountText.transform.DOScale(minSize, extendSizeDuration);
             }
-
-
-
-#if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.I)) {
-                ChangeScore(1000);
-            }
-
-            if(Input.GetKeyDown(KeyCode.K)) {
-                ChangeScore(-1000);
-            }
-#endif
         }
+
+
+        public int GetScore() {
+            return score;
+        }
+
+        public Rank[] GetRanks() {
+            return ranks;
+        }
+
 
         public Transform RandomGenerationSpawners(List<Transform> _spawnPoints) {
             int aleat = Random.Range(1, 101);
@@ -125,6 +129,7 @@ namespace CardiacMassage {
 
                     if(depthSuccessTextPointSpawns.Count >= 4) {
                         SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[i].Text, ranks[i].Colors);
+                        ranks[i].Iterations++;
                     }
 
                     return;
@@ -133,6 +138,7 @@ namespace CardiacMassage {
             if(depthSuccessTextPointSpawns.Count >= 4) {
                 SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[ranks.Length - 1].Text,
                     ranks[ranks.Length - 1].Colors);
+                ranks[ranks.Length - 1].Iterations++;
             }
         }
 

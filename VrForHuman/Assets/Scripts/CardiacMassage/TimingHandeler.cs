@@ -29,6 +29,16 @@ namespace CardiacMassage {
             }
             TESTAudio.playOnAwake = false;
 
+            GameManager.Instance.SetTimingHandeler(this);
+
+        }
+
+        private void Start() {
+            GameManager.Instance.SetTimingRanks(GetRanks());
+        }
+
+        public Rank[] GetRanks() {
+            return ranks;
         }
 
         private IEnumerator Beat() {
@@ -67,6 +77,7 @@ namespace CardiacMassage {
                 if(_scoreManager.timeSuccessTextPointSpawns.Count >= 4) {
                     _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.timeSuccessTextPointSpawns),
                         ranks[rank].Text, ranks[rank].Colors);
+                    ranks[rank].Iterations++;
                 }
             }
 

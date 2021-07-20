@@ -20,12 +20,12 @@ public class VRInputModule : BaseInputModule {
 
     public void ClassicMode() {
         GameManager.Instance.IsArcadeMode = false;
-        SceneLoader.instance.ChangeScene(Scenes.CardiacMassage);
+        SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
     }
 
     public void ArcadeMode() {
         GameManager.Instance.IsArcadeMode = true;
-        SceneLoader.instance.ChangeScene(Scenes.CardiacMassage);
+        SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
     }
 
     public void QuitGame() {

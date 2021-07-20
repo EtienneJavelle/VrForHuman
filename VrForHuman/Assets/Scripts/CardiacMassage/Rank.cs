@@ -8,6 +8,7 @@ namespace CardiacMassage {
         public float Offset => offset;
         public int Points => points;
         public VertexGradient Colors => colors;
+        public int Iterations { get; set; }
 
         [SerializeField] private string text;
         [SerializeField] private float offset;
