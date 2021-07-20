@@ -4,7 +4,6 @@ using UnityEngine;
 namespace CardiacMassage {
     [CustomPropertyDrawer(typeof(Rank))]
     public class RankDrawer : PropertyDrawer {
-        private bool isWindowTooSmall => EditorGUIUtility.currentViewWidth < 435;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             SerializedProperty text = property.FindPropertyRelative("text");
@@ -34,7 +33,7 @@ namespace CardiacMassage {
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
-            if(isWindowTooSmall) {
+            if(!EditorGUIUtility.wideMode) {
                 return EditorGUIUtility.singleLineHeight * 5 + 8;
             }
             return EditorGUIUtility.singleLineHeight * 3 + 4;
