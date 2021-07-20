@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 373, y: -8}
+  m_AnchoredPosition: {x: 347, y: -8}
   m_SizeDelta: {x: 383.76, y: 82.229}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1908742333245652195
@@ -206,7 +206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116.4, y: -72.53203}
+  m_AnchoredPosition: {x: 135.90723, y: -72.53203}
   m_SizeDelta: {x: 10.436, y: 145.064}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5409125800915114295
@@ -281,8 +281,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 332.09277, y: -87.042}
-  m_SizeDelta: {x: 383.762, y: 100.313}
+  m_AnchoredPosition: {x: 367.66162, y: -87.042}
+  m_SizeDelta: {x: 401.123, y: 100.313}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4982238201758415131
 CanvasRenderer:
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: XXXXXXXXXX
+  m_text: Rythme de massage un peu trop lent
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

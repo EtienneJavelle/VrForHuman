@@ -777,6 +777,16 @@ MonoBehaviour:
   - {fileID: 746504928217866881}
   - {fileID: 746504926835170100}
   - {fileID: 746504928389927461}
+  massageRythmCommentResult: {fileID: 2057681167343200540}
+  massageDepthCommentResult: {fileID: 2800608991191763872}
+  rythmPerfectComment: "Rythme id\xE9al, c'est parfait !"
+  rythmSuccessComment: Bon rythme de massage
+  rythmToImproveComment: Rythme de massage un peu trop lent
+  rythmFailureComment: Beaucoup trop lent !
+  depthPerfectComment: Profondeur de massage parfaite !
+  depthSuccessComment: Bonne profondeur
+  depthNotDeepComment: Massage pas assez profond !
+  depthTooDeepComment: Massage trop profond !
 --- !u!1 &2399546767025901054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,25 +1238,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2399546766368302270}
     m_Modifications:
-    - target: {fileID: 282551328248275354, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 315
-      objectReference: {fileID: 0}
     - target: {fileID: 288017330045227367, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 347
+      value: 404
       objectReference: {fileID: 0}
     - target: {fileID: 1172187045105991526, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
         type: 3}
       propertyPath: m_Name
       value: CommentResult
-      objectReference: {fileID: 0}
-    - target: {fileID: 2227673017555804732, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 135.90723
       objectReference: {fileID: 0}
     - target: {fileID: 5407054650742391743, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
         type: 3}
@@ -1361,6 +1361,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1954419331125407005}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2057681167343200540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 545256717355729921, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
+    type: 3}
+  m_PrefabInstance: {fileID: 1954419331125407005}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2399546766314650911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1540,6 +1552,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a4d62f5655384c4eb1ebebf82c3fd6f, type: 3}
+--- !u!224 &709930375447660591 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2924748175997564208, guid: 2a4d62f5655384c4eb1ebebf82c3fd6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2399546766314650911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &746504927265486228 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3103254285125929099, guid: 2a4d62f5655384c4eb1ebebf82c3fd6f,
@@ -1552,12 +1570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &709930375447660591 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2924748175997564208, guid: 2a4d62f5655384c4eb1ebebf82c3fd6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2399546766314650911}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2399546766410393976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2891,13 +2903,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 282551328248275354, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 383.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 282551328248275354, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 182
+      value: 214.00015
       objectReference: {fileID: 0}
     - target: {fileID: 288017330045227367, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 214.00018
+      value: 244
+      objectReference: {fileID: 0}
+    - target: {fileID: 545256717355729921, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
+        type: 3}
+      propertyPath: m_text
+      value: Massage trop profond !
       objectReference: {fileID: 0}
     - target: {fileID: 1172187045105991526, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
         type: 3}
@@ -3022,3 +3044,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2399546768118402977}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2800608991191763872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 545256717355729921, guid: 8c254e7d6f9e48b4baa1b78559bdb512,
+    type: 3}
+  m_PrefabInstance: {fileID: 2399546768118402977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
