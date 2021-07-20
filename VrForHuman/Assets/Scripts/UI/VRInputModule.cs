@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Valve.VR;
@@ -29,6 +30,9 @@ public class VRInputModule : BaseInputModule {
 
     public void QuitGame() {
         Application.Quit();
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#endif
     }
 
     public override void Process() {
