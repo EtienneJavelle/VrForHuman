@@ -1,3 +1,4 @@
+using Etienne;
 using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI {
@@ -5,7 +6,7 @@ namespace UnityEngine.UI {
     [RequireComponent(typeof(Button))]
     [Requirement(typeof(UIAudioManager))]
     public class ButtonAudio : MonoBehaviourWithRequirement, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler {
-        [SerializeField] private Etienne.Sound higlightedSound, pressedSound, releasedSound;
+        [SerializeField] private Sound higlightedSound, pressedSound, releasedSound;
 
         public void OnPointerEnter(PointerEventData eventData) {
             UIAudioManager.Play(higlightedSound);

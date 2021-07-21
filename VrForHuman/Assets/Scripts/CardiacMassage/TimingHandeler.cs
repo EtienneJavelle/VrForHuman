@@ -1,4 +1,5 @@
 using System.Collections;
+using Etienne;
 using UnityEngine;
 
 namespace CardiacMassage {
@@ -8,6 +9,7 @@ namespace CardiacMassage {
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
         [SerializeField] private AudioClip[] TESTBeatClips;
+        [SerializeField] private Sound[] beatSounds;
         private CardiacMassagePressureData lastPressure;
         [SerializeField] private AudioSource TESTAudio;
 
@@ -45,7 +47,8 @@ namespace CardiacMassage {
         private IEnumerator Beat() {
             while(true) {
                 yield return new WaitForSeconds(beat / 1000f);
-                TESTAudio.PlayOneShot(TESTBeatClips[Random.Range(0, TESTBeatClips.Length)]);
+                //TESTAudio.PlayOneShot(TESTBeatClips[Random.Range(0, TESTBeatClips.Length)]);
+                AudioManager.Play(beatSounds[Random.Range(0, beatSounds.Length)]);
             }
         }
 

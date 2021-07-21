@@ -1,18 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
+using Etienne;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+[AddComponentMenu("Audio/Audio Managers/Audio Manager")]
+public class AudioManager : Singleton<AudioManager> {
+    protected override void Awake() {
+        base.Awake();
+
+        audioSources.Add(gameObject.AddComponent<AudioSource>());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public static void Play(Sound sound) {
+        AudioSource source = Instance.FindFreeAudiosource(Instance.audioSources);
+        source.SetSoundToSource(sound);
+        source.Play();
     }
+
+    private List<AudioSource> audioSources = new List<AudioSource>();
 }

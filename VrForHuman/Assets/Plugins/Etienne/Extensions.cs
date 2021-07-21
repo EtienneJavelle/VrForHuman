@@ -6,6 +6,8 @@ using UnityEngine;
 namespace Etienne {
     public static class Extensions {
 
+        #region List
+
         public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable {
             return listToClone.Select(item => (T)item.Clone()).ToList();
         }
@@ -13,6 +15,10 @@ namespace Etienne {
         public static T Last<T>(this List<T> list) {
             return list[list.Count - 1];
         }
+
+        #endregion
+
+        #region string
 
         /// <summary>
         /// Remove everything afer the last specified char
@@ -33,6 +39,10 @@ namespace Etienne {
             return array.Where(o => o != array[index]).ToArray();
         }
 
+        #endregion
+
+        #region Vector3
+
         /// <summary>
         /// Get a direction from start to end
         /// </summary>
@@ -52,5 +62,28 @@ namespace Etienne {
         public static Vector3 Direction(this Transform start, Transform end) {
             return start.position.Direction(end.position);
         }
+        #endregion
+
+        #region Audio
+
+        public static AudioSource SetSoundToSource(this AudioSource source, Sound sound) {
+            source.clip = sound.Clip;
+            source.outputAudioMixerGroup = sound.Output;
+            source.loop = sound.Loop;
+            source.pitch = sound.Pitch;
+            source.volume = sound.Volume;
+            return source;
+        }
+
+        public static AudioSource FindFreeAudiosource(this Component instance, List<AudioSource> audioSources) {
+            foreach(AudioSource audioSource in audioSources) {
+                if(!audioSource.isPlaying) {
+                    return audioSource;
+                }
+            }
+            audioSources.Add(instance.gameObject.AddComponent<AudioSource>());
+            return audioSources.Last();
+        }
+        #endregion
     }
 }
