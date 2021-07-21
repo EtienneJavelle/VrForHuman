@@ -1,3 +1,4 @@
+using CardiacMassage;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ public class CountTimer : MonoBehaviour {
 
     #region Properties
 
+
+    #endregion
+
+    #region UnityInspector
+
+    public TimerStep[] timerSteps;
 
     #endregion
 
