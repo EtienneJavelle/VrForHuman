@@ -4,16 +4,12 @@ using UnityEngine;
 
 [CustomEditor(typeof(MonoBehaviourWithRequirement), true), CanEditMultipleObjects]
 public class MonoBehaviourWithRequirementEditor : EtienneEditor.Editor<MonoBehaviourWithRequirement> {
-    private Type Type => type ??= Target.GetAttibute();
+    private Type Type => type ??= Target?.GetAttibute();
 
     private Type type;
     private bool doesRequierementExists;
 
     private void OnEnable() {
-        FindRequirement(Type);
-    }
-
-    private void OnValidate() {
         FindRequirement(Type);
     }
 
@@ -39,6 +35,9 @@ public class MonoBehaviourWithRequirementEditor : EtienneEditor.Editor<MonoBehav
     }
 
     private UnityEngine.Object FindRequirement(Type type, bool includeInactive = false) {
+        if(type == null) {
+            return null;
+        }
         UnityEngine.Object requierementObject = GameObject.FindObjectOfType(type, includeInactive);
         doesRequierementExists = requierementObject != null;
         return requierementObject;

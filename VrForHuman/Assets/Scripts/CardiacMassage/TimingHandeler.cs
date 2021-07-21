@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEngine;
 
 namespace CardiacMassage {
-    public class TimingHandeler : MonoBehaviour {
+    [Requirement(typeof(AudioManager))]
+    public class TimingHandeler : MonoBehaviourWithRequirement {
         [SerializeField] private Rank[] ranks;
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;

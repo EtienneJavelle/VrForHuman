@@ -3,7 +3,12 @@ using UnityEngine;
 
 public abstract class MonoBehaviourWithRequirement : MonoBehaviour {
     public virtual Type GetAttibute() {
-        RequirementAttribute attribute = Attribute.GetCustomAttribute(GetType(), typeof(RequirementAttribute), true) as RequirementAttribute;
+        Type type = GetType();
+        if(type == null) {
+            Debug.LogError("Cant Get Type", this);
+            return null;
+        }
+        RequirementAttribute attribute = Attribute.GetCustomAttribute(type, typeof(RequirementAttribute), true) as RequirementAttribute;
         if(attribute == null) {
             Debug.LogError("The attribute was not found.");
             return null;
