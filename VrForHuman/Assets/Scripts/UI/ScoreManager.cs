@@ -4,7 +4,9 @@ using TMPro;
 using UnityEngine;
 
 namespace CardiacMassage {
-    public class ScoreManager : MonoBehaviour {
+
+    [Requirement(typeof(GameManager))]
+    public class ScoreManager : MonoBehaviourWithRequirement {
         #region Fields
 
         private CardiacMassage cardiacMassage;

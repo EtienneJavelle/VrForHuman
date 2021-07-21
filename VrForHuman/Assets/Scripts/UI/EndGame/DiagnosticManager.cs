@@ -6,7 +6,6 @@ using UnityEngine;
 public class DiagnosticManager : MonoBehaviour {
 
     private CardiacMassageSavingData cardiacMassageSavingData;
-    public List<Rank> _listTimingRanks = new List<Rank>();
 
     public TextMeshProUGUI totalScoreAmount, maxTimeReachedAmount;
     public TextMeshProUGUI[] massageRythmResults;
@@ -31,12 +30,24 @@ public class DiagnosticManager : MonoBehaviour {
 
         UpdateDiagnosticResume();
 
+        SetRythmComment();
+        SetDepthComment();
+    }
 
+    private int SortRanksByIterations(Rank _a, Rank _b) {
+        int _iterationRankA = _a.Iterations;
+        int _iterationRankB = _b.Iterations;
+        return _iterationRankA.CompareTo(_iterationRankB);
+    }
+
+    private void SetRythmComment() {
+        List<Rank> _listTimingRanks = new List<Rank>();
         for(int i = 0; i < cardiacMassageSavingData.timingRanks.Length; i++) {
             _listTimingRanks.Add(cardiacMassageSavingData.timingRanks[i]);
         }
 
         _listTimingRanks.Sort(SortRanksByIterations);
+        _listTimingRanks.Reverse();
 
         if(_listTimingRanks[0].Text == cardiacMassageSavingData.timingRanks[0].Text) {
             massageRythmCommentResult.text = rythmPerfectComment;
@@ -50,10 +61,29 @@ public class DiagnosticManager : MonoBehaviour {
         }
     }
 
-    private int SortRanksByIterations(Rank _a, Rank _b) {
-        int _iterationRankA = _a.Iterations;
-        int _iterationRankB = _b.Iterations;
-        return _iterationRankA.CompareTo(_iterationRankB);
+    private void SetDepthComment() {
+        List<Rank> _listDepthRanks = new List<Rank>();
+        for(int i = 0; i < cardiacMassageSavingData.depthRanks.Length; i++) {
+            _listDepthRanks.Add(cardiacMassageSavingData.depthRanks[i]);
+        }
+
+        _listDepthRanks.Sort(SortRanksByIterations);
+        _listDepthRanks.Reverse();
+
+        if(_listDepthRanks[0].Text == cardiacMassageSavingData.depthRanks[0].Text) {
+            massageDepthCommentResult.text = depthTooDeepComment;
+        } else if(_listDepthRanks[0].Text == cardiacMassageSavingData.depthRanks[1].Text) {
+
+            if(cardiacMassageSavingData.depthRanks[1].Iterations >= cardiacMassageSavingData.depthRanks[0].Iterations * 2 &&
+                cardiacMassageSavingData.depthRanks[1].Iterations >= cardiacMassageSavingData.depthRanks[2].Iterations * 2) {
+                massageDepthCommentResult.tag = depthPerfectComment;
+            } else {
+                massageDepthCommentResult.text = depthSuccessComment;
+            }
+
+        } else if(_listDepthRanks[0].Text == cardiacMassageSavingData.depthRanks[2].Text) {
+            massageDepthCommentResult.text = depthNotDeepComment;
+        }
     }
 
     private void SetCardiacMassageSavingData() {

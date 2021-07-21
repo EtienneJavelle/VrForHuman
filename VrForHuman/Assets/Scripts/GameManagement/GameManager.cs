@@ -17,7 +17,17 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     #endregion
 
+    #region UnityInspector
+
+    public GameObject levelLoader;
+
+    #endregion
+
     #region Behaviour
+
+    public void Start() {
+        EssentialLoading();
+    }
 
     public CardiacMassageSavingData GetCardiacMassageSavingData() {
         return cardiacMassageSavingData;
@@ -36,10 +46,24 @@ public class GameManager : Etienne.Singleton<GameManager> {
         scoreManager = _scoreManager;
     }
 
+    private void EssentialLoading() {
+        if(levelLoader != null && SceneLoader.Instance == null) {
+            Instantiate(levelLoader);
+        }
+    }
+
     #endregion
 
     public void SetTotalScore(int _score) {
         cardiacMassageSavingData.totalScore = _score;
+
+        if(countTimer != null) {
+            for(int i = 0; i < countTimer.timerSteps.Length; i++) {
+                if(cardiacMassageSavingData.maximumTimeReached >= countTimer.timerSteps[i].RythmTimeReached) {
+                    cardiacMassageSavingData.totalScore = Mathf.RoundToInt(cardiacMassageSavingData.totalScore * countTimer.timerSteps[i].MultiplierScore);
+                }
+            }
+        }
     }
 
     public void SetMaximumTimeReached(float _time) {
@@ -57,20 +81,22 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
 
     public void EndGame() {
-        if(countTimer != null) {
-            SetMaximumTimeReached(countTimer.GetMaxCountTimeReached());
-        }
+        if(IsArcadeMode) {
+            if(countTimer != null) {
+                SetMaximumTimeReached(countTimer.GetMaxCountTimeReached());
+            }
 
-        if(timingHandeler != null) {
-            SetTimingRanks(timingHandeler.GetRanks());
-        }
+            if(timingHandeler != null) {
+                SetTimingRanks(timingHandeler.GetRanks());
+            }
 
-        if(scoreManager != null) {
-            SetDepthRanks(scoreManager.GetRanks());
-            SetTotalScore(scoreManager.GetScore());
-        }
+            if(scoreManager != null) {
+                SetDepthRanks(scoreManager.GetRanks());
+                SetTotalScore(scoreManager.GetScore());
+            }
 
-        SceneLoader.Instance.ChangeScene(Scenes.EndGame);
+            SceneLoader.Instance.ChangeScene(Scenes.EndGame);
+        }
     }
 
     #endregion
