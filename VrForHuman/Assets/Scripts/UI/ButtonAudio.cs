@@ -4,20 +4,23 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI {
     [AddComponentMenu(menuName: "UI/Button Audio")]
     [RequireComponent(typeof(Button))]
-    [Requirement(typeof(UIAudioManager))]
+    [Requirement(typeof(AudioManager2D))]
     public class ButtonAudio : MonoBehaviourWithRequirement, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler {
-        [SerializeField] private Sound higlightedSound, pressedSound, releasedSound;
+        [SerializeField]
+        private Sound higlightedSound = new Sound(null),
+            pressedSound = new Sound(null),
+            releasedSound = new Sound(null);
 
         public void OnPointerEnter(PointerEventData eventData) {
-            UIAudioManager.Play(higlightedSound);
+            AudioManager2D.Play(higlightedSound);
         }
 
         public void OnPointerDown(PointerEventData eventData) {
-            UIAudioManager.Play(pressedSound);
+            AudioManager2D.Play(pressedSound);
         }
 
         public void OnPointerUp(PointerEventData eventData) {
-            UIAudioManager.Play(releasedSound);
+            AudioManager2D.Play(releasedSound);
         }
     }
 }

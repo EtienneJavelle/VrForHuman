@@ -2,14 +2,14 @@ using Etienne;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Requirement(typeof(UIAudioManager))]
+[Requirement(typeof(AudioManager2D))]
 public class TEST : MonoBehaviourWithRequirement {
     public TMPro.VertexGradient uuu;
+    public Cue cue = new Cue(null);
 
     [ContextMenu("TEST")]
     private void MyMethod() {
-        Debug.Log(UIAudioManager.Instance.gameObject.name);
-        Debug.Log(AudioManager.Instance.gameObject.name);
+        AudioManager2D.Play(cue);
     }
 
 }

@@ -283,23 +283,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   higlightedSound:
-    name: 
     clip: {fileID: 8300000, guid: 599fef8553fff6244a715a68be4a5b27, type: 3}
-    output: {fileID: 243078391499754788, guid: ec12f7772c03e4c4c9e4c2f1643595ad, type: 2}
-    volume: 1
-    pitch: 1
-    loop: 0
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
   pressedSound:
-    name: 
     clip: {fileID: 8300000, guid: ef5b30c9054a8d743a281b3de99a9853, type: 3}
-    output: {fileID: 243078391499754788, guid: ec12f7772c03e4c4c9e4c2f1643595ad, type: 2}
-    volume: 1
-    pitch: 1
-    loop: 0
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
   releasedSound:
-    name: 
     clip: {fileID: 8300000, guid: b9f69d947fb8d534ca7fa5f95738b2cc, type: 3}
-    output: {fileID: 243078391499754788, guid: ec12f7772c03e4c4c9e4c2f1643595ad, type: 2}
-    volume: 1
-    pitch: 1
-    loop: 0
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0

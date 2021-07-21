@@ -68,10 +68,9 @@ namespace Etienne {
 
         public static AudioSource SetSoundToSource(this AudioSource source, Sound sound) {
             source.clip = sound.Clip;
-            source.outputAudioMixerGroup = sound.Output;
-            source.loop = sound.Loop;
-            source.pitch = sound.Pitch;
-            source.volume = sound.Volume;
+            source.loop = sound.Parameters.Loop;
+            source.pitch = sound.Parameters.Pitch;
+            source.volume = sound.Parameters.Volume;
             return source;
         }
 
@@ -81,7 +80,9 @@ namespace Etienne {
                     return audioSource;
                 }
             }
-            audioSources.Add(instance.gameObject.AddComponent<AudioSource>());
+            AudioSource newAudioSource = instance.gameObject.AddComponent<AudioSource>();
+            newAudioSource.playOnAwake = false;
+            audioSources.Add(newAudioSource);
             return audioSources.Last();
         }
         #endregion

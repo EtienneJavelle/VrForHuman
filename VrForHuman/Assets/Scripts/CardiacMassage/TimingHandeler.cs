@@ -9,7 +9,7 @@ namespace CardiacMassage {
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
         [SerializeField] private AudioClip[] TESTBeatClips;
-        [SerializeField] private Sound[] beatSounds;
+        [SerializeField] private Cue beatCue = new Cue(null);
         private CardiacMassagePressureData lastPressure;
         [SerializeField] private AudioSource TESTAudio;
 
@@ -48,7 +48,7 @@ namespace CardiacMassage {
             while(true) {
                 yield return new WaitForSeconds(beat / 1000f);
                 //TESTAudio.PlayOneShot(TESTBeatClips[Random.Range(0, TESTBeatClips.Length)]);
-                AudioManager.Play(beatSounds[Random.Range(0, beatSounds.Length)]);
+                AudioManager.Play(beatCue);
             }
         }
 

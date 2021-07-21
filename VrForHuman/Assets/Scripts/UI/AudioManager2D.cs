@@ -1,18 +1,15 @@
 using System.Collections.Generic;
 using Etienne;
+using UnityEngine.Audio;
 
 namespace UnityEngine.UI {
-    [AddComponentMenu("Audio/Audio Managers/UI Audio Manager")]
-    public class UIAudioManager : Singleton<UIAudioManager> {
-
-        protected override void Awake() {
-            base.Awake();
-
-            audioSources.Add(gameObject.AddComponent<AudioSource>());
-        }
+    [AddComponentMenu("Audio/Audio Managers/Audio Manager 2D")]
+    public class AudioManager2D : Singleton<AudioManager2D> {
+        [SerializeField] private AudioMixerGroup output;
 
         public static void Play(Sound sound) {
             AudioSource source = Instance.FindFreeAudiosource(Instance.audioSources);
+            source.outputAudioMixerGroup = Instance.output;
             source.SetSoundToSource(sound);
             source.Play();
         }
