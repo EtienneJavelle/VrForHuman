@@ -12,7 +12,7 @@
 
 using UnityEngine;
 
-namespace CodeMonkey.Utils {
+namespace CodeUtilities.Utils {
 
     /*
      * Bar in the World, great for quickly making a health bar

@@ -1,4 +1,5 @@
 using CardiacMassage;
+using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("Managers/Game Manager")]
@@ -11,6 +12,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
     public CountTimer countTimer { get; protected set; }
     public TimingHandeler timingHandeler { get; protected set; }
     public ScoreManager scoreManager { get; protected set; }
+    public CardiacMassage.CardiacMassage cardiacMassage { get; protected set; }
 
 
     private CardiacMassageSavingData cardiacMassageSavingData;
@@ -46,6 +48,10 @@ public class GameManager : Etienne.Singleton<GameManager> {
         scoreManager = _scoreManager;
     }
 
+    public void SetCardiacMassage(CardiacMassage.CardiacMassage _cardiacMassage) {
+        cardiacMassage = _cardiacMassage;
+    }
+
     private void EssentialLoading() {
         if(levelLoader != null && SceneLoader.Instance == null) {
             Instantiate(levelLoader);
@@ -61,6 +67,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
             for(int i = 0; i < countTimer.timerSteps.Length; i++) {
                 if(cardiacMassageSavingData.maximumTimeReached >= countTimer.timerSteps[i].RythmTimeReached) {
                     cardiacMassageSavingData.totalScore = Mathf.RoundToInt(cardiacMassageSavingData.totalScore * countTimer.timerSteps[i].MultiplierScore);
+                    return;
                 }
             }
         }
@@ -79,6 +86,10 @@ public class GameManager : Etienne.Singleton<GameManager> {
         cardiacMassageSavingData.depthRanks = _depthRanks;
     }
 
+    public void SetPushsDatas(List<CardiacMassagePressureData> _pushData) {
+        cardiacMassageSavingData.pushDatas = _pushData;
+    }
+
 
     public void EndGame() {
         if(IsArcadeMode) {
@@ -93,6 +104,10 @@ public class GameManager : Etienne.Singleton<GameManager> {
             if(scoreManager != null) {
                 SetDepthRanks(scoreManager.GetRanks());
                 SetTotalScore(scoreManager.GetScore());
+            }
+
+            if(cardiacMassage != null) {
+                //todo SetPushDatas(pushData à récup sur Cardiac Massage)
             }
 
             SceneLoader.Instance.ChangeScene(Scenes.EndGame);

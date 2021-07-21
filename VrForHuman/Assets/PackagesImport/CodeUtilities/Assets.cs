@@ -14,7 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeMonkey {
+namespace CodeUtilities {
 
     /*
      * Global Asset references

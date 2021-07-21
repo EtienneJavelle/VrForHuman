@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeMonkey.MonoBehaviours {
+namespace CodeUtilities.MonoBehaviours {
 
     /*
      * Script to handle Camera Movement and Zoom

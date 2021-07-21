@@ -13,7 +13,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeMonkey.Utils {
+namespace CodeUtilities.Utils {
     
     /*
      * Displays text with icons in between the text

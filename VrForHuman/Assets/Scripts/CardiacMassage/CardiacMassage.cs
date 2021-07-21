@@ -83,8 +83,9 @@ namespace CardiacMassage {
         }
 
         private void SetState(State state) {
-            if(state == this.state)
+            if(state == this.state) {
                 return;
+            }
 
             ExitState();
 
@@ -108,6 +109,8 @@ namespace CardiacMassage {
                         * 10;
                     CardiacMassagePressureData push = new CardiacMassagePressureData(pressureDepth, Time.realtimeSinceStartup - startMassageTime);
                     pushDatas.Add(push);
+                    Debug.Log(push.Depth);
+                    Debug.Log(push.Time);
                     keyframe = new Keyframe(push.Time, push.Depth, 0, 0, 0, 0);
                     pushes.AddKey(keyframe);
                     OnPressureDone?.Invoke(push);
@@ -122,6 +125,13 @@ namespace CardiacMassage {
                        ) * 10,
                        0, 0, 0, 0);
                     pushes.AddKey(keyframe);
+                    /*for(int i = 0; i < pushDatas.Count; i++) {
+                        //Debug.Log(pushes.keys[i].time);
+                        //Debug.Log(pushes.keys[i].value);
+                        Debug.Log(pushDatas[i]);
+                        Debug.Log(" ");
+                    }*/
+
                     break;
             }
         }

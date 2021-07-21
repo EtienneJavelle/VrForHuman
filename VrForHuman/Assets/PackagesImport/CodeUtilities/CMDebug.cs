@@ -12,9 +12,9 @@
 
 using System;
 using UnityEngine;
-using CodeMonkey.Utils;
+using CodeUtilities.Utils;
 
-namespace CodeMonkey {
+namespace CodeUtilities {
 
     /*
      * Debug Class with various helper functions to quickly create buttons, text, etc

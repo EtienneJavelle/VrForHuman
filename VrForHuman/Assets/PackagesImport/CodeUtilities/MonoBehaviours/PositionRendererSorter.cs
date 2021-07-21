@@ -12,7 +12,7 @@
  
 using UnityEngine;
 
-namespace CodeMonkey.MonoBehaviours {
+namespace CodeUtilities.MonoBehaviours {
 
     /*
      * Automatically sort a Renderer (SpriteRenderer, MeshRenderer) based on his Y position

@@ -16,7 +16,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-namespace CodeMonkey.Utils {
+namespace CodeUtilities.Utils {
 
     /*
      * Various assorted utilities functions

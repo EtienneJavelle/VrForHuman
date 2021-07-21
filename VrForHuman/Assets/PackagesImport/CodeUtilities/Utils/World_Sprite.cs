@@ -13,7 +13,7 @@
 using System;
 using UnityEngine;
 
-namespace CodeMonkey.Utils {
+namespace CodeUtilities.Utils {
 
     /*
      * Sprite in the World

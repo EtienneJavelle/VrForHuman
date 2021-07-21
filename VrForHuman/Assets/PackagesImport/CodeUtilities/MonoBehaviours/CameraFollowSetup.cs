@@ -13,7 +13,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeMonkey.MonoBehaviours {
+namespace CodeUtilities.MonoBehaviours {
 
     /*
      * Easy set up for CameraFollow, it will follow the transform with zoom

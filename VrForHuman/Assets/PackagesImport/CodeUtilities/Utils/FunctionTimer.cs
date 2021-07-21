@@ -14,7 +14,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace CodeMonkey.Utils {
+namespace CodeUtilities.Utils {
 
     /*
      * Triggers a Action after a certain time 

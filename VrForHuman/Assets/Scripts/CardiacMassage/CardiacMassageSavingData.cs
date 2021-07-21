@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CardiacMassage {
     [System.Serializable]
     public struct CardiacMassageSavingData {
@@ -5,6 +7,7 @@ namespace CardiacMassage {
 
         public float maximumTimeReached { get; set; }
 
+        public List<CardiacMassagePressureData> pushDatas { get; set; }
 
         public Rank[] timingRanks { get; set; }
         public Rank[] depthRanks { get; set; }
