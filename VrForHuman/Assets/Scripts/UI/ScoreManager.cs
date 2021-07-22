@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using Etienne;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -59,7 +59,7 @@ namespace CardiacMassage {
 
             scoreAmountText = GetComponentInChildren<TextMeshProUGUI>();
 
-            SetScore(0);
+            AnimateScore(0);
 
             minSize = scoreAmountText.transform.localScale;
 
@@ -97,14 +97,6 @@ namespace CardiacMassage {
 
         #endregion
 
-        private void Update() {
-            //todo ping pong
-            if((scoreAmountText.transform.localScale.x >= maxSizeUp.x && scoreAmountText.transform.localScale.y >= maxSizeUp.y
-                && scoreAmountText.transform.localScale.z >= maxSizeUp.z) || (scoreAmountText.transform.localScale.x <= maxSizeDown.x
-                && scoreAmountText.transform.localScale.y <= maxSizeDown.y && scoreAmountText.transform.localScale.z <= maxSizeDown.z)) {
-                scoreAmountText.transform.DOScale(minSize, extendSizeDuration);
-            }
-        }
 
         //todo : public int Score => score;
         public int GetScore() {
@@ -155,25 +147,23 @@ namespace CardiacMassage {
                 UITextDisplay _uiTextDisplay = InstantiateUITextDisplay(parent);
                 _uiTextDisplay.SetPoints(_amount);
             } else {
-                Debug.LogWarning("Not ScorePointAmountSpawn founded");
+                Debug.LogWarning($"No ScorePointAmountSpawn referenced", this);
             }
-
-            SetScore(_amount);
-
+            AnimateScore(_amount);
         }
 
-        public void SetScore(int _amount) {
+        public void AnimateScore(int _amount) {
             if(scoreAmountText != null) {
                 scoreAmountText.text = score.ToString();
-
-                //todo Etienne soit ping ppong soit pushscale (+? rotation)
+                scoreAmountText.transform.DOComplete();
+                scoreAmountText.transform.DOShakeRotation(extendSizeDuration, 10);
                 if(_amount >= 0) {
-                    scoreAmountText.transform.DOScale(maxSizeUp, extendSizeDuration);
+                    scoreAmountText.transform.DOPunchScale(maxSizeUp, extendSizeDuration);
                 } else {
-                    scoreAmountText.transform.DOScale(maxSizeDown, extendSizeDuration);
+                    scoreAmountText.transform.DOPunchScale(maxSizeDown, extendSizeDuration);
                 }
             } else {
-                Debug.LogWarning("Not ScoreAmountText found !");
+                Debug.LogWarning($"No ScoreAmountText referenced", this);
             }
         }
 
@@ -182,7 +172,7 @@ namespace CardiacMassage {
                 UITextDisplay _uiTextDisplay = InstantiateUITextDisplay(_spawnPoint);
                 _uiTextDisplay.SetText(_text, _colors);
             } else {
-                Debug.LogWarning("Not SuccessTextPointSpawn found");
+                Debug.LogWarning($"No SuccessTextPointSpawn referenced", this);
             }
         }
 

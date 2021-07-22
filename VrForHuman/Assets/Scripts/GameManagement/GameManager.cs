@@ -87,26 +87,26 @@ public class GameManager : Etienne.Singleton<GameManager> {
             if(CountTimer != null) {
                 SetMaximumTimeReached(CountTimer.GetMaxCountTimeReached());
             } else {
-                Debug.LogError($"No CountTimer referenced", this);
+                Debug.LogWarning($"No CountTimer referenced", this);
             }
 
             if(TimingHandeler != null) {
                 SetTimingRanks(TimingHandeler.Ranks);
             } else {
-                Debug.LogError($"No TimingHandeler referenced", this);
+                Debug.LogWarning($"No TimingHandeler referenced", this);
             }
 
             if(ScoreManager != null) {
                 SetDepthRanks(ScoreManager.GetRanks());
                 SetTotalScore(ScoreManager.GetScore());
             } else {
-                Debug.LogError($"No ScoreManager referenced", this);
+                Debug.LogWarning($"No ScoreManager referenced", this);
             }
 
             if(CardiacMassage != null) {
                 //todo Yanis SetPushDatas(pushData à récup sur Cardiac Massage)
             } else {
-                Debug.LogError($"No CardiacMassage referenced", this);
+                Debug.LogWarning($"No CardiacMassage referenced", this);
             }
 
             SceneLoader.Instance.ChangeScene(Scenes.EndGame);
