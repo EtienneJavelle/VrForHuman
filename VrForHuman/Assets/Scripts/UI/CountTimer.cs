@@ -5,11 +5,11 @@ using UnityEngine;
 public class CountTimer : MonoBehaviour {
     #region Properties
 
+    public float MaxcountTimeReached { get; protected set; }
 
     #endregion
 
     #region UnityInspector
-    //todo: private ou getter
     public TimerStep[] timerSteps;
 
     #endregion
@@ -20,7 +20,6 @@ public class CountTimer : MonoBehaviour {
     private bool inRythm;
 
     private float countTime;
-    private float maxcountTimeReached;
     #endregion
 
     #region Behaviour
@@ -45,14 +44,9 @@ public class CountTimer : MonoBehaviour {
         }
     }
 
-    //todo getter
-    public float GetMaxCountTimeReached() {
-        return maxcountTimeReached;
-    }
-
     public void InitCountTime() {
-        if(countTime > maxcountTimeReached) {
-            maxcountTimeReached = countTime;
+        if(countTime > MaxcountTimeReached) {
+            MaxcountTimeReached = countTime;
         }
         countTime = 0;
         UpdateCountText();

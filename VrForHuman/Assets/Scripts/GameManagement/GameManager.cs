@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using CardiacMassage;
+using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("Managers/Game Manager")]
@@ -85,7 +85,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
     public void EndGame() {
         if(IsArcadeMode) {
             if(CountTimer != null) {
-                SetMaximumTimeReached(CountTimer.GetMaxCountTimeReached());
+                SetMaximumTimeReached(CountTimer.MaxcountTimeReached);
             } else {
                 Debug.LogWarning($"No CountTimer referenced", this);
             }

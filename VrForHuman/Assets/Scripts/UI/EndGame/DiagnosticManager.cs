@@ -1,26 +1,25 @@
-using System.Collections.Generic;
 using CardiacMassage;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class DiagnosticManager : MonoBehaviour {
 
-    //todo: private ou getter
-    public TextMeshProUGUI totalScoreAmount, maxTimeReachedAmount;
-    public TextMeshProUGUI[] massageRythmResults;
-    public TextMeshProUGUI[] massageDepthResults;
+    [SerializeField] private TextMeshProUGUI totalScoreAmount, maxTimeReachedAmount;
+    [SerializeField] private TextMeshProUGUI[] massageRythmResults;
+    [SerializeField] private TextMeshProUGUI[] massageDepthResults;
 
     [Space]
 
-    public TextMeshProUGUI massageRythmCommentResult, massageDepthCommentResult;
+    [SerializeField] private TextMeshProUGUI massageRythmCommentResult, massageDepthCommentResult;
 
     [Space]
 
-    public string rythmPerfectComment, rythmSuccessComment, rythmToImproveComment, rythmFailureComment;
+    [SerializeField] private string rythmPerfectComment, rythmSuccessComment, rythmToImproveComment, rythmFailureComment;
 
     [Space]
 
-    public string depthPerfectComment, depthSuccessComment, depthNotDeepComment, depthTooDeepComment;
+    [SerializeField] private string depthPerfectComment, depthSuccessComment, depthNotDeepComment, depthTooDeepComment;
 
     private void Start() {
 
@@ -38,15 +37,19 @@ public class DiagnosticManager : MonoBehaviour {
         return _iterationRankA.CompareTo(_iterationRankB);
     }
 
-    //todo Extract methode avec les trucs cummuns aux deux 
-    private void SetRythmComment() {
-        List<Rank> _listTimingRanks = new List<Rank>();
-        for(int i = 0; i < cardiacMassageSavingData.timingRanks.Length; i++) {
-            _listTimingRanks.Add(cardiacMassageSavingData.timingRanks[i]);
+    private List<Rank> SetListRanks(Rank[] typeRanks) {
+        List<Rank> _listRanks = new List<Rank>();
+        for(int i = 0; i < typeRanks.Length; i++) {
+            _listRanks.Add(typeRanks[i]);
         }
 
-        _listTimingRanks.Sort(SortRanksByIterations);
-        _listTimingRanks.Reverse();
+        _listRanks.Sort(SortRanksByIterations);
+        _listRanks.Reverse();
+        return _listRanks;
+    }
+
+    private void SetRythmComment() {
+        List<Rank> _listTimingRanks = SetListRanks(cardiacMassageSavingData.timingRanks);
 
         if(_listTimingRanks[0].Text == cardiacMassageSavingData.timingRanks[0].Text) {
             massageRythmCommentResult.text = rythmPerfectComment;
@@ -61,13 +64,7 @@ public class DiagnosticManager : MonoBehaviour {
     }
 
     private void SetDepthComment() {
-        List<Rank> _listDepthRanks = new List<Rank>();
-        for(int i = 0; i < cardiacMassageSavingData.depthRanks.Length; i++) {
-            _listDepthRanks.Add(cardiacMassageSavingData.depthRanks[i]);
-        }
-
-        _listDepthRanks.Sort(SortRanksByIterations);
-        _listDepthRanks.Reverse();
+        List<Rank> _listDepthRanks = SetListRanks(cardiacMassageSavingData.timingRanks);
 
         if(_listDepthRanks[0].Text == cardiacMassageSavingData.depthRanks[0].Text) {
             massageDepthCommentResult.text = depthTooDeepComment;
