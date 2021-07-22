@@ -11,15 +11,12 @@ namespace CardiacMassage {
         #endregion
 
         #region UnityInspector
-        //todo: getter ou private
-        public TextMeshProUGUI uiText;
+        [SerializeField] private TextMeshProUGUI uiText;
 
         [Space]
 
-        public float lifeTime = 1f;
-        public float moveSpeed = 1f;
-
-        public float placementJitter = 0.5f;
+        [SerializeField] private float lifeTime = 1f;
+        [SerializeField] private float moveSpeed = 1f;
 
         [Space]
 

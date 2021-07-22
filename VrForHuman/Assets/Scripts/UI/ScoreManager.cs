@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using Etienne;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -27,6 +27,7 @@ namespace CardiacMassage {
         [SerializeField] private Vector3 maxSizeUp, maxSizeDown;
         [SerializeField] private float extendSizeDuration;
 
+        public List<SpawnJitter> timeSuccessTextPointSpawns = new List<SpawnJitter>();
         #endregion
 
         #region Fields
@@ -39,7 +40,6 @@ namespace CardiacMassage {
 
         private List<SpawnJitter> scorePointAmountSpawns = new List<SpawnJitter>();
         private List<SpawnJitter> depthSuccessTextPointSpawns = new List<SpawnJitter>();
-        private List<SpawnJitter> timeSuccessTextPointSpawns = new List<SpawnJitter>();
 
         private Vector3 minSize;
 
@@ -166,7 +166,7 @@ namespace CardiacMassage {
             if(scoreAmountText != null) {
                 scoreAmountText.text = score.ToString();
 
-                //todo soit ping ppong soit pushscale (+? rotation)
+                //todo Etienne soit ping ppong soit pushscale (+? rotation)
                 if(_amount >= 0) {
                     scoreAmountText.transform.DOScale(maxSizeUp, extendSizeDuration);
                 } else {
