@@ -5,13 +5,12 @@ using UnityEngine;
 namespace CardiacMassage {
     [Requirement(typeof(AudioManager))]
     public class TimingHandeler : MonoBehaviourWithRequirement {
-        //todo remove les TEST
+        public Rank[] Ranks => ranks;
+
         [SerializeField] private Rank[] ranks;
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
-        [SerializeField] private AudioClip[] TESTBeatClips;
         [SerializeField] private Cue beatCue = new Cue(null);
-        [SerializeField] private AudioSource TESTAudio;
 
         private void Awake() {
             cardiacMassage ??= GetComponent<CardiacMassage>();
@@ -23,24 +22,11 @@ namespace CardiacMassage {
             if(countTimer != null) {
                 cardiacMassage.OnMassageStop += () => countTimer.SetInRythmValue(false);
             }
-
-            //todo remove les TEST
-            TESTAudio ??= GetComponent<AudioSource>();
-            if(TESTAudio == null) {
-                TESTAudio = gameObject.AddComponent<AudioSource>();
-            }
-            TESTAudio.playOnAwake = false;
-
             GameManager.Instance.SetTimingHandeler(this);
         }
 
         private void Start() {
-            GameManager.Instance.SetTimingRanks(GetRanks());
-        }
-
-        //todo: Getter
-        public Rank[] GetRanks() {
-            return ranks;
+            GameManager.Instance.SetTimingRanks(Ranks);
         }
 
         private IEnumerator Beat() {

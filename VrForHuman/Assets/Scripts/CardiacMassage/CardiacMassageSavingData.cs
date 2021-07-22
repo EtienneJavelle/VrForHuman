@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace CardiacMassage {
-    //todo regarder si Scriptable object est pertinent
+    //todo Yanis regarder si Scriptable object est pertinent
     [System.Serializable]
     public struct CardiacMassageSavingData {
         public int totalScore { get; set; }

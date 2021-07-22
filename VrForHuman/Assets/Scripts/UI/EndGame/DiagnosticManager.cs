@@ -86,7 +86,7 @@ public class DiagnosticManager : MonoBehaviour {
     }
 
     private void SetCardiacMassageSavingData() {
-        cardiacMassageSavingData = GameManager.Instance.GetCardiacMassageSavingData();
+        cardiacMassageSavingData = GameManager.Instance.CardiacMassageSavingData;
     }
 
     private void UpdateDiagnosticResume() {

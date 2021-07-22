@@ -7,46 +7,24 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     #region Properties
     public bool IsArcadeMode { get; set; }
-    public CountTimer countTimer { get; protected set; }
-    public TimingHandeler timingHandeler { get; protected set; }
-    public ScoreManager scoreManager { get; protected set; }
-    public CardiacMassage.CardiacMassage cardiacMassage { get; protected set; }
+    public CountTimer CountTimer { get; protected set; }
+    public TimingHandeler TimingHandeler { get; protected set; }
+    public ScoreManager ScoreManager { get; protected set; }
+    public CardiacMassage.CardiacMassage CardiacMassage { get; protected set; }
+    public CardiacMassageSavingData CardiacMassageSavingData => cardiacMassageSavingData;
     #endregion
 
     #region UnityInspector
-    //todo soity faire un getter soit ne pas la mettre public
-    public GameObject levelLoader;
-
+    [SerializeField] private GameObject levelLoader;
     #endregion
 
     private CardiacMassageSavingData cardiacMassageSavingData;
 
     #region Behaviour
 
-    //todo getter
-    public CardiacMassageSavingData GetCardiacMassageSavingData() {
-        return cardiacMassageSavingData;
-    }
-
     #region Initialize
     public void Start() {
         EssentialLoading();
-    }
-
-    //todo metrtre les stters au meme endroit (regiuon?)
-    public void SetCountTimer(CountTimer _countTimer) {
-        countTimer = _countTimer;
-    }
-    public void SetTimingHandeler(TimingHandeler _timingHandeler) {
-        timingHandeler = _timingHandeler;
-    }
-
-    public void SetScoreManager(ScoreManager _scoreManager) {
-        scoreManager = _scoreManager;
-    }
-
-    public void SetCardiacMassage(CardiacMassage.CardiacMassage _cardiacMassage) {
-        cardiacMassage = _cardiacMassage;
     }
 
     private void EssentialLoading() {
@@ -57,13 +35,30 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     #endregion
 
+    #region Setters
+    public void SetCountTimer(CountTimer _countTimer) {
+        CountTimer = _countTimer;
+    }
+
+    public void SetTimingHandeler(TimingHandeler _timingHandeler) {
+        TimingHandeler = _timingHandeler;
+    }
+
+    public void SetScoreManager(ScoreManager _scoreManager) {
+        ScoreManager = _scoreManager;
+    }
+
+    public void SetCardiacMassage(CardiacMassage.CardiacMassage _cardiacMassage) {
+        CardiacMassage = _cardiacMassage;
+    }
+
     public void SetTotalScore(int _score) {
         cardiacMassageSavingData.totalScore = _score;
 
-        if(countTimer != null) {
-            for(int i = 0; i < countTimer.timerSteps.Length; i++) {
-                if(cardiacMassageSavingData.maximumTimeReached >= countTimer.timerSteps[i].RythmTimeReached) {
-                    cardiacMassageSavingData.totalScore = Mathf.RoundToInt(cardiacMassageSavingData.totalScore * countTimer.timerSteps[i].MultiplierScore);
+        if(CountTimer != null) {
+            for(int i = 0; i < CountTimer.timerSteps.Length; i++) {
+                if(cardiacMassageSavingData.maximumTimeReached >= CountTimer.timerSteps[i].RythmTimeReached) {
+                    cardiacMassageSavingData.totalScore = Mathf.RoundToInt(cardiacMassageSavingData.totalScore * CountTimer.timerSteps[i].MultiplierScore);
                     return;
                 }
             }
@@ -73,7 +68,6 @@ public class GameManager : Etienne.Singleton<GameManager> {
     public void SetMaximumTimeReached(float _time) {
         cardiacMassageSavingData.maximumTimeReached = _time;
     }
-
 
     public void SetTimingRanks(Rank[] _timingRanks) {
         cardiacMassageSavingData.timingRanks = _timingRanks;
@@ -86,32 +80,38 @@ public class GameManager : Etienne.Singleton<GameManager> {
     public void SetPushsDatas(List<CardiacMassagePressureData> _pushData) {
         cardiacMassageSavingData.pushDatas = _pushData;
     }
-
+    #endregion
 
     public void EndGame() {
         if(IsArcadeMode) {
-            //todo Specifier les erreurs
-            if(countTimer != null) {
-                SetMaximumTimeReached(countTimer.GetMaxCountTimeReached());
+            if(CountTimer != null) {
+                SetMaximumTimeReached(CountTimer.GetMaxCountTimeReached());
             } else {
-                Debug.LogError("No Count Timer");
+                Debug.LogError($"No CountTimer referenced", this);
             }
 
-            if(timingHandeler != null) {
-                SetTimingRanks(timingHandeler.GetRanks());
+            if(TimingHandeler != null) {
+                SetTimingRanks(TimingHandeler.Ranks);
+            } else {
+                Debug.LogError($"No TimingHandeler referenced", this);
             }
 
-            if(scoreManager != null) {
-                SetDepthRanks(scoreManager.GetRanks());
-                SetTotalScore(scoreManager.GetScore());
+            if(ScoreManager != null) {
+                SetDepthRanks(ScoreManager.GetRanks());
+                SetTotalScore(ScoreManager.GetScore());
+            } else {
+                Debug.LogError($"No ScoreManager referenced", this);
             }
 
-            if(cardiacMassage != null) {
-                //todo SetPushDatas(pushData à récup sur Cardiac Massage)
+            if(CardiacMassage != null) {
+                //todo Yanis SetPushDatas(pushData à récup sur Cardiac Massage)
+            } else {
+                Debug.LogError($"No CardiacMassage referenced", this);
             }
 
             SceneLoader.Instance.ChangeScene(Scenes.EndGame);
         }
     }
+
     #endregion
 }
