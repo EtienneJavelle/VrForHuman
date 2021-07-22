@@ -2,7 +2,7 @@ using EtienneEditor;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SpawnJitter))]
+[CustomEditor(typeof(SpawnJitter), true)]
 [CanEditMultipleObjects]
 public class SpawnJitterEditor : Editor<SpawnJitter> {
     private void OnSceneGUI() {

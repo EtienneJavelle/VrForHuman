@@ -61,7 +61,7 @@ namespace CardiacMassage {
             if(_scoreManager != null) {
                 _scoreManager.SetScoreModifier(ranks[rank].Points);
 
-                if(_scoreManager.TimeSuccessTextPointSpawns.Count >= 4) {
+                if(_scoreManager.TimeSuccessTextPointSpawns.Length >= 4) {
                     _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.TimeSuccessTextPointSpawns),
                         ranks[rank].Text, ranks[rank].Colors);
                     ranks[rank].Iterations++;

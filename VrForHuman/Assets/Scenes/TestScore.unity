@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.59937465, g: 0.5997507, b: 0.59948814, a: 1}
+  m_IndirectSpecularColor: {r: 0.59937525, g: 0.5997512, b: 0.59948856, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1322,7 +1322,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: a04883dc58406e54cbb5f2f1c4cff7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1335,7 +1335,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: a04883dc58406e54cbb5f2f1c4cff7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1348,7 +1348,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: a04883dc58406e54cbb5f2f1c4cff7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: a04883dc58406e54cbb5f2f1c4cff7e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1374,7 +1374,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 6644c8a99dbd33240a75e57697f0d4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 6644c8a99dbd33240a75e57697f0d4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065983}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 6644c8a99dbd33240a75e57697f0d4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1413,7 +1413,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 6644c8a99dbd33240a75e57697f0d4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 9af5700495af3af46bcefcdb372da6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1439,7 +1439,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 9af5700495af3af46bcefcdb372da6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1452,7 +1452,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065987}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 9af5700495af3af46bcefcdb372da6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 478065988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbb1ddfa38cadd49afeb8583cd13301, type: 3}
+  m_Script: {fileID: 11500000, guid: 9af5700495af3af46bcefcdb372da6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   range: 100
@@ -2556,7 +2556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_RootOrder

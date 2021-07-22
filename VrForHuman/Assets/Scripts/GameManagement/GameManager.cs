@@ -97,8 +97,8 @@ public class GameManager : Etienne.Singleton<GameManager> {
             }
 
             if(ScoreManager != null) {
-                SetDepthRanks(ScoreManager.GetRanks());
-                SetTotalScore(ScoreManager.GetScore());
+                SetDepthRanks(ScoreManager.Ranks);
+                SetTotalScore(ScoreManager.Score);
             } else {
                 Debug.LogWarning($"No ScoreManager referenced", this);
             }

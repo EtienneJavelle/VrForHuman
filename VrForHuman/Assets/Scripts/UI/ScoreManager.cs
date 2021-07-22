@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using Etienne;
 using TMPro;
@@ -10,7 +9,9 @@ namespace CardiacMassage {
     public class ScoreManager : MonoBehaviourWithRequirement {
         #region Properties
 
-        public List<SpawnJitter> TimeSuccessTextPointSpawns => timeSuccessTextPointSpawns;
+        public int Score => score;
+        public Rank[] Ranks => ranks;
+        public TimeJitter[] TimeSuccessTextPointSpawns => timeSuccessTextPointSpawns;
 
         #endregion
 
@@ -27,7 +28,7 @@ namespace CardiacMassage {
         [SerializeField] private Vector3 maxSizeUp, maxSizeDown;
         [SerializeField] private float extendSizeDuration;
 
-        public List<SpawnJitter> timeSuccessTextPointSpawns = new List<SpawnJitter>();
+        [SerializeField] private TimeJitter[] timeSuccessTextPointSpawns;
         #endregion
 
         #region Fields
@@ -38,10 +39,8 @@ namespace CardiacMassage {
         private float scoreModifier;
         private TextMeshProUGUI scoreAmountText;
 
-        private List<SpawnJitter> scorePointAmountSpawns = new List<SpawnJitter>();
-        private List<SpawnJitter> depthSuccessTextPointSpawns = new List<SpawnJitter>();
-
-        private Vector3 minSize;
+        private ScoreJitter[] scorePointAmountSpawns;
+        private DepthJitter[] depthSuccessTextPointSpawns;
 
         #endregion
 
@@ -61,8 +60,6 @@ namespace CardiacMassage {
 
             AnimateScore(0);
 
-            minSize = scoreAmountText.transform.localScale;
-
             if(cardiacMassage != null) {
                 cardiacMassage.OnPressureDone += pushData => CalculateScoreValue(pushData);
             }
@@ -71,44 +68,20 @@ namespace CardiacMassage {
         }
 
         private void Start() {
-            GameManager.Instance.SetDepthRanks(GetRanks());
+            GameManager.Instance.SetDepthRanks(Ranks);
             GetJitters();
         }
 
         [ContextMenu("GetJitters")]
         private void GetJitters() {
-            //todo : deriver de la classe jitter pour les trois differents typoews
-            depthSuccessTextPointSpawns.Clear();
-            timeSuccessTextPointSpawns.Clear();
-            scorePointAmountSpawns.Clear();
-            SpawnJitter[] jpawnJitters = transform.parent.GetComponentsInChildren<SpawnJitter>();
-            for(int i = 0; i < jpawnJitters.Length; i++) {
-                for(int u = 0; u < 4; u++) {
-                    if(i == 0) {
-                        depthSuccessTextPointSpawns.Add(jpawnJitters[u + i]);
-                    } else if(i == 1) {
-                        timeSuccessTextPointSpawns.Add(jpawnJitters[u + i]);
-                    } else if(i == 2) {
-                        scorePointAmountSpawns.Add(jpawnJitters[u + i]);
-                    }
-                }
-            }
+            depthSuccessTextPointSpawns = transform.parent.GetComponentsInChildren<DepthJitter>();
+            timeSuccessTextPointSpawns = transform.parent.GetComponentsInChildren<TimeJitter>();
+            scorePointAmountSpawns = transform.parent.GetComponentsInChildren<ScoreJitter>();
         }
 
         #endregion
 
-
-        //todo : public int Score => score;
-        public int GetScore() {
-            return score;
-        }
-
-        public Rank[] GetRanks() {
-            return ranks;
-        }
-
-
-        public SpawnJitter RandomGenerationSpawners(List<SpawnJitter> _spawnPoints) {
+        public SpawnJitter RandomGenerationSpawners(SpawnJitter[] _spawnPoints) {
             int random = Random.Range(1, 4);
             return _spawnPoints[random];
         }
@@ -118,7 +91,7 @@ namespace CardiacMassage {
                 if((Mathf.Abs(_pushData.Depth)) >= ranks[i].Offset) {
                     ChangeScore(ranks[i].Points + (int)scoreModifier);
 
-                    if(depthSuccessTextPointSpawns.Count >= 4) {
+                    if(depthSuccessTextPointSpawns.Length >= 4) {
                         SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[i].Text, ranks[i].Colors);
                         ranks[i].Iterations++;
                     }
@@ -126,7 +99,7 @@ namespace CardiacMassage {
                     return;
                 }
             }
-            if(depthSuccessTextPointSpawns.Count >= 4) {
+            if(depthSuccessTextPointSpawns.Length >= 4) {
                 SetSuccessText(RandomGenerationSpawners(depthSuccessTextPointSpawns), ranks[ranks.Length - 1].Text,
                     ranks[ranks.Length - 1].Colors);
                 ranks[ranks.Length - 1].Iterations++;
@@ -136,13 +109,15 @@ namespace CardiacMassage {
         public void SetScoreModifier(float _amount) {
             scoreModifier = _amount;
         }
+        private void ResetScoreModifier() {
+            SetScoreModifier(0.0f);
+        }
 
         public void ChangeScore(int _amount) {
             score = Mathf.Clamp(score + _amount, 0, 999999999);
-            //todo REset Scoremodifier
-            SetScoreModifier(0.0f);
+            ResetScoreModifier();
 
-            if(scorePointAmountSpawns.Count >= 4) {
+            if(scorePointAmountSpawns.Length >= 4) {
                 SpawnJitter parent = RandomGenerationSpawners(scorePointAmountSpawns);
                 UITextDisplay _uiTextDisplay = InstantiateUITextDisplay(parent);
                 _uiTextDisplay.SetPoints(_amount);
@@ -154,7 +129,7 @@ namespace CardiacMassage {
 
         public void AnimateScore(int _amount) {
             if(scoreAmountText != null) {
-                scoreAmountText.text = score.ToString();
+                scoreAmountText.text = score.ToString("000000000");
                 scoreAmountText.transform.DOComplete();
                 scoreAmountText.transform.DOShakeRotation(extendSizeDuration, 10);
                 if(_amount >= 0) {
