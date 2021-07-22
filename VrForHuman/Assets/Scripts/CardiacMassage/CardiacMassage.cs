@@ -4,6 +4,7 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 
 namespace CardiacMassage {
+    //todo debug la mitrailette de points
     public class CardiacMassage : MonoBehaviour {
         public event Action OnMassageStart, OnMassageStop;
         public event Action OnPressureBegin;
@@ -36,6 +37,7 @@ namespace CardiacMassage {
 
         private void Update() {
             if(isStarted) {
+                //todo delete les trucs en trop
                 bool wasGoingDown = isGoingDown;
                 bool wasGoingUp = isGoingUp;
                 velocity = (transform.position - oldPosition) / Time.deltaTime;
@@ -109,10 +111,12 @@ namespace CardiacMassage {
                         * 10;
                     CardiacMassagePressureData push = new CardiacMassagePressureData(pressureDepth, Time.realtimeSinceStartup - startMassageTime);
                     pushDatas.Add(push);
+
                     Debug.Log(push.Depth);
                     Debug.Log(push.Time);
                     keyframe = new Keyframe(push.Time, push.Depth, 0, 0, 0, 0);
                     pushes.AddKey(keyframe);
+
                     OnPressureDone?.Invoke(push);
                     break;
                 case State.Down:

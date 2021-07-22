@@ -1,12 +1,11 @@
-using CardiacMassage;
 using System.Collections.Generic;
+using CardiacMassage;
 using TMPro;
 using UnityEngine;
 
 public class DiagnosticManager : MonoBehaviour {
 
-    private CardiacMassageSavingData cardiacMassageSavingData;
-
+    //todo: private ou getter
     public TextMeshProUGUI totalScoreAmount, maxTimeReachedAmount;
     public TextMeshProUGUI[] massageRythmResults;
     public TextMeshProUGUI[] massageDepthResults;
@@ -23,7 +22,6 @@ public class DiagnosticManager : MonoBehaviour {
 
     public string depthPerfectComment, depthSuccessComment, depthNotDeepComment, depthTooDeepComment;
 
-    // Start is called before the first frame update
     private void Start() {
 
         SetCardiacMassageSavingData();
@@ -40,6 +38,7 @@ public class DiagnosticManager : MonoBehaviour {
         return _iterationRankA.CompareTo(_iterationRankB);
     }
 
+    //todo Extract methode avec les trucs cummuns aux deux 
     private void SetRythmComment() {
         List<Rank> _listTimingRanks = new List<Rank>();
         for(int i = 0; i < cardiacMassageSavingData.timingRanks.Length; i++) {
@@ -103,4 +102,6 @@ public class DiagnosticManager : MonoBehaviour {
             massageDepthResults[i].text = cardiacMassageSavingData.depthRanks[i].Iterations.ToString();
         }
     }
+
+    private CardiacMassageSavingData cardiacMassageSavingData;
 }

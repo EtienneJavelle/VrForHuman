@@ -23,6 +23,7 @@ public class VRInputModule : BaseInputModule {
         SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
     }
 
+    [ContextMenu("ArcadeMode")]
     public void ArcadeMode() {
         GameManager.Instance.IsArcadeMode = true;
         SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
@@ -36,27 +37,21 @@ public class VRInputModule : BaseInputModule {
     }
 
     public override void Process() {
-        //reset data, set
         data.Reset();
         data.position = new Vector2(camera.pixelWidth / 2f, camera.pixelHeight / 2f);
 
-        //raycast
         eventSystem.RaycastAll(data, m_RaycastResultCache);
         data.pointerCurrentRaycast = FindFirstRaycast(m_RaycastResultCache);
         currentObject = data.pointerCurrentRaycast.gameObject;
 
-        //clear raycast
         m_RaycastResultCache.Clear();
 
-        //hover state
         HandlePointerExitAndEnter(data, currentObject);
 
-        //press input
         if(clickAction.GetStateDown(targetSource)) {
             ProcessPress(data);
         }
 
-        //release input
         if(clickAction.GetStateUp(targetSource)) {
             ProcessRelease(data);
         }

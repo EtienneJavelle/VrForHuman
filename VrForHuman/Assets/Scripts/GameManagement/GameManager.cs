@@ -1,5 +1,5 @@
-using CardiacMassage;
 using System.Collections.Generic;
+using CardiacMassage;
 using UnityEngine;
 
 [AddComponentMenu("Managers/Game Manager")]
@@ -7,36 +7,33 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     #region Properties
     public bool IsArcadeMode { get; set; }
-
-
     public CountTimer countTimer { get; protected set; }
     public TimingHandeler timingHandeler { get; protected set; }
     public ScoreManager scoreManager { get; protected set; }
     public CardiacMassage.CardiacMassage cardiacMassage { get; protected set; }
-
-
-    private CardiacMassageSavingData cardiacMassageSavingData;
-
     #endregion
 
     #region UnityInspector
-
+    //todo soity faire un getter soit ne pas la mettre public
     public GameObject levelLoader;
 
     #endregion
 
+    private CardiacMassageSavingData cardiacMassageSavingData;
+
     #region Behaviour
 
-    public void Start() {
-        EssentialLoading();
-    }
-
+    //todo getter
     public CardiacMassageSavingData GetCardiacMassageSavingData() {
         return cardiacMassageSavingData;
     }
 
     #region Initialize
+    public void Start() {
+        EssentialLoading();
+    }
 
+    //todo metrtre les stters au meme endroit (regiuon?)
     public void SetCountTimer(CountTimer _countTimer) {
         countTimer = _countTimer;
     }
@@ -93,8 +90,11 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     public void EndGame() {
         if(IsArcadeMode) {
+            //todo Specifier les erreurs
             if(countTimer != null) {
                 SetMaximumTimeReached(countTimer.GetMaxCountTimeReached());
+            } else {
+                Debug.LogError("No Count Timer");
             }
 
             if(timingHandeler != null) {
@@ -113,7 +113,5 @@ public class GameManager : Etienne.Singleton<GameManager> {
             SceneLoader.Instance.ChangeScene(Scenes.EndGame);
         }
     }
-
     #endregion
-
 }

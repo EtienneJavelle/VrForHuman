@@ -3,25 +3,24 @@ using TMPro;
 using UnityEngine;
 
 public class CountTimer : MonoBehaviour {
-    #region Fields
-
-    private TextMeshProUGUI countText;
-
-    private bool inRythm;
-
-    private float countTime;
-    private float maxcountTimeReached;
-    #endregion
-
     #region Properties
 
 
     #endregion
 
     #region UnityInspector
-
+    //todo: private ou getter
     public TimerStep[] timerSteps;
 
+    #endregion
+
+    #region Fields
+    private TextMeshProUGUI countText;
+
+    private bool inRythm;
+
+    private float countTime;
+    private float maxcountTimeReached;
     #endregion
 
     #region Behaviour
@@ -46,11 +45,10 @@ public class CountTimer : MonoBehaviour {
         }
     }
 
-
+    //todo getter
     public float GetMaxCountTimeReached() {
         return maxcountTimeReached;
     }
-
 
     public void InitCountTime() {
         if(countTime > maxcountTimeReached) {
@@ -71,9 +69,7 @@ public class CountTimer : MonoBehaviour {
     }
 
     private void UpdateCountText() {
-        //this.countText.text = (int)(countSeconds / 60) + "mn " + (int)countSeconds + "s " + (Mathf.Round((countSeconds % 1.0f) * 100));
         countText.text = (int)(countTime / 60) + ":" + (int)countTime;
     }
-
     #endregion
 }

@@ -62,6 +62,16 @@ namespace Etienne {
         public static Vector3 Direction(this Transform start, Transform end) {
             return start.position.Direction(end.position);
         }
+
+        /// <summary>
+        /// Multiply two <see cref="Vector3"/> together
+        /// </summary>
+        /// <param name="a">The first vector</param>
+        /// <param name="b">The second vector</param>
+        /// <returns>A <see cref="Vector3"/> with the three axis multiplicated by the three axis of the second vector</returns>
+        public static Vector3 Multiply(this Vector3 a, Vector3 b) {
+            return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
+        }
         #endregion
 
         #region Audio

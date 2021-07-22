@@ -5,15 +5,13 @@ using UnityEngine;
 namespace CardiacMassage {
     [Requirement(typeof(AudioManager))]
     public class TimingHandeler : MonoBehaviourWithRequirement {
+        //todo remove les TEST
         [SerializeField] private Rank[] ranks;
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
         [SerializeField] private AudioClip[] TESTBeatClips;
         [SerializeField] private Cue beatCue = new Cue(null);
-        private CardiacMassagePressureData lastPressure;
         [SerializeField] private AudioSource TESTAudio;
-
-        private CountTimer countTimer;
 
         private void Awake() {
             cardiacMassage ??= GetComponent<CardiacMassage>();
@@ -26,6 +24,7 @@ namespace CardiacMassage {
                 cardiacMassage.OnMassageStop += () => countTimer.SetInRythmValue(false);
             }
 
+            //todo remove les TEST
             TESTAudio ??= GetComponent<AudioSource>();
             if(TESTAudio == null) {
                 TESTAudio = gameObject.AddComponent<AudioSource>();
@@ -33,13 +32,13 @@ namespace CardiacMassage {
             TESTAudio.playOnAwake = false;
 
             GameManager.Instance.SetTimingHandeler(this);
-
         }
 
         private void Start() {
             GameManager.Instance.SetTimingRanks(GetRanks());
         }
 
+        //todo: Getter
         public Rank[] GetRanks() {
             return ranks;
         }
@@ -47,11 +46,9 @@ namespace CardiacMassage {
         private IEnumerator Beat() {
             while(true) {
                 yield return new WaitForSeconds(beat / 1000f);
-                //TESTAudio.PlayOneShot(TESTBeatClips[Random.Range(0, TESTBeatClips.Length)]);
                 AudioManager.Play(beatCue);
             }
         }
-
 
         private CardiacMassagePressureData CalcutaleTimingAccuracy(CardiacMassagePressureData pressure) {
             float time = (pressure.Time - lastPressure.Time) * 1000;
@@ -78,8 +75,8 @@ namespace CardiacMassage {
             if(_scoreManager != null) {
                 _scoreManager.SetScoreModifier(ranks[rank].Points);
 
-                if(_scoreManager.timeSuccessTextPointSpawns.Count >= 4) {
-                    _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.timeSuccessTextPointSpawns),
+                if(_scoreManager.TimeSuccessTextPointSpawns.Count >= 4) {
+                    _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.TimeSuccessTextPointSpawns),
                         ranks[rank].Text, ranks[rank].Colors);
                     ranks[rank].Iterations++;
                 }
@@ -90,5 +87,7 @@ namespace CardiacMassage {
         }
 
         private Coroutine beatCoroutine;
+        private CardiacMassagePressureData lastPressure;
+        private CountTimer countTimer;
     }
 }
