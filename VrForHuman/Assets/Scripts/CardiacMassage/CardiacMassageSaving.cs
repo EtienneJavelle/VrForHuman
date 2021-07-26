@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CardiacMassage {
-    //todo Yanis regarder si Scriptable object est pertinent
-    [System.Serializable]
-    public struct CardiacMassageSavingData {
+    [CreateAssetMenu(fileName = "CardiacMassageSavingData", menuName = "VR For Human/CardiacMassageSavingData")]
+    public class CardiacMassageSaving : ScriptableObject {
         public int totalScore { get; set; }
 
         public float maximumTimeReached { get; set; }

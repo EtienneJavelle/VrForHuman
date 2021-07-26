@@ -11,14 +11,14 @@ public class GameManager : Etienne.Singleton<GameManager> {
     public TimingHandeler TimingHandeler { get; protected set; }
     public ScoreManager ScoreManager { get; protected set; }
     public CardiacMassage.CardiacMassage CardiacMassage { get; protected set; }
-    public CardiacMassageSavingData CardiacMassageSavingData => cardiacMassageSavingData;
+    public CardiacMassageSaving CardiacMassageSaving => cardiacMassageSaving;
     #endregion
 
     #region UnityInspector
     [SerializeField] private GameObject levelLoader;
-    #endregion
 
-    private CardiacMassageSavingData cardiacMassageSavingData;
+    [SerializeField] private CardiacMassageSaving cardiacMassageSaving;
+    #endregion
 
     #region Behaviour
 
@@ -53,12 +53,12 @@ public class GameManager : Etienne.Singleton<GameManager> {
     }
 
     public void SetTotalScore(int _score) {
-        cardiacMassageSavingData.totalScore = _score;
+        cardiacMassageSaving.totalScore = _score;
 
         if(CountTimer != null) {
             for(int i = 0; i < CountTimer.timerSteps.Length; i++) {
-                if(cardiacMassageSavingData.maximumTimeReached >= CountTimer.timerSteps[i].RythmTimeReached) {
-                    cardiacMassageSavingData.totalScore = Mathf.RoundToInt(cardiacMassageSavingData.totalScore * CountTimer.timerSteps[i].MultiplierScore);
+                if(cardiacMassageSaving.maximumTimeReached >= CountTimer.timerSteps[i].RythmTimeReached) {
+                    cardiacMassageSaving.totalScore = Mathf.RoundToInt(cardiacMassageSaving.totalScore * CountTimer.timerSteps[i].MultiplierScore);
                     return;
                 }
             }
@@ -66,19 +66,19 @@ public class GameManager : Etienne.Singleton<GameManager> {
     }
 
     public void SetMaximumTimeReached(float _time) {
-        cardiacMassageSavingData.maximumTimeReached = _time;
+        cardiacMassageSaving.maximumTimeReached = _time;
     }
 
     public void SetTimingRanks(Rank[] _timingRanks) {
-        cardiacMassageSavingData.timingRanks = _timingRanks;
+        cardiacMassageSaving.timingRanks = _timingRanks;
     }
 
     public void SetDepthRanks(Rank[] _depthRanks) {
-        cardiacMassageSavingData.depthRanks = _depthRanks;
+        cardiacMassageSaving.depthRanks = _depthRanks;
     }
 
     public void SetPushsDatas(List<CardiacMassagePressureData> _pushData) {
-        cardiacMassageSavingData.pushDatas = _pushData;
+        cardiacMassageSaving.pushDatas = _pushData;
     }
     #endregion
 
@@ -104,7 +104,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
             }
 
             if(CardiacMassage != null) {
-                //todo Yanis SetPushDatas(pushData à récup sur Cardiac Massage)
+                SetPushsDatas(CardiacMassage.pushDatas);
             } else {
                 Debug.LogWarning($"No CardiacMassage referenced", this);
             }

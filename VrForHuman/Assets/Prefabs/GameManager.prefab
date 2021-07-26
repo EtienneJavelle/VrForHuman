@@ -46,3 +46,5 @@ MonoBehaviour:
   isPersistant: 1
   levelLoader: {fileID: 5468755187622505815, guid: 6b169d31fa4ef4e42bb7a45d0aa30403,
     type: 3}
+  cardiacMassageSaving: {fileID: 11400000, guid: 2c8d16d4a5fcde44aa886bf35e5b194a,
+    type: 2}

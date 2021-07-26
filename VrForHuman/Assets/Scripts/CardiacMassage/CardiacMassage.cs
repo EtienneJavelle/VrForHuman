@@ -26,9 +26,15 @@ namespace CardiacMassage {
         private Vector3 oldPosition;
         private bool isGoingUp, isGoingDown;
         private float startMassageTime;
-        private List<CardiacMassagePressureData> pushDatas = new List<CardiacMassagePressureData>();
+
+        public List<CardiacMassagePressureData> pushDatas { get; protected set; }
 
         private void Awake() {
+            if(GameManager.Instance.CardiacMassage == null) {
+                GameManager.Instance.SetCardiacMassage(this);
+                pushDatas = new List<CardiacMassagePressureData>();
+            }
+
             interactable ??= GetComponent<Interactable>();
             interactable.onAttachedToHand += _ => StartMassage();
             interactable.onDetachedFromHand += _ => StopMassage();
