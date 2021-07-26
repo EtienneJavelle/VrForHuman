@@ -1,15 +1,4 @@
-/* 
-    ------------------- Code Monkey -------------------
-
-    Thank you for downloading this package
-    I hope you find it useful in your projects
-    If you have any questions let me know
-    Cheers!
-
-               unitycodemonkey.com
-    --------------------------------------------------
- */
-
+using CardiacMassage;
 using CodeUtilities.Utils;
 using System;
 using System.Collections.Generic;
@@ -17,29 +6,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WindowGraph : MonoBehaviour {
+    private float graphHeight;
+    private float graphWidth;
+
+    [SerializeField] private Color successColor, failureColor;
+
+    [SerializeField] private float yGraphScale;
+    [SerializeField] private float xGraphScale;
 
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;
 
-    public List<float> valueListX;
-    public List<float> valueListY;
+    private List<CardiacMassagePressureData> valuesList = new List<CardiacMassagePressureData>();
 
     private void Awake() {
         graphContainer = transform.Find("graphContainer").GetComponent<RectTransform>();
-
-        valueListX = new List<float>();
-        valueListY = new List<float>();
-        //List<float> valueList = new List<float>() { 5, 98, 56, 45, 30, 22, 17, 15, 13, 17, 25, 37, 40, 36, 33 };
-        //valueListY = new List<float>() { 1.05f, 1.19f, 1.11f, 1.21f, 1.3f, 1.31f, 1.305f, 1.049f, 0.97f, 1.43f };
-        //ShowGraph(valueListY);
     }
 
-    public void SetValueListX(float _value) {
-        valueListX.Add(Mathf.Abs(_value));
-    }
-
-    public void SetValueListY(float _value) {
-        valueListY.Add(Mathf.Abs(_value));
+    public void SetValuesList(CardiacMassagePressureData _cardiacMassagePressureData) {
+        valuesList.Add(_cardiacMassagePressureData);
     }
 
     private GameObject CreateCircle(Vector2 anchoredPosition) {
@@ -54,34 +39,58 @@ public class WindowGraph : MonoBehaviour {
         return gameObject;
     }
 
-    public void ShowGraph(List<float> valueList) {
-        float graphHeight = graphContainer.sizeDelta.y;
-        float graphWidth = graphContainer.sizeDelta.x;
-        float yMaximum = 500f;
-        float xSize = 500f;
+    private float CalculatePositionX(int _index) {
+        return (Mathf.Abs(valuesList[_index].Time) * 50 / xGraphScale) * graphWidth;
+    }
+
+    private float CalculatePositionY(int _index) {
+        return (Mathf.Abs(valuesList[_index].Depth) * 50 / yGraphScale) * graphHeight;
+    }
+
+    public void ShowGraph() {
+
+        graphHeight = graphContainer.sizeDelta.y;
+        graphWidth = graphContainer.sizeDelta.x;
+
+        float finalXPosition = CalculatePositionX(valuesList.Count - 1);
+        int count = 0;
+        while(finalXPosition >= (graphWidth - (graphWidth * 3 / 100)) && count < 100) {
+            count++;
+            xGraphScale *= 1.25f;
+            finalXPosition = CalculatePositionX(valuesList.Count - 1);
+        }
+
+        float finalYPosition = CalculatePositionY(valuesList.Count - 1);
+        count = 0;
+        while(finalYPosition >= (graphHeight - (graphHeight * 3 / 100)) && count < 100) {
+            count++;
+            yGraphScale *= 1.25f;
+            finalYPosition = CalculatePositionY(valuesList.Count - 1);
+        }
 
         GameObject lastCircleGameObject = null;
-        for(int i = 0; i < valueList.Count; i++) {
+        for(int i = 0; i < valuesList.Count; i++) {
             //float xPosition = xSize + i * xSize;
-            float xPosition = (valueListX[i] * 50 / xSize) * graphWidth;
-            float yPosition = (valueList[i] * 50 / yMaximum) * graphHeight;
+            float xPosition = CalculatePositionX(i);
+            float yPosition = CalculatePositionY(i);
+
             GameObject circleGameObject = CreateCircle(new Vector2(xPosition, yPosition));
             circleGameObject.name = "circle" + i;
+
             if(lastCircleGameObject != null) {
                 CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
             }
             lastCircleGameObject = circleGameObject;
         }
 
-        Debug.Log(graphWidth);
+        /*Debug.Log(graphWidth);
         Debug.Log(graphHeight);
 
-        Debug.Log((valueListX[0] * 50 / xSize) * graphWidth);
-        Debug.Log((valueList[0] * 50 / yMaximum) * graphHeight);
-        //Debug.Log(xSize + 0 * xSize);
-        Debug.Log((valueListX[valueListX.Count - 1] * 50 / xSize) * graphWidth);
-        Debug.Log((valueList[valueList.Count - 1] * 50 / yMaximum) * graphHeight);
-        //Debug.Log(xSize + (valueList.Count - 1) * xSize);
+        Debug.Log((Mathf.Abs(valuesList[0].Time) * 50 / xGraphScale) * graphWidth);
+        Debug.Log((Mathf.Abs(valuesList[0].Depth) * 50 / yGraphScale) * graphHeight);
+
+        Debug.Log((Mathf.Abs(valuesList[valuesList.Count - 1].Time) * 50 / xGraphScale) * graphWidth);
+        Debug.Log((Mathf.Abs(valuesList[valuesList.Count - 1].Depth) * 50 / yGraphScale) * graphHeight);*/
     }
 
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB) {

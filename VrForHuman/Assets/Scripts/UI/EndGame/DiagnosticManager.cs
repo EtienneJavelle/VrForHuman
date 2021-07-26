@@ -73,11 +73,10 @@ public class DiagnosticManager : MonoBehaviour {
 
     private void SetWindowGraphValues() {
         for(int i = 1; i < cardiacMassageSaving.pushDatas.Count; i++) {
-            windowGraph.SetValueListX(cardiacMassageSaving.pushDatas[i].Time);
-            windowGraph.SetValueListY(cardiacMassageSaving.pushDatas[i].Depth);
+            windowGraph.SetValuesList(cardiacMassageSaving.pushDatas[i]);
         }
 
-        windowGraph.ShowGraph(windowGraph.valueListY);
+        windowGraph.ShowGraph();
     }
 
     private void UpdateDiagnosticResume() {
