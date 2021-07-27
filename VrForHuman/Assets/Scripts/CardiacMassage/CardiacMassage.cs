@@ -4,8 +4,8 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 
 namespace CardiacMassage {
-    //todo debug la mitrailette de points
-    public class CardiacMassage : MonoBehaviour {
+    [Etienne.Requirement(typeof(GameManager))]
+    public class CardiacMassage : Etienne.MonoBehaviourWithRequirement {
         public event Action OnMassageStart, OnMassageStop;
         public event Action OnPressureBegin;
         public event Action<CardiacMassagePressureData> OnPressureDone;
@@ -13,7 +13,9 @@ namespace CardiacMassage {
         [SerializeField] private float pressureDepth;
         [SerializeField] private State state;
         [SerializeField] private Interactable interactable;
+        [SerializeField] private HoverButton hoverButton;
         [SerializeField] private AnimationCurve pushes;
+        [SerializeField, Range(0, 1)] private float pushThreshold = .1f;
         [Tooltip("TEST")]
         [SerializeField] private Transform TestChestBone;
 
@@ -26,7 +28,6 @@ namespace CardiacMassage {
         private Vector3 oldPosition;
         private bool isGoingUp, isGoingDown;
         private float startMassageTime;
-
         public List<CardiacMassagePressureData> pushDatas { get; protected set; }
 
         private void Awake() {
@@ -34,52 +35,43 @@ namespace CardiacMassage {
                 GameManager.Instance.SetCardiacMassage(this);
                 pushDatas = new List<CardiacMassagePressureData>();
             }
-
+            hoverButton ??= GetComponent<HoverButton>();
             interactable ??= GetComponent<Interactable>();
             interactable.onAttachedToHand += _ => StartMassage();
             interactable.onDetachedFromHand += _ => StopMassage();
-
         }
-
+        private void Start() {
+            StartMassage();
+        }
         private void Update() {
             if(isStarted) {
-                //todo delete les trucs en trop
-                bool wasGoingDown = isGoingDown;
-                bool wasGoingUp = isGoingUp;
-                velocity = (transform.position - oldPosition) / Time.deltaTime;
-                isGoingDown = velocity.y < 0;
-                isGoingUp = velocity.y > 0;
-
-                if(isGoingDown) {
-                    SetState(State.Down);
-                } else if(isGoingUp) {
-                    SetState(State.Up);
-                } else {
-                    // SetState(State.Idle);
-                }
-                if(isGoingDown && transform.position.y < startPosition.y) {
-                    maxPosition = transform.position;
-                }
-                TestChestBone.localScale = new Vector3(1, 1, Mathf.Min(transform.position.y, startPosition.y) / startPosition.y);
-                //for(int i = 0; i < TestChestBone.GetChild(0).childCount; i++) {
-                //    Transform child = TestChestBone.GetChild(0).GetChild(i);
-                //    child.transform.localScale = new Vector3(
-                //    child.transform.localScale.x / TestChestBone.localScale.x,
-                //    child.transform.localScale.y / TestChestBone.localScale.y,
-                //    child.transform.localScale.z / TestChestBone.localScale.z);
-
-                //}
-
-
-                oldPosition = transform.position;
+                TestChestBone.localScale = new Vector3(1, 1,
+                    Mathf.Min(hoverButton.movingPart.position.y, transform.position.y) / transform.position.y);
             }
 
+            Vector3 currentPosition = hoverButton.movingPart.position;
+            velocity = currentPosition - oldPosition;
+            float verticalVeloxuty = velocity.y / Time.deltaTime;
+            isGoingDown = verticalVeloxuty < -pushThreshold;
+            isGoingUp = verticalVeloxuty > pushThreshold;
+            if(isGoingDown) {
+                maxPosition = currentPosition;
+                SetState(State.Down);
+                Debug.DrawLine(currentPosition, currentPosition + velocity.normalized, Color.red);
+            }
+            if(isGoingUp) {
+                minPosition = currentPosition;
+                SetState(State.Up);
+                Debug.DrawLine(currentPosition, currentPosition + velocity.normalized, Color.green);
+            }
+            oldPosition = currentPosition;
         }
 
         [ContextMenu("Start Massage")]
         private void StartMassage() {
             isStarted = true;
-            startPosition = transform.position;
+            startPosition = hoverButton.movingPart.position;
+            oldPosition = startPosition;
             startMassageTime = Time.realtimeSinceStartup;
             OnMassageStart?.Invoke();
         }
@@ -108,13 +100,7 @@ namespace CardiacMassage {
                 case State.Idle:
                     break;
                 case State.Up:
-                    pressureDepth =
-                        -Mathf.Abs(maxPosition.sqrMagnitude - startPosition.sqrMagnitude)
-                        //-Mathf.Min(
-                        //Mathf.Abs(maxPosition.sqrMagnitude - startPosition.sqrMagnitude),
-                        //Mathf.Abs(maxPosition.sqrMagnitude - minPosition.sqrMagnitude)
-                        //)
-                        * 10;
+                    pressureDepth = -Mathf.Abs(maxPosition.sqrMagnitude - startPosition.sqrMagnitude) * 10;
                     CardiacMassagePressureData push = new CardiacMassagePressureData(pressureDepth, Time.realtimeSinceStartup - startMassageTime);
                     pushDatas.Add(push);
 
@@ -127,7 +113,7 @@ namespace CardiacMassage {
                     break;
                 case State.Down:
                     OnPressureBegin?.Invoke();
-                    minPosition = transform.position;
+                    minPosition = hoverButton.movingPart.position;
                     keyframe = new Keyframe(Time.realtimeSinceStartup - startMassageTime,
                        Mathf.Min(
                        Mathf.Abs(startPosition.sqrMagnitude),
@@ -135,13 +121,6 @@ namespace CardiacMassage {
                        ) * 10,
                        0, 0, 0, 0);
                     pushes.AddKey(keyframe);
-                    /*for(int i = 0; i < pushDatas.Count; i++) {
-                        //Debug.Log(pushes.keys[i].time);
-                        //Debug.Log(pushes.keys[i].value);
-                        Debug.Log(pushDatas[i]);
-                        Debug.Log(" ");
-                    }*/
-
                     break;
             }
         }
@@ -170,3 +149,4 @@ namespace CardiacMassage {
 
     }
 }
+
