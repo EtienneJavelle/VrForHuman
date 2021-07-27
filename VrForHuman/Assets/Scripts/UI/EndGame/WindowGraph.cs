@@ -56,7 +56,7 @@ public class WindowGraph : MonoBehaviour {
         int count = 0;
         while(finalXPosition >= (graphWidth - (graphWidth * 3 / 100)) && count < 100) {
             count++;
-            xGraphScale *= 1.25f;
+            xGraphScale *= 1.1f;
             finalXPosition = CalculatePositionX(valuesList.Count - 1);
         }
 
@@ -64,7 +64,7 @@ public class WindowGraph : MonoBehaviour {
         count = 0;
         while(finalYPosition >= (graphHeight - (graphHeight * 3 / 100)) && count < 100) {
             count++;
-            yGraphScale *= 1.25f;
+            yGraphScale *= 1.1f;
             finalYPosition = CalculatePositionY(valuesList.Count - 1);
         }
 
