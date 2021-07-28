@@ -53,8 +53,7 @@ public class DiagnosticManager : MonoBehaviour {
     }
 
     private void SetDepthComment() {
-        List<Rank> _listDepthRanks = SetListRanks(cardiacMassageSaving.timingRanks);
-
+        List<Rank> _listDepthRanks = SetListRanks(cardiacMassageSaving.depthRanks);
         if(_listDepthRanks[0].Text == cardiacMassageSaving.depthRanks[0].Text) {
             massageDepthCommentResult.text = depthTooDeepComment;
         } else if(_listDepthRanks[0].Text == cardiacMassageSaving.depthRanks[1].Text) {

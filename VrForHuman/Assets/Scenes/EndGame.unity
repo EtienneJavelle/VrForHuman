@@ -826,6 +826,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2057681167343200540, guid: b938acb5a47664c44a83311967632354,
+        type: 3}
+      propertyPath: m_text
+      value: Rythme de massage
+      objectReference: {fileID: 0}
     - target: {fileID: 2399546766927952156, guid: b938acb5a47664c44a83311967632354,
         type: 3}
       propertyPath: m_Pivot.x
@@ -945,6 +950,11 @@ PrefabInstance:
         type: 3}
       propertyPath: yGraphScale
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2800608991191763872, guid: b938acb5a47664c44a83311967632354,
+        type: 3}
+      propertyPath: m_text
+      value: Profondeur de massage
       objectReference: {fileID: 0}
     - target: {fileID: 5771021559808208546, guid: b938acb5a47664c44a83311967632354,
         type: 3}
