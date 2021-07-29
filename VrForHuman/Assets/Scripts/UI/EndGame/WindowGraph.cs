@@ -17,6 +17,7 @@ public class WindowGraph : MonoBehaviour {
     [SerializeField] private Sprite circleSprite;
     private RectTransform graphContainer;
 
+    private float baseXValue;
     private List<CardiacMassagePressureData> valuesList = new List<CardiacMassagePressureData>();
 
     private void Awake() {
@@ -40,7 +41,7 @@ public class WindowGraph : MonoBehaviour {
     }
 
     private float CalculatePositionX(int _index) {
-        return (Mathf.Abs(valuesList[_index].Time) * 50 / xGraphScale) * graphWidth;
+        return ((Mathf.Abs(valuesList[_index].Time) - baseXValue) * 50 / xGraphScale) * graphWidth;
     }
 
     private float CalculatePositionY(int _index) {
@@ -51,6 +52,8 @@ public class WindowGraph : MonoBehaviour {
 
         graphHeight = graphContainer.sizeDelta.y;
         graphWidth = graphContainer.sizeDelta.x;
+
+        baseXValue = valuesList[0].Time;
 
         float finalXPosition = CalculatePositionX(valuesList.Count - 1);
         int count = 0;

@@ -949,7 +949,7 @@ PrefabInstance:
     - target: {fileID: 2399546767162450849, guid: b938acb5a47664c44a83311967632354,
         type: 3}
       propertyPath: yGraphScale
-      value: 150
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2800608991191763872, guid: b938acb5a47664c44a83311967632354,
         type: 3}

@@ -7,6 +7,8 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     #region Properties
     public bool IsArcadeMode { get; set; }
+    public PlayerCanvasManager PlayerCanvasManager { get; protected set; }
+
     public CountTimer CountTimer { get; protected set; }
     public TimingHandeler TimingHandeler { get; protected set; }
     public ScoreManager ScoreManager { get; protected set; }
@@ -36,6 +38,12 @@ public class GameManager : Etienne.Singleton<GameManager> {
     #endregion
 
     #region Setters
+
+    public void SetPlayerCanvasManager(PlayerCanvasManager _playerCanvasManager) {
+        PlayerCanvasManager = _playerCanvasManager;
+    }
+
+
     public void SetCountTimer(CountTimer _countTimer) {
         CountTimer = _countTimer;
     }
