@@ -97,9 +97,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
         } else {
             Debug.LogWarning("Not PlayerCanvasManager Found");
         }
-    }
 
-    public void ScoreScreen() {
         if(IsArcadeMode) {
             if(CountTimer != null) {
                 SetMaximumTimeReached(CountTimer.MaxcountTimeReached);
@@ -122,10 +120,15 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
             if(CardiacMassage != null) {
                 SetPushsDatas(CardiacMassage.pushDatas);
+                CardiacMassage.gameObject.SetActive(false);
             } else {
                 Debug.LogWarning($"No CardiacMassage referenced", this);
             }
+        }
+    }
 
+    public void ScoreScreen() {
+        if(IsArcadeMode) {
             SceneLoader.Instance.ChangeScene(Scenes.EndGame);
         }
     }

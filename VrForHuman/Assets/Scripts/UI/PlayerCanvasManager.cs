@@ -10,12 +10,6 @@ public class PlayerCanvasManager : MonoBehaviour {
 
     private void Awake() {
         GameManager.Instance.SetPlayerCanvasManager(this);
-
-        /*if(GameManager.Instance.CardiacMassage == null) {
-            ActiveCityDisplay(false);
-        } else {
-            ActiveCityDisplay(true);
-        }*/
     }
 
     public void ActiveEndSimlulationDisplay(bool _value) {
