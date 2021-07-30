@@ -54,7 +54,7 @@ namespace Valve.VR.InteractionSystem {
 
         //-------------------------------------------------
         protected virtual void OnButtonClick() {
-            onHandClick?.Invoke(currentHand);
+            onHandClick.Invoke(currentHand);
         }
     }
 
