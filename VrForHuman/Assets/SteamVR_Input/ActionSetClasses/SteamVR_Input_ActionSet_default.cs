@@ -105,6 +105,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Pose RightFoot
+        {
+            get
+            {
+                return SteamVR_Actions.default_RightFoot;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get
