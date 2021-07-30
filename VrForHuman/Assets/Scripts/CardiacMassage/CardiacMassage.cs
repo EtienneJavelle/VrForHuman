@@ -19,6 +19,10 @@ namespace CardiacMassage {
         [Tooltip("TEST")]
         [SerializeField] private Transform TestChestBone;
 
+        [Space]
+
+        [SerializeField] private float totalDurationSimulation;
+
         private enum State { Idle, Up, Down }
         private bool isStarted;
         private Vector3 startPosition;
@@ -28,6 +32,8 @@ namespace CardiacMassage {
         private Vector3 oldPosition;
         private bool isGoingUp, isGoingDown;
         private float startMassageTime;
+
+        private float countTime = 0.0f;
         public List<CardiacMassagePressureData> pushDatas { get; protected set; }
 
         private void Awake() {
@@ -35,12 +41,20 @@ namespace CardiacMassage {
                 GameManager.Instance.SetCardiacMassage(this);
                 pushDatas = new List<CardiacMassagePressureData>();
             }
+
             hoverButton ??= GetComponent<HoverButton>();
             interactable ??= GetComponent<Interactable>();
             interactable.onAttachedToHand += _ => StartMassage();
             interactable.onDetachedFromHand += _ => StopMassage();
         }
         private void Start() {
+            if(GameManager.Instance.PlayerCanvasManager != null) {
+                GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
+                GameManager.Instance.PlayerCanvasManager.ActiveEndSimlulationDisplay(false);
+            } else {
+                Debug.LogWarning("Not PlayerCanvasManager Found");
+            }
+
             StartMassage();
         }
         private void Update() {
@@ -65,6 +79,13 @@ namespace CardiacMassage {
                 Debug.DrawLine(currentPosition, currentPosition + velocity.normalized, Color.green);
             }
             oldPosition = currentPosition;
+
+            if(GameManager.Instance.arrestCardiacStarted) {
+                AddCountTime(Time.deltaTime);
+            }
+            if(countTime >= totalDurationSimulation) {
+                GameManager.Instance.EndSimulation();
+            }
         }
 
         [ContextMenu("Start Massage")]
@@ -134,6 +155,10 @@ namespace CardiacMassage {
                 case State.Down:
                     break;
             }
+        }
+
+        private void AddCountTime(float _amount) {
+            countTime += _amount;
         }
 
         private void OnDrawGizmosSelected() {

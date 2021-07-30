@@ -37,7 +37,7 @@ public class TestDebug : MonoBehaviour {
         }
 
         if(Input.GetKeyDown(EndGameKey)) {
-            GameManager.Instance.EndGame();
+            GameManager.Instance.EndSimulation();
         }
 
         if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.NOT_START && Input.GetKeyDown(StartRecordKey)) {

@@ -7,6 +7,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     #region Properties
     public bool IsArcadeMode { get; set; }
+    public bool arrestCardiacStarted { get; set; }
     public PlayerCanvasManager PlayerCanvasManager { get; protected set; }
 
     public CountTimer CountTimer { get; protected set; }
@@ -90,7 +91,15 @@ public class GameManager : Etienne.Singleton<GameManager> {
     }
     #endregion
 
-    public void EndGame() {
+    public void EndSimulation() {
+        if(PlayerCanvasManager != null) {
+            PlayerCanvasManager.ActiveEndSimlulationDisplay(true);
+        } else {
+            Debug.LogWarning("Not PlayerCanvasManager Found");
+        }
+    }
+
+    public void ScoreScreen() {
         if(IsArcadeMode) {
             if(CountTimer != null) {
                 SetMaximumTimeReached(CountTimer.MaxcountTimeReached);

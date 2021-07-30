@@ -18,6 +18,8 @@ public class RunnerManager : MonoBehaviour {
         testBasicDummy.SetActive(_value);
         cardiacMassageButton.SetActive(_value);
 
+        GameManager.Instance.arrestCardiacStarted = _value;
+
         runner.gameObject.SetActive(!_value);
     }
 }
