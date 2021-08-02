@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Valve.VR;
@@ -16,32 +15,6 @@ public class VRInputModule : BaseInputModule {
         base.Awake();
 
         data = new PointerEventData(eventSystem);
-    }
-
-    public void ClassicMode() {
-        GameManager.Instance.IsArcadeMode = false;
-        if(GameManager.Instance.PlayerCanvasManager != null) {
-            GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
-        }
-
-        SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
-    }
-
-    [ContextMenu("ArcadeMode")]
-    public void ArcadeMode() {
-        GameManager.Instance.IsArcadeMode = true;
-        if(GameManager.Instance.PlayerCanvasManager != null) {
-            GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
-        }
-
-        SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
-    }
-
-    public void QuitGame() {
-        Application.Quit();
-#if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
-#endif
     }
 
     public override void Process() {

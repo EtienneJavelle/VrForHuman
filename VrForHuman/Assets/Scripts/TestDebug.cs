@@ -3,7 +3,7 @@ using RockVR.Video;
 using UnityEngine;
 
 public class TestDebug : MonoBehaviour {
-    private VRInputModule vRInputModule;
+    private MainMenu mainMenu;
     private ScoreManager scoreManager;
 
     public KeyCode AddScoreKey, RemoveScoreKey, EndGameKey,
@@ -12,7 +12,7 @@ public class TestDebug : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
-        vRInputModule = FindObjectOfType<VRInputModule>();
+        mainMenu = FindObjectOfType<MainMenu>();
         scoreManager = FindObjectOfType<ScoreManager>();
     }
 
@@ -20,12 +20,12 @@ public class TestDebug : MonoBehaviour {
     private void Update() {
 #if UNITY_EDITOR
 
-        if(vRInputModule != null && Input.GetKeyDown(ClassicModeKey)) {
-            vRInputModule.ClassicMode();
+        if(mainMenu != null && Input.GetKeyDown(ClassicModeKey)) {
+            mainMenu.ClassicMode();
         }
 
-        if(vRInputModule != null && Input.GetKeyDown(ArcadeModeKey)) {
-            vRInputModule.ArcadeMode();
+        if(mainMenu != null && Input.GetKeyDown(ArcadeModeKey)) {
+            mainMenu.ArcadeMode();
         }
 
         if(Input.GetKeyDown(AddScoreKey) && scoreManager != null) {
