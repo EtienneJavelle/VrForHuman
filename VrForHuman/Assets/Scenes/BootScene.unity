@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 583836377}
   - component: {fileID: 583836379}
   - component: {fileID: 583836378}
+  - component: {fileID: 583836380}
   m_Layer: 0
   m_Name: RightWrist
   m_TagString: Untagged
@@ -404,7 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherHand: {fileID: 0}
-  handType: 0
+  handType: 2
   trackedObject: {fileID: 0}
   grabPinchAction:
     actionPath: /actions/default/in/GrabPinch
@@ -443,6 +444,36 @@ MonoBehaviour:
   showDebugText: 0
   spewDebugText: 0
   showDebugInteractables: 0
+--- !u!114 &583836380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583836376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6151f97d37a14d4298bf9d18807ac79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  findNext:
+    m_Name: Find Next
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 4de4cb48-841f-4d2f-a34f-61ef84b84451
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: baa3adb6-5826-4cca-9323-e0d0410d8dab
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Find Next
+      m_Flags: 0
+  ignoreHMD: 1
+  ignorebases: 1
 --- !u!1 &841100491
 GameObject:
   m_ObjectHideFlags: 0
