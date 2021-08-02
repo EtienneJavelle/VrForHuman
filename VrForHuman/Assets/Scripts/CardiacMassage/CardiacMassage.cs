@@ -1,3 +1,4 @@
+using RockVR.Video;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +55,9 @@ namespace CardiacMassage {
             } else {
                 Debug.LogWarning("Not PlayerCanvasManager Found");
             }
+
+            VideoCapture[] _camerasViews = FindObjectsOfType<VideoCapture>();
+            VideoCaptureCtrl.instance.videoCaptures = _camerasViews;
 
             StartMassage();
         }
