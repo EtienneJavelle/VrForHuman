@@ -1,66 +1,33 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Runner : MonoBehaviour {
 
-    #region Fields
-
-    private Transform currentTarget;
-    private int pathIndex = 0;
-
-    private RunnerManager runnerManager;
-    private Rigidbody rb;
-
-    private Vector3 direction;
-
-    private bool isRunning;
-    private bool inCardiacArrest;
-
-
-    #endregion
-
     #region UnityInspector
 
     [SerializeField] private Animator anim;
-
-
-    [SerializeField] private Transform[] paths;
-    [SerializeField] private float speed = 1f;
+    [SerializeField] private Etienne.Path path;
+    [SerializeField] private float duration = 5f;
 
     #endregion
 
-    private void Start() {
+    #region Fields
+    private RunnerManager runnerManager;
+    #endregion
 
-        rb = GetComponent<Rigidbody>();
+    private void Awake() {
+        path ??= GetComponent<Etienne.Path>();
         runnerManager = GetComponentInParent<RunnerManager>();
+    }
 
-        currentTarget = paths[0];
-        isRunning = true;
-        inCardiacArrest = false;
+    private void Start() {
+        transform.DOLocalPath(path.LocalWaypoints, duration, PathType.CatmullRom, PathMode.Full3D, 10, Color.blue).SetLookAt(0.01f).OnComplete(EndPath);
+        anim.SetBool("IsRunning", true);
 
     }
 
-    // Update is called once per frame
-    private void Update() {
-        direction = currentTarget.position - transform.position;
-        direction.Normalize();
-        transform.LookAt(new Vector3(currentTarget.position.x, transform.position.y, currentTarget.position.z));
-
-        rb.velocity = direction * speed * Time.deltaTime;
-        anim.SetBool("IsRunning", isRunning);
-
-        if(isRunning) {
-            if(Vector3.Distance(transform.position, currentTarget.position) < 1f) {
-                if(pathIndex < paths.Length - 1) {
-                    pathIndex++;
-                    currentTarget = paths[pathIndex];
-                } else {
-                    Debug.Log("End Path");
-                    speed = 0;
-                    isRunning = false;
-                    inCardiacArrest = true;
-                    runnerManager.ActiveCardiacMassage(true);
-                }
-            }
-        }
+    private void EndPath() {
+        Debug.Log("End Path");
+        runnerManager.ActiveCardiacMassage(true);
     }
 }
