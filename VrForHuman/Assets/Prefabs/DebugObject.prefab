@@ -51,3 +51,7 @@ MonoBehaviour:
   StartRecordKey: 116
   PauseRecordKey: 121
   StopRecordKey: 117
+  PlayVideoKey: 103
+  NextVideoKey: 104
+  PreviousVideoKey: 102
+  ExitVideoModeKey: 106

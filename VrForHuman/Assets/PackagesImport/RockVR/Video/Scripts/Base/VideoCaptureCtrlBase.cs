@@ -1,13 +1,11 @@
-﻿using UnityEngine;
-using RockVR.Common;
+﻿using RockVR.Common;
+using UnityEngine;
 
-namespace RockVR.Video
-{
+namespace RockVR.Video {
     /// <summary>
     /// Base class for <c>VideoCaptureCtrl</c> and <c>VideoCaptureProCtrl</c> class.
     /// </summary>
-    public class VideoCaptureCtrlBase : Singleton<VideoCaptureCtrlBase>
-    {
+    public class VideoCaptureCtrlBase : Singleton<VideoCaptureCtrlBase> {
         /// <summary>
         ///                   NOT_START
         ///                      |
@@ -26,8 +24,7 @@ namespace RockVR.Video
         ///  |                   v
         ///  ----------------- FINISH
         /// </summary>
-        public enum StatusType
-        {
+        public enum StatusType {
             NOT_START,
             STARTED,
             PAUSED,
@@ -37,8 +34,7 @@ namespace RockVR.Video
         /// <summary>
         /// Indicates the error of <c>VideoCaptureCtrl</c> module.
         /// </summary>
-        public enum ErrorCodeType
-        {
+        public enum ErrorCodeType {
             /// <summary>
             /// No camera or audio was found to perform video or audio
             /// recording. You must specify one or more to start record.
@@ -90,16 +86,10 @@ namespace RockVR.Video
         /// Get or set the <c>VideoCapture</c> or <c>VideoCapturePro</c> components.
         /// </summary>
         /// <value>The <c>VideoCapture</c> components.</value>
-        public VideoCaptureBase[] videoCaptures
-        {
-            get
-            {
-                return _videoCaptures;
-            }
-            set
-            {
-                if (status == StatusType.STARTED)
-                {
+        public VideoCaptureBase[] videoCaptures {
+            get => _videoCaptures;
+            set {
+                if(status == StatusType.STARTED) {
                     Debug.LogWarning("[VideoCaptureCtrl::VideoCaptures] Cannot " +
                                      "set camera during capture session!");
                     return;
@@ -120,24 +110,18 @@ namespace RockVR.Video
         /// </summary>
         public virtual void ToggleCapture() { }
 
-        private void Start()
-        {
-            if (startOnAwake && status == StatusType.NOT_START)
-            {
+        private void Start() {
+            if(startOnAwake && status == StatusType.NOT_START) {
                 StartCapture();
             }
         }
 
-        private void Update()
-        {
-            if (startOnAwake)
-            {
-                if (Time.time >= captureTime && status == StatusType.STARTED)
-                {
+        private void Update() {
+            if(startOnAwake) {
+                if(Time.time >= captureTime && status == StatusType.STARTED) {
                     StopCapture();
                 }
-                if (status == StatusType.FINISH && quitAfterCapture)
-                {
+                if(status == StatusType.FINISH && quitAfterCapture) {
 #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
 #else

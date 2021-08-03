@@ -2,13 +2,13 @@
 
 namespace RockVR.Video.Demo {
     public class VideoCaptureUI : MonoBehaviour {
-        private bool isPlayVideo = false;
+        public bool isPlayVideo { get; set; }
         private void Awake() {
             Application.runInBackground = true;
             isPlayVideo = false;
         }
 
-        private void OnGUI() {
+        /*private void OnGUI() {
             if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.NOT_START) {
                 if(GUI.Button(new Rect(10, Screen.height - 60, 150, 50), "Start Capture")) {
                     VideoCaptureCtrl.instance.StartCapture();
@@ -55,6 +55,6 @@ namespace RockVR.Video.Demo {
                     }
                 }
             }
-        }
+        }*/
     }
 }
