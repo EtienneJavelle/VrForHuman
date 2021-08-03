@@ -1605,12 +1605,12 @@ MonoBehaviour:
   format: 0
   stereo: 0
   stereoFormat: 1
-  frameSize: 4
+  frameSize: 0
   _cubemapSize: 1
   panoramaProjection: 0
-  encodeQuality: 1
+  encodeQuality: 0
   _antiAliasing: 0
-  _targetFramerate: 2
+  _targetFramerate: 0
   isDedicated: 1
   captureGUI: 1
   mode: 0
@@ -1911,12 +1911,12 @@ MonoBehaviour:
   format: 0
   stereo: 0
   stereoFormat: 1
-  frameSize: 4
+  frameSize: 0
   _cubemapSize: 1
   panoramaProjection: 0
-  encodeQuality: 1
+  encodeQuality: 0
   _antiAliasing: 0
-  _targetFramerate: 2
+  _targetFramerate: 0
   isDedicated: 1
   captureGUI: 1
   mode: 0
@@ -7851,6 +7851,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RecordManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 335168444634480226, guid: 8e801ca04db44044b9c8400962ad4117,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3444302305673989901, guid: 8e801ca04db44044b9c8400962ad4117,
         type: 3}

@@ -19,7 +19,7 @@ public class EndSimulationDisplay : TextFadingDisplay {
             displayText.color.b, displayText.color.a - speedFade * Time.deltaTime);
 
             if(displayText.color.a <= 0) {
-                GameManager.Instance.ScoreScreen();
+                GameManager.Instance.toDebriefScene = true;
                 playerCanvasManager.ActiveEndSimlulationDisplay(false);
             }
         }

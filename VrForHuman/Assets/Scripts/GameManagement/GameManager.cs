@@ -1,4 +1,5 @@
 using CardiacMassage;
+using RockVR.Video;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ using UnityEngine;
 public class GameManager : Etienne.Singleton<GameManager> {
 
     #region Properties
+
+    public bool toDebriefScene { get; set; }
+
     public bool IsArcadeMode { get; set; }
     public bool arrestCardiacStarted { get; set; }
     public PlayerCanvasManager PlayerCanvasManager { get; protected set; }
@@ -94,6 +98,16 @@ public class GameManager : Etienne.Singleton<GameManager> {
         cardiacMassageSaving.pushDatas = _pushData;
     }
     #endregion
+
+    private void Update() {
+        if(toDebriefScene && VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
+            toDebriefScene = false;
+            if(RecordManager != null) {
+                RecordManager.SetRootFolderVideo();
+            }
+            ScoreScreen();
+        }
+    }
 
     public void EndSimulation() {
         if(PlayerCanvasManager != null) {

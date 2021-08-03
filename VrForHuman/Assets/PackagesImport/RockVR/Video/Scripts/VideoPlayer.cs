@@ -14,11 +14,23 @@ namespace RockVR.Video {
         /// </summary>
         private UnityEngine.Video.VideoPlayer videoPlayerImpl;
         private int index = 0;
+        public bool videoPlayerActive { get; set; }
         public static VideoPlayer instance;
         private void Awake() {
             if(instance == null) {
                 instance = this;
             }
+        }
+
+        private void Update() {
+            if(videoPlayerImpl != null && videoPlayerImpl.isPlaying == false && videoPlayerActive) {
+                videoPlayerActive = false;
+                SetVideoPlayerImplCameraTarget(null);
+            }
+        }
+
+        public void SetVideoPlayerImplCameraTarget(Camera _cam) {
+            videoPlayerImpl.targetCamera = _cam;
         }
         /// <summary>
         /// Add video file to video file list.
@@ -40,7 +52,7 @@ namespace RockVR.Video {
             videoPlayerImpl.source = UnityEngine.Video.VideoSource.Url;
             videoPlayerImpl.playOnAwake = false;
             videoPlayerImpl.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
-            videoPlayerImpl.targetCamera = Camera.main;
+            SetVideoPlayerImplCameraTarget(Camera.main);
             videoPlayerImpl.audioOutputMode = UnityEngine.Video.VideoAudioOutputMode.AudioSource;
             videoPlayerImpl.controlledAudioTrackCount = 1;
             videoPlayerImpl.aspectRatio = UnityEngine.Video.VideoAspectRatio.Stretch;
@@ -61,6 +73,17 @@ namespace RockVR.Video {
             Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + index + " " + videoFiles[index]);
             videoPlayerImpl.Play();
         }
+
+        public void PlayVideoAtIndex(int _index) {
+            if(_index >= videoFiles.Count) {
+                return;
+            }
+
+            GetComponent<UnityEngine.Video.VideoPlayer>().url = "file://" + videoFiles[_index];
+            Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + _index + " " + videoFiles[_index]);
+            videoPlayerImpl.Play();
+        }
+
         /// <summary>
         /// Turn to next video
         /// </summary>
