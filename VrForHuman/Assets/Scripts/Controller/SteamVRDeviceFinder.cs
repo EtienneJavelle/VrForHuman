@@ -1,20 +1,23 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class SteamVRDeviceFinder : MonoBehaviour {
-    [SerializeField] private InputAction findNext;
+
+    [SerializeField] private SteamVR_Action_Boolean calibrateHandAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("CalibrateRightHand");
     [SerializeField] private bool ignoreHMD = true, ignorebases = true;
 
     private Coroutine coroutine;
+    private Hand hand;
+    private SteamVR_TrackedObject trackedObject;
 
     private void Start() {
-        SteamVR_TrackedObject obj = GetComponent<SteamVR_TrackedObject>();
-        if(!obj.isValid) {
-            coroutine = StartCoroutine(FindDeviceCoroutine(obj));
+        hand = GetComponent<Hand>();
+        trackedObject = GetComponent<SteamVR_TrackedObject>();
+        if(!trackedObject.isValid) {
+            coroutine = StartCoroutine(FindDeviceCoroutine(trackedObject));
         }
-        findNext.performed += _ => FindDevice(obj);
     }
 
     private void FindDevice(SteamVR_TrackedObject obj) {
@@ -43,11 +46,9 @@ public class SteamVRDeviceFinder : MonoBehaviour {
 
     }
 
-    private void OnEnable() {
-        findNext.Enable();
-    }
-
-    private void OnDisable() {
-        findNext.Disable();
+    private void Update() {
+        if(calibrateHandAction.GetStateDown(hand.handType)) {
+            FindDevice(trackedObject);
+        }
     }
 }

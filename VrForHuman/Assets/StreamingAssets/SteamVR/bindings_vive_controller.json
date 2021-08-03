@@ -1,4 +1,5 @@
 {
+  "app_key": "application.generated.unity.vrforhuman.exe",
   "controller_type": "vive_controller",
   "description": "",
   "name": "vive_controller",
@@ -259,54 +260,6 @@
         }
       ]
     },
-    "/actions/platformer": {
-      "chords": [],
-      "sources": [
-        {
-          "path": "/user/hand/left/input/trackpad",
-          "mode": "button",
-          "parameters": {},
-          "inputs": {
-            "click": {
-              "output": "/actions/platformer/in/jump"
-            }
-          }
-        },
-        {
-          "path": "/user/hand/right/input/trackpad",
-          "mode": "button",
-          "parameters": {},
-          "inputs": {
-            "click": {
-              "output": "/actions/platformer/in/jump"
-            }
-          }
-        },
-        {
-          "path": "/user/hand/left/input/trackpad",
-          "mode": "trackpad",
-          "parameters": {},
-          "inputs": {
-            "position": {
-              "output": "/actions/platformer/in/move"
-            }
-          }
-        },
-        {
-          "path": "/user/hand/right/input/trackpad",
-          "mode": "trackpad",
-          "parameters": {},
-          "inputs": {
-            "position": {
-              "output": "/actions/platformer/in/move"
-            }
-          }
-        }
-      ],
-      "poses": [],
-      "haptics": [],
-      "skeleton": []
-    },
     "/actions/htc_viu": {
       "chords": [],
       "sources": [
@@ -474,6 +427,54 @@
           "path": "/user/hand/right/input/skeleton/right"
         }
       ]
+    },
+    "/actions/platformer": {
+      "chords": [],
+      "sources": [
+        {
+          "path": "/user/hand/left/input/trackpad",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/platformer/in/jump"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trackpad",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/platformer/in/jump"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/trackpad",
+          "mode": "trackpad",
+          "parameters": {},
+          "inputs": {
+            "position": {
+              "output": "/actions/platformer/in/move"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trackpad",
+          "mode": "trackpad",
+          "parameters": {},
+          "inputs": {
+            "position": {
+              "output": "/actions/platformer/in/move"
+            }
+          }
+        }
+      ],
+      "poses": [],
+      "haptics": [],
+      "skeleton": []
     }
   }
 }

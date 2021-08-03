@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8419190896610710574}
   - component: {fileID: 8419190896610710575}
   - component: {fileID: 8419190896610710572}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MovingPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 9143706936806192407}
   - component: {fileID: 9143706936806192404}
   - component: {fileID: 9143706936806192406}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CardiacMassage_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,6 +1,27 @@
 {
+  "app_key": "application.generated.unity.vrforhuman.exe",
   "controller_type": "vive_tracker",
+  "description": "",
+  "name": "CalibrateCapable",
   "bindings": {
+    "/actions/default": {
+      "chords": [],
+      "sources": [
+        {
+          "path": "/input/power",
+          "mode": "button",
+          "parameters": {},
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/calibratehand"
+            }
+          }
+        }
+      ],
+      "poses": [],
+      "haptics": [],
+      "skeleton": []
+    },
     "/actions/htc_viu": {
       "chords": [],
       "sources": [

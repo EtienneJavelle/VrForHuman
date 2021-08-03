@@ -113,6 +113,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean CalibrateHand
+        {
+            get
+            {
+                return SteamVR_Actions.default_CalibrateHand;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get
