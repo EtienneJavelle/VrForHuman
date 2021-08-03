@@ -9,6 +9,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
     public bool IsArcadeMode { get; set; }
     public bool arrestCardiacStarted { get; set; }
     public PlayerCanvasManager PlayerCanvasManager { get; protected set; }
+    public RecordManager RecordManager { get; protected set; }
 
     public CountTimer CountTimer { get; protected set; }
     public TimingHandeler TimingHandeler { get; protected set; }
@@ -44,6 +45,9 @@ public class GameManager : Etienne.Singleton<GameManager> {
         PlayerCanvasManager = _playerCanvasManager;
     }
 
+    public void SetRecordManager(RecordManager _recordManager) {
+        RecordManager = _recordManager;
+    }
 
     public void SetCountTimer(CountTimer _countTimer) {
         CountTimer = _countTimer;
@@ -96,6 +100,12 @@ public class GameManager : Etienne.Singleton<GameManager> {
             PlayerCanvasManager.ActiveEndSimlulationDisplay(true);
         } else {
             Debug.LogWarning("Not PlayerCanvasManager Found");
+        }
+
+        if(RecordManager != null) {
+            RecordManager.StopRecord();
+        } else {
+            Debug.LogWarning("Not RecordManager Found");
         }
 
         if(IsArcadeMode) {

@@ -2824,13 +2824,13 @@ MonoBehaviour:
   format: 0
   stereo: 0
   stereoFormat: 1
-  frameSize: 3
+  frameSize: 4
   _cubemapSize: 1
   panoramaProjection: 0
   encodeQuality: 1
   _antiAliasing: 0
   _targetFramerate: 2
-  isDedicated: 0
+  isDedicated: 1
   captureGUI: 1
   mode: 0
   customPath: 0
@@ -3055,13 +3055,13 @@ MonoBehaviour:
   format: 0
   stereo: 0
   stereoFormat: 1
-  frameSize: 3
+  frameSize: 4
   _cubemapSize: 1
   panoramaProjection: 0
   encodeQuality: 1
   _antiAliasing: 0
   _targetFramerate: 2
-  isDedicated: 0
+  isDedicated: 1
   captureGUI: 1
   mode: 0
   customPath: 0

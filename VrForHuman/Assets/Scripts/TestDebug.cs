@@ -8,6 +8,7 @@ public class TestDebug : MonoBehaviour {
     private ScoreManager scoreManager;
 
     private VideoCaptureUI videoCaptureUI;
+    private RecordManager recordManager;
 
     public KeyCode AddScoreKey, RemoveScoreKey, EndGameKey,
         ClassicModeKey, ArcadeModeKey,
@@ -19,6 +20,7 @@ public class TestDebug : MonoBehaviour {
         scoreManager = FindObjectOfType<ScoreManager>();
 
         videoCaptureUI = FindObjectOfType<VideoCaptureUI>();
+        recordManager = FindObjectOfType<RecordManager>();
     }
 
     // Update is called once per frame
@@ -45,17 +47,14 @@ public class TestDebug : MonoBehaviour {
             GameManager.Instance.EndSimulation();
         }
 
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.NOT_START && Input.GetKeyDown(StartRecordKey)) {
-            VideoCaptureCtrl.instance.StartCapture();
-            UnityEngine.Debug.Log("START");
-        } else if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.STARTED) {
+        if(recordManager != null && Input.GetKeyDown(StartRecordKey)) {
+            recordManager.StartRecord();
+        } else if(recordManager != null) {
             if(Input.GetKeyDown(StopRecordKey)) {
-                VideoCaptureCtrl.instance.StopCapture();
-                UnityEngine.Debug.Log("STOP");
+                recordManager.StopRecord();
             }
             if(Input.GetKeyDown(PauseRecordKey)) {
-                VideoCaptureCtrl.instance.ToggleCapture();
-                UnityEngine.Debug.Log("PAUSE");
+                recordManager.PauseRecord();
             }
         } else if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
             if(!videoCaptureUI.isPlayVideo) {

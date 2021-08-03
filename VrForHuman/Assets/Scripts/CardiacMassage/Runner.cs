@@ -29,13 +29,13 @@ public class Runner : MonoBehaviour {
     #endregion
 
     private void Start() {
+
         rb = GetComponent<Rigidbody>();
         runnerManager = GetComponentInParent<RunnerManager>();
 
         currentTarget = paths[0];
         isRunning = true;
         inCardiacArrest = false;
-
 
     }
 
@@ -49,7 +49,7 @@ public class Runner : MonoBehaviour {
         anim.SetBool("IsRunning", isRunning);
 
         if(isRunning) {
-            if(Vector3.Distance(transform.position, currentTarget.position) < 0.3f) {
+            if(Vector3.Distance(transform.position, currentTarget.position) < 1f) {
                 if(pathIndex < paths.Length - 1) {
                     pathIndex++;
                     currentTarget = paths[pathIndex];
