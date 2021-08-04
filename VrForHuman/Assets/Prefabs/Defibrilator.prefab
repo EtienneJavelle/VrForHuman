@@ -323,6 +323,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5293518852966125144}
+  - component: {fileID: 8558818050684249339}
+  - component: {fileID: 3203014118601301761}
   m_Layer: 0
   m_Name: Defibrilator
   m_TagString: Untagged
@@ -345,6 +347,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8558818050684249339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293518852966125147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e81d551b9a803d47a6e54987411f12a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLooped: 0
+  waypoints:
+  - {x: 4.4551544, y: 0, z: -3.0622253}
+  - {x: 2.9283814, y: 0, z: -1.0413799}
+  - {x: -0.009331167, y: 0, z: -0.031805098}
+--- !u!114 &3203014118601301761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293518852966125147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a521c1ab7f085b4c849f52047c5194f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitingTime: 3
+  pathDuration: 3
 --- !u!1 &5293518853624188524
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,8 +387,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5293518853624188525}
-  - component: {fileID: 5293518853624188515}
-  - component: {fileID: 5293518853624188514}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -380,37 +411,6 @@ Transform:
   m_Father: {fileID: 5293518852966125144}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5293518853624188515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5293518853624188524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e81d551b9a803d47a6e54987411f12a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLooped: 0
-  waypoints:
-  - {x: 4.4551544, y: 0, z: -3.0622253}
-  - {x: 2.9283814, y: 0, z: -1.0413799}
-  - {x: -0.009331167, y: 0, z: -0.031805098}
---- !u!114 &5293518853624188514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5293518853624188524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a521c1ab7f085b4c849f52047c5194f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitingTime: 3
-  pathDuration: 3
 --- !u!1 &5293518853768117303
 GameObject:
   m_ObjectHideFlags: 0

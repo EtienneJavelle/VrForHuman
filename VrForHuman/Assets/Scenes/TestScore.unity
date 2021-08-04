@@ -984,6 +984,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1264870215, guid: 0f7400af763f81a43bcf082216d856d3, type: 3}
+      propertyPath: defibrilator
+      value: 
+      objectReference: {fileID: 5293518853126949963}
+    - target: {fileID: 1264870215, guid: 0f7400af763f81a43bcf082216d856d3, type: 3}
       propertyPath: testBasicDummy
       value: 
       objectReference: {fileID: 1152620547}
@@ -1346,6 +1350,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9f8f7a60c7f3324cb354fd35e5b5011, type: 3}
+--- !u!1 &5293518853126949963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5293518852966125147, guid: a9f8f7a60c7f3324cb354fd35e5b5011,
+    type: 3}
+  m_PrefabInstance: {fileID: 5293518853126949962}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8419190898579715289
 PrefabInstance:
   m_ObjectHideFlags: 0
