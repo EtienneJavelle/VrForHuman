@@ -22,7 +22,7 @@ public class ReplayVideoManager : MonoBehaviour {
     }
 
     private void Start() {
-        for(int i = 0; i < VideoPlayer.instance.videoFiles.Count; i++) {
+        for(int i = 0; i < VideoPlayer.instance.currentVideoFiles.Count; i++) {
             ReplayVideoButton videoButton = Instantiate(videoButtonPrefab);
             videoButton.transform.SetParent(transform);
             videoButton.transform.localPosition = Vector3.zero;
@@ -31,8 +31,10 @@ public class ReplayVideoManager : MonoBehaviour {
             //listReplayVideosButtons.Add(videoButton);
 
             videoButton.onHandClick.AddListener(_ => {
-                PlayVideoAtIndex(videoButton.videoIndex);
-                Debug.Log("VideoButton");
+                if(GameManager.Instance.replayVideoIsPlaying == false) {
+                    PlayVideoAtIndex(videoButton.videoIndex);
+                    Debug.Log("VideoButton");
+                }
             }
         );
         }
@@ -53,8 +55,12 @@ public class ReplayVideoManager : MonoBehaviour {
 #if UNITY_5_6_OR_NEWER
             // Play capture video.
             VideoPlayer.instance.PlayVideoAtIndex(_index);
+
             VideoPlayer.instance.videoPlayerActive = true;
+            //Camera.main.GetComponent<CameraManager>().SetActiveReplayVideoCanvas(true);
             VideoPlayer.instance.SetVideoPlayerImplCameraTarget(Camera.main);
+
+            GameManager.Instance.replayVideoIsPlaying = true;
             UnityEngine.Debug.Log("PLAY VIDEO " + _index);
         }
     }

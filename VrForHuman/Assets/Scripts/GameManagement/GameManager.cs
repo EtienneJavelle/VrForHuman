@@ -8,10 +8,13 @@ public class GameManager : Etienne.Singleton<GameManager> {
 
     #region Properties
 
+    public bool replayVideoIsPlaying { get; set; }
+
     public bool toDebriefScene { get; set; }
 
     public bool IsArcadeMode { get; set; }
     public bool arrestCardiacStarted { get; set; }
+
     public PlayerCanvasManager PlayerCanvasManager { get; protected set; }
     public RecordManager RecordManager { get; protected set; }
 

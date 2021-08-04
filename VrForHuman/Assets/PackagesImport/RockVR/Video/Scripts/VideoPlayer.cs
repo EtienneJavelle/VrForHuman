@@ -9,6 +9,7 @@ namespace RockVR.Video {
         /// Save the video files.
         /// </summary>
         public List<string> videoFiles = new List<string>();
+        public List<string> currentVideoFiles = new List<string>();
         /// <summary>
         /// Play video properties.
         /// </summary>
@@ -26,6 +27,8 @@ namespace RockVR.Video {
             if(videoPlayerImpl != null && videoPlayerImpl.isPlaying == false && videoPlayerActive) {
                 videoPlayerActive = false;
                 SetVideoPlayerImplCameraTarget(null);
+                //Camera.main.GetComponent<CameraManager>().SetActiveReplayVideoCanvas(false);
+                GameManager.Instance.replayVideoIsPlaying = false;
             }
         }
 

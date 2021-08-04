@@ -65,6 +65,9 @@ namespace RockVR.Video {
                                  " capture not finish yet!");
                 return;
             }
+
+            VideoPlayer.instance.currentVideoFiles.Clear();
+
             // Filter out disabled capture component.
             List<VideoCapture> validCaptures = new List<VideoCapture>();
             if(videoCaptures != null && videoCaptures.Length > 0) {
@@ -155,6 +158,10 @@ namespace RockVR.Video {
                 }
                 videoCapture.StopCapture();
                 PathConfig.lastVideoFile = videoCapture.filePath;
+                if(!VideoPlayer.instance.currentVideoFiles.Contains(PathConfig.lastVideoFile)) {
+                    VideoPlayer.instance.currentVideoFiles.Add(PathConfig.lastVideoFile);
+                    Debug.Log(PathConfig.lastVideoFile);
+                }
             }
             if(IsCaptureAudio()) {
                 audioCapture.StopCapture();

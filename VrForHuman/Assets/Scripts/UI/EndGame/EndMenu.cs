@@ -8,16 +8,20 @@ public class EndMenu : MonoBehaviour {
 
     private void Start() {
         menuButton.onHandClick.AddListener(_ => {
-            SceneLoader.Instance.ChangeScene(Scenes.MainMenu);
-            Debug.Log("MenuButton");
+            if(GameManager.Instance.replayVideoIsPlaying == false) {
+                SceneLoader.Instance.ChangeScene(Scenes.MainMenu);
+                Debug.Log("MenuButton");
+            }
         }
         );
 
         quitButton.onHandClick.AddListener(_ => {
-            Debug.Log("QuitButton");
-            Application.Quit();
+            if(GameManager.Instance.replayVideoIsPlaying == false) {
+                Debug.Log("QuitButton");
+                Application.Quit();
 #if UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
+                EditorApplication.ExitPlaymode();
+            }
 #endif
         });
     }
