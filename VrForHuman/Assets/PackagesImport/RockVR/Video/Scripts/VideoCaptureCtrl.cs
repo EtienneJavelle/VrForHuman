@@ -67,6 +67,8 @@ namespace RockVR.Video {
             }
 
             VideoPlayer.instance.currentVideoFiles.Clear();
+            VideoPlayer.instance.saving = false;
+            VideoCaptureCtrl.instance.saving = false;
 
             // Filter out disabled capture component.
             List<VideoCapture> validCaptures = new List<VideoCapture>();
@@ -131,6 +133,14 @@ namespace RockVR.Video {
             garbageCollectionThread.Start();
             // Update current status.
             status = StatusType.STARTED;
+
+            foreach(VideoCapture videoCapture in videoCaptures) {
+                PathConfig.lastVideoFile = videoCapture.filePath;
+                if(!VideoPlayer.instance.currentVideoFiles.Contains(PathConfig.lastVideoFile)) {
+                    VideoPlayer.instance.currentVideoFiles.Add(PathConfig.lastVideoFile);
+                    Debug.Log(PathConfig.lastVideoFile);
+                }
+            }
         }
         /// <summary>
         /// Stop capturing and produce the finalized video. Note that the video file
@@ -277,6 +287,7 @@ namespace RockVR.Video {
         private bool IsCaptureAudio() {
             return isCaptureAudio && !isOfflineRender;
         }
+
         /// <summary>
         /// Initial instance and init variable.
         /// </summary>
@@ -290,7 +301,7 @@ namespace RockVR.Video {
             if(!Directory.Exists(PathConfig.SaveFolder)) {
                 Directory.CreateDirectory(PathConfig.SaveFolder);
             }
-            status = StatusType.NOT_START;
+            InitStatutCapture();
 
 
         }
@@ -303,6 +314,7 @@ namespace RockVR.Video {
             if(status == StatusType.STARTED) {
                 StopCapture();
             }
+            UnityEngine.Debug.Log("STOP");
         }
     }
 }

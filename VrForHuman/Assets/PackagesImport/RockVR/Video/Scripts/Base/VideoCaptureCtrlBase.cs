@@ -31,6 +31,9 @@ namespace RockVR.Video {
             STOPPED,
             FINISH,
         }
+
+        public bool saving { get; set; }
+
         /// <summary>
         /// Indicates the error of <c>VideoCaptureCtrl</c> module.
         /// </summary>
@@ -110,6 +113,10 @@ namespace RockVR.Video {
         /// </summary>
         public virtual void ToggleCapture() { }
 
+        public void InitStatutCapture() {
+            status = StatusType.NOT_START;
+        }
+
         private void Start() {
             if(startOnAwake && status == StatusType.NOT_START) {
                 StartCapture();
@@ -129,6 +136,15 @@ namespace RockVR.Video {
 #endif
                 }
             }
+        }
+
+        private void OnDestroy() {
+            /*if(saving == false) {
+                if(status == StatusType.STARTED) {
+                    StopCapture();
+                    UnityEngine.Debug.Log("STOP");
+                }
+            }*/
         }
     }
 }

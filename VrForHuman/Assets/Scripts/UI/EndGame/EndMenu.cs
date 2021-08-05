@@ -2,14 +2,25 @@
 using UnityEditor;
 #endif
 using UnityEngine;
+using RockVR.Video;
+using System.IO;
 
 public class EndMenu : MonoBehaviour {
     [SerializeField] private ButtonUI menuButton, quitButton;
+    [SerializeField] private ButtonUI saveVideosButton, notSaveVideosButton;
+
+    [SerializeField] private GameObject saveVideosObject;
+    private bool goToMenu, goToExit;
 
     private void Start() {
+
+        saveVideosObject.SetActive(false);
+
         menuButton.onHandClick.AddListener(_ => {
             if(GameManager.Instance.replayVideoIsPlaying == false) {
-                SceneLoader.Instance.ChangeScene(Scenes.MainMenu);
+                goToMenu = true;
+                saveVideosObject.SetActive(true);
+
                 Debug.Log("MenuButton");
             }
         }
@@ -18,11 +29,66 @@ public class EndMenu : MonoBehaviour {
         quitButton.onHandClick.AddListener(_ => {
             if(GameManager.Instance.replayVideoIsPlaying == false) {
                 Debug.Log("QuitButton");
-                Application.Quit();
-#if UNITY_EDITOR
-                EditorApplication.ExitPlaymode();
+
+                goToExit = true;
+                saveVideosObject.SetActive(true);
             }
-#endif
         });
+
+        saveVideosButton.onHandClick.AddListener(_ => {
+            if(GameManager.Instance.replayVideoIsPlaying == false) {
+                Debug.Log("SaveVideosButton");
+
+                if(VideoPlayer.instance != null) {
+                    VideoPlayer.instance.saving = true;
+                }
+
+                if(VideoCaptureCtrl.instance != null) {
+                    VideoCaptureCtrl.instance.saving = true;
+                }
+
+                ExitGame();
+
+                MainMenu();
+
+            }
+        }
+        );
+
+        notSaveVideosButton.onHandClick.AddListener(_ => {
+            if(GameManager.Instance.replayVideoIsPlaying == false) {
+                Debug.Log("NotSaveVideosButton");
+
+                if(VideoPlayer.instance != null) {
+                    for(int i = 0; i < VideoPlayer.instance.currentVideoFiles.Count; i++) {
+                        File.Delete(VideoPlayer.instance.currentVideoFiles[i]);
+                    }
+                }
+
+                ExitGame();
+
+                MainMenu();
+
+            }
+        }
+        );
+    }
+
+    public void ExitGame() {
+        if(goToExit) {
+            Application.Quit();
+            goToExit = false;
+#if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+        }
+#endif
+    }
+
+    public void MainMenu() {
+        if(goToMenu) {
+            VideoCaptureCtrl.instance.InitStatutCapture();
+            SceneLoader.Instance.ChangeScene(Scenes.MainMenu);
+            goToMenu = false;
+        }
     }
 }

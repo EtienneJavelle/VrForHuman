@@ -16,6 +16,7 @@ namespace RockVR.Video {
         private UnityEngine.Video.VideoPlayer videoPlayerImpl;
         private int index = 0;
         public bool videoPlayerActive { get; set; }
+        public bool saving { get; set; }
         public static VideoPlayer instance;
         private void Awake() {
             if(instance == null) {
@@ -78,12 +79,12 @@ namespace RockVR.Video {
         }
 
         public void PlayVideoAtIndex(int _index) {
-            if(_index >= videoFiles.Count) {
+            if(_index >= currentVideoFiles.Count) {
                 return;
             }
 
-            GetComponent<UnityEngine.Video.VideoPlayer>().url = "file://" + videoFiles[_index];
-            Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + _index + " " + videoFiles[_index]);
+            GetComponent<UnityEngine.Video.VideoPlayer>().url = "file://" + currentVideoFiles[_index];
+            Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + _index + " " + currentVideoFiles[_index]);
             videoPlayerImpl.Play();
         }
 
@@ -111,6 +112,20 @@ namespace RockVR.Video {
         public void ExitVideoMode() {
             videoPlayerImpl.targetCamera = null;
         }
+
+        private void OnApplicationQuit() {
+            Debug.Log(" Application se terminant après " + Time.time + " secondes ");
+            if(saving == false) {
+                Debug.LogWarning("Destroy Videos Files");
+                for(int i = 0; i < currentVideoFiles.Count; i++) {
+                    File.Delete(currentVideoFiles[i]);
+                }
+            }
+        }
+
+
+
+
 #endif
     }
 }
