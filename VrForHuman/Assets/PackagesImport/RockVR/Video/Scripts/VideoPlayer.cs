@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace RockVR.Video {
@@ -17,6 +18,9 @@ namespace RockVR.Video {
         private int index = 0;
         public bool videoPlayerActive { get; set; }
         public bool saving { get; set; }
+
+        private bool allowQuitting = false;
+
         public static VideoPlayer instance;
         private void Awake() {
             if(instance == null) {
@@ -113,19 +117,30 @@ namespace RockVR.Video {
             videoPlayerImpl.targetCamera = null;
         }
 
+        private static bool WantsToQuit() {
+            Debug.Log("Player prevented from quitting.");
+            return false;
+        }
+
+        [RuntimeInitializeOnLoadMethod]
+        private static void RunOnStart() {
+            Application.wantsToQuit += WantsToQuit;
+#if UNITY_EDITOR
+            EditorApplication.wantsToQuit += WantsToQuit;
+#endif
+        }
+
         private void OnApplicationQuit() {
+
             Debug.Log(" Application se terminant après " + Time.time + " secondes ");
             if(saving == false) {
                 Debug.LogWarning("Destroy Videos Files");
                 for(int i = 0; i < currentVideoFiles.Count; i++) {
+                    Caching.ClearCache();
                     File.Delete(currentVideoFiles[i]);
                 }
             }
         }
-
-
-
-
 #endif
     }
 }
