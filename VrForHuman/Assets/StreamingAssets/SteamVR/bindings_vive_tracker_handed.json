@@ -28,7 +28,16 @@
           }
         }
       ],
-      "poses": [],
+      "poses": [
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/left/pose/raw"
+        },
+        {
+          "output": "/actions/default/in/pose",
+          "path": "/user/hand/right/pose/raw"
+        }
+      ],
       "haptics": [],
       "skeleton": []
     },
