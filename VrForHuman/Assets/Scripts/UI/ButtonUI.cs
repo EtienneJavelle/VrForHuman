@@ -19,6 +19,11 @@ public class ButtonUI : UIElement {
 
     #region Behaviour
 
+    [ContextMenu("Click Button")]
+    protected override void OnButtonClick() {
+        base.OnButtonClick();
+    }
+
     private void Update() {
         if(currentLoadingCircle != null && currentLoadingCircle.loadingComplete) {
             OnButtonClick();
