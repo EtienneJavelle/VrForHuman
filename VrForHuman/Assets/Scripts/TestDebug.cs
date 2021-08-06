@@ -1,6 +1,7 @@
 using CardiacMassage;
 using RockVR.Video;
 using RockVR.Video.Demo;
+using UnityEditor;
 using UnityEngine;
 
 public class TestDebug : MonoBehaviour {
@@ -12,7 +13,8 @@ public class TestDebug : MonoBehaviour {
 
     public KeyCode AddScoreKey, RemoveScoreKey, EndGameKey,
         ClassicModeKey, ArcadeModeKey,
-        StartRecordKey, PauseRecordKey, StopRecordKey, PlayVideoKey, NextVideoKey, PreviousVideoKey, ExitVideoModeKey;
+        StartRecordKey, PauseRecordKey, StopRecordKey, PlayVideoKey, NextVideoKey, PreviousVideoKey, ExitVideoModeKey,
+        ExitGameKey;
 
     // Start is called before the first frame update
     private void Start() {
@@ -25,6 +27,14 @@ public class TestDebug : MonoBehaviour {
 
     // Update is called once per frame
     private void Update() {
+
+        if(Input.GetKeyDown(ExitGameKey)) {
+            Application.Quit();
+#if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+#endif
+        }
+
 #if UNITY_EDITOR
 
         if(mainMenu != null && Input.GetKeyDown(ClassicModeKey)) {

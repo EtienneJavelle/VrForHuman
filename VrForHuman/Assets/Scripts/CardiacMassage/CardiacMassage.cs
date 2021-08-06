@@ -55,6 +55,9 @@ namespace CardiacMassage {
                 Debug.LogWarning("Not PlayerCanvasManager Found");
             }
 
+            ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
+            _scoreManager.cardiacMassage = this;
+
             StartMassage();
         }
         private void Update() {

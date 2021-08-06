@@ -13,6 +13,10 @@ public class RunnerManager : MonoBehaviourWithRequirement {
 
     private void Awake() {
         defibrilator ??= GameObject.FindObjectOfType<Defibrilator>().gameObject;
+
+    }
+
+    private void Start() {
         ActiveCardiacMassage(false);
     }
 

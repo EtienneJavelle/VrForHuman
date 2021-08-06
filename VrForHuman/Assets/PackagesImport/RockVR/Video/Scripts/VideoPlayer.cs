@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RockVR.Video {
     public class VideoPlayer : MonoBehaviour {
@@ -16,10 +16,9 @@ namespace RockVR.Video {
         /// </summary>
         private UnityEngine.Video.VideoPlayer videoPlayerImpl;
         private int index = 0;
+        public Transform videoPanel { get; set; }
         public bool videoPlayerActive { get; set; }
         public bool saving { get; set; }
-
-        private bool allowQuitting = false;
 
         public static VideoPlayer instance;
         private void Awake() {
@@ -31,8 +30,9 @@ namespace RockVR.Video {
         private void Update() {
             if(videoPlayerImpl != null && videoPlayerImpl.isPlaying == false && videoPlayerActive) {
                 videoPlayerActive = false;
-                SetVideoPlayerImplCameraTarget(null);
+                //SetVideoPlayerImplCameraTarget(null);
                 //Camera.main.GetComponent<CameraManager>().SetActiveReplayVideoCanvas(false);
+                videoPlayerImpl.GetComponent<RawImage>().enabled = false;
                 GameManager.Instance.replayVideoIsPlaying = false;
             }
         }
@@ -40,6 +40,13 @@ namespace RockVR.Video {
         public void SetVideoPlayerImplCameraTarget(Camera _cam) {
             videoPlayerImpl.targetCamera = _cam;
         }
+
+        public void SetParentVideoPlayerImpl() {
+            videoPlayerImpl.transform.SetParent(videoPanel.parent);
+            videoPlayerImpl.transform.localPosition = videoPanel.localPosition;
+            videoPlayerImpl.transform.GetComponent<RectTransform>().localRotation = videoPanel.transform.GetComponent<RectTransform>().localRotation;
+        }
+
         /// <summary>
         /// Add video file to video file list.
         /// </summary>
@@ -56,11 +63,12 @@ namespace RockVR.Video {
                 }
             }
             // Init VideoPlayer properties.
-            videoPlayerImpl = gameObject.GetComponent<UnityEngine.Video.VideoPlayer>();
+            //videoPlayerImpl = gameObject.GetComponent<UnityEngine.Video.VideoPlayer>();
+            videoPlayerImpl = FindObjectOfType<UnityEngine.Video.VideoPlayer>();
             videoPlayerImpl.source = UnityEngine.Video.VideoSource.Url;
             videoPlayerImpl.playOnAwake = false;
-            videoPlayerImpl.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
-            SetVideoPlayerImplCameraTarget(Camera.main);
+            //videoPlayerImpl.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
+            //SetVideoPlayerImplCameraTarget(Camera.main);
             videoPlayerImpl.audioOutputMode = UnityEngine.Video.VideoAudioOutputMode.AudioSource;
             videoPlayerImpl.controlledAudioTrackCount = 1;
             videoPlayerImpl.aspectRatio = UnityEngine.Video.VideoAspectRatio.Stretch;
@@ -77,7 +85,8 @@ namespace RockVR.Video {
                 return;
             }
 
-            GetComponent<UnityEngine.Video.VideoPlayer>().url = "file://" + videoFiles[index];
+            videoPlayerImpl.url = "file://" + videoFiles[index];
+            videoPlayerImpl.GetComponent<RawImage>().enabled = true;
             Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + index + " " + videoFiles[index]);
             videoPlayerImpl.Play();
         }
@@ -87,7 +96,8 @@ namespace RockVR.Video {
                 return;
             }
 
-            GetComponent<UnityEngine.Video.VideoPlayer>().url = "file://" + currentVideoFiles[_index];
+            videoPlayerImpl.url = "file://" + currentVideoFiles[_index];
+            videoPlayerImpl.GetComponent<RawImage>().enabled = true;
             Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + _index + " " + currentVideoFiles[_index]);
             videoPlayerImpl.Play();
         }
@@ -115,32 +125,10 @@ namespace RockVR.Video {
 
         public void ExitVideoMode() {
             videoPlayerImpl.targetCamera = null;
+            videoPlayerImpl.GetComponent<RawImage>().enabled = false;
         }
 
-        private static bool WantsToQuit() {
-            Debug.Log("Player prevented from quitting.");
-            return false;
-        }
 
-        [RuntimeInitializeOnLoadMethod]
-        private static void RunOnStart() {
-            Application.wantsToQuit += WantsToQuit;
-#if UNITY_EDITOR
-            EditorApplication.wantsToQuit += WantsToQuit;
-#endif
-        }
-
-        private void OnApplicationQuit() {
-
-            Debug.Log(" Application se terminant après " + Time.time + " secondes ");
-            if(saving == false) {
-                Debug.LogWarning("Destroy Videos Files");
-                for(int i = 0; i < currentVideoFiles.Count; i++) {
-                    Caching.ClearCache();
-                    File.Delete(currentVideoFiles[i]);
-                }
-            }
-        }
 #endif
     }
 }

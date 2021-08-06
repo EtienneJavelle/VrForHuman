@@ -16,62 +16,57 @@ public class EndMenu : MonoBehaviour {
 
         saveVideosObject.SetActive(false);
 
-        menuButton.onHandClick.AddListener(_ => {
-            if(GameManager.Instance.replayVideoIsPlaying == false) {
-                goToMenu = true;
-                saveVideosObject.SetActive(true);
+        menuButton.onHandClick.AddListener(_ => MenuButton());
 
-                Debug.Log("MenuButton");
+        quitButton.onHandClick.AddListener(_ => QuitButton());
+
+        saveVideosButton.onHandClick.AddListener(_ => SavedVideoButton());
+
+        notSaveVideosButton.onHandClick.AddListener(_ => NotSavedVideoButton());
+    }
+
+    private void MenuButton() {
+        goToMenu = true;
+        saveVideosObject.SetActive(true);
+
+        Debug.Log("MenuButton");
+    }
+
+    private void QuitButton() {
+        Debug.Log("QuitButton");
+
+        goToExit = true;
+        saveVideosObject.SetActive(true);
+    }
+
+    private void SavedVideoButton() {
+        Debug.Log("SaveVideosButton");
+
+        if(VideoPlayer.instance != null) {
+            VideoPlayer.instance.saving = true;
+        }
+
+        if(VideoCaptureCtrl.instance != null) {
+            VideoCaptureCtrl.instance.saving = true;
+        }
+
+        ExitGame();
+
+        MainMenu();
+    }
+
+    private void NotSavedVideoButton() {
+        Debug.Log("NotSaveVideosButton");
+
+        if(VideoPlayer.instance != null) {
+            for(int i = 0; i < VideoPlayer.instance.currentVideoFiles.Count; i++) {
+                File.Delete(VideoPlayer.instance.currentVideoFiles[i]);
             }
         }
-        );
 
-        quitButton.onHandClick.AddListener(_ => {
-            if(GameManager.Instance.replayVideoIsPlaying == false) {
-                Debug.Log("QuitButton");
+        ExitGame();
 
-                goToExit = true;
-                saveVideosObject.SetActive(true);
-            }
-        });
-
-        saveVideosButton.onHandClick.AddListener(_ => {
-            if(GameManager.Instance.replayVideoIsPlaying == false) {
-                Debug.Log("SaveVideosButton");
-
-                if(VideoPlayer.instance != null) {
-                    VideoPlayer.instance.saving = true;
-                }
-
-                if(VideoCaptureCtrl.instance != null) {
-                    VideoCaptureCtrl.instance.saving = true;
-                }
-
-                ExitGame();
-
-                MainMenu();
-
-            }
-        }
-        );
-
-        notSaveVideosButton.onHandClick.AddListener(_ => {
-            if(GameManager.Instance.replayVideoIsPlaying == false) {
-                Debug.Log("NotSaveVideosButton");
-
-                if(VideoPlayer.instance != null) {
-                    for(int i = 0; i < VideoPlayer.instance.currentVideoFiles.Count; i++) {
-                        File.Delete(VideoPlayer.instance.currentVideoFiles[i]);
-                    }
-                }
-
-                ExitGame();
-
-                MainMenu();
-
-            }
-        }
-        );
+        MainMenu();
     }
 
     public void ExitGame() {
@@ -80,8 +75,8 @@ public class EndMenu : MonoBehaviour {
             goToExit = false;
 #if UNITY_EDITOR
             EditorApplication.ExitPlaymode();
-        }
 #endif
+        }
     }
 
     public void MainMenu() {

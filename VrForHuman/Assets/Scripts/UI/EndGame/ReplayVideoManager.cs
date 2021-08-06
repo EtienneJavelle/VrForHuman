@@ -22,9 +22,14 @@ public class ReplayVideoManager : MonoBehaviour {
     }
 
     private void Start() {
+
+        VideoPlayer.instance.videoPanel = transform;
+        VideoPlayer.instance.SetParentVideoPlayerImpl();
+
         for(int i = 0; i < VideoPlayer.instance.currentVideoFiles.Count; i++) {
             ReplayVideoButton videoButton = Instantiate(videoButtonPrefab);
             videoButton.transform.SetParent(transform);
+            videoButton.transform.GetComponent<RectTransform>().localRotation = Quaternion.identity;
             videoButton.transform.localPosition = Vector3.zero;
             videoButton.transform.localScale = Vector3.one;
             videoButton.videoIndex = i;
@@ -58,7 +63,7 @@ public class ReplayVideoManager : MonoBehaviour {
 
             VideoPlayer.instance.videoPlayerActive = true;
             //Camera.main.GetComponent<CameraManager>().SetActiveReplayVideoCanvas(true);
-            VideoPlayer.instance.SetVideoPlayerImplCameraTarget(Camera.main);
+            //VideoPlayer.instance.SetVideoPlayerImplCameraTarget(Camera.main);
 
             GameManager.Instance.replayVideoIsPlaying = true;
             UnityEngine.Debug.Log("PLAY VIDEO " + _index);

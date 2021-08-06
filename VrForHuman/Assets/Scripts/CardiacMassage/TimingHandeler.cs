@@ -1,5 +1,5 @@
-using System.Collections;
 using Etienne;
+using System.Collections;
 using UnityEngine;
 
 namespace CardiacMassage {
@@ -54,6 +54,8 @@ namespace CardiacMassage {
                 } else {
                     countTimer.SetInRythmValue(false);
                 }
+            } else {
+                Debug.LogWarning("CountTimer not found");
             }
 
 
@@ -66,6 +68,8 @@ namespace CardiacMassage {
                         ranks[rank].Text, ranks[rank].Colors);
                     ranks[rank].Iterations++;
                 }
+            } else {
+                Debug.LogWarning("ScoreManager not found");
             }
 
             lastPressure = pressure;

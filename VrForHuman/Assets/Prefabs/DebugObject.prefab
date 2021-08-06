@@ -55,3 +55,4 @@ MonoBehaviour:
   NextVideoKey: 104
   PreviousVideoKey: 102
   ExitVideoModeKey: 106
+  ExitGameKey: 282

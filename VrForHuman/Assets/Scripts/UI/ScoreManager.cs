@@ -33,7 +33,7 @@ namespace CardiacMassage {
 
         #region Fields
 
-        private CardiacMassage cardiacMassage;
+        public CardiacMassage cardiacMassage { get; set; }
 
         private int score;
         private float scoreModifier;

@@ -58,6 +58,10 @@ namespace RockVR.Video {
         /// <summary>
         /// Initialize the attributes of the capture session and start capture.
         /// </summary>
+        /// 
+
+        public static bool allowToQuit { get; set; }
+
         public override void StartCapture() {
             if(status != StatusType.NOT_START &&
                 status != StatusType.FINISH) {
@@ -177,6 +181,7 @@ namespace RockVR.Video {
                 audioCapture.StopCapture();
             }
             status = StatusType.STOPPED;
+            allowToQuit = true;
         }
         /// <summary>
         /// Pause video capture process.
@@ -305,16 +310,51 @@ namespace RockVR.Video {
 
 
         }
+
+
+        /*private static bool WantsToQuit() {
+            Debug.Log("Player prevented from quitting.");
+            return allowToQuit;
+        }
+
+        [RuntimeInitializeOnLoadMethod]
+        private static void RunOnStart() {
+            Application.wantsToQuit += WantsToQuit;
+#if UNITY_EDITOR
+            EditorApplication.wantsToQuit += WantsToQuit;
+#endif
+        }*/
+
+        public void DeleteVideoFiles() {
+            Debug.Log(" Application se terminant après " + Time.time + " secondes ");
+            if(VideoPlayer.instance.saving == false) {
+                Debug.LogWarning("Destroy Videos Files");
+                for(int i = 0; i < VideoPlayer.instance.currentVideoFiles.Count; i++) {
+                    Caching.ClearCache();
+                    File.Delete(VideoPlayer.instance.currentVideoFiles[i]);
+                }
+            }
+        }
+
         /// <summary>
         /// Check if still processing on application quit.
         /// </summary>
         protected override void OnApplicationQuit() {
             base.OnApplicationQuit();
+            Debug.Log(" Application après " + Time.time + " secondes ");
             // Issue an interrupt if still capturing.
             if(status == StatusType.STARTED) {
                 StopCapture();
+                UnityEngine.Debug.Log("STOP");
+                DeleteVideoFiles();
+            } else {
+                UnityEngine.Debug.Log("NOT STARTED");
+                DeleteVideoFiles();
+                allowToQuit = true;
             }
-            UnityEngine.Debug.Log("STOP");
+
+
+
         }
     }
 }
