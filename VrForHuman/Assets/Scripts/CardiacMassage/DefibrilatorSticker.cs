@@ -7,7 +7,7 @@ public class DefibrilatorSticker : MonoBehaviour {
     [SerializeField] private Interactable interactable;
     [SerializeField] private InteractableHoverEvents interactableHover;
     [SerializeField] private float velocityThreshold = 1.1f;
-
+    private bool isAttached;
     private Hand hand;
     private Rigidbody rb;
 
@@ -17,24 +17,41 @@ public class DefibrilatorSticker : MonoBehaviour {
         interactableHover.onHandHoverBegin.AddListener(HandHoverBegin);
     }
     private void Update() {
-        if(hand != null) {
+        if(isAttached) {
             Vector3 velocity = hand.GetTrackedObjectVelocity();
             if(velocity.sqrMagnitude > velocityThreshold) {
-                transform.parent = null;
-                rb.isKinematic = false;
-                rb.velocity = velocity;
+                Detach(velocity);
             }
         }
     }
 
-    public void HandHoverBegin() {
+    private void Attach() {
         hand = interactable.hoveringHand;
-        Debug.Log($"Hand Hover Begin {hand}", hand);
         rb.isKinematic = true;
         transform.parent = hand.transform;
+        transform.DOLocalMove(hand.objectAttachmentPoint.localPosition, interactable.snapAttachEaseInTime * (interactable.attachEaseIn ? 1 : 0));
+        isAttached = true;
     }
-    private void OnTriggerEnter(Collider other) {
+
+    private void Detach(bool isKinematic = false) {
+        Detach(Vector3.zero, isKinematic);
+    }
+
+    private void Detach(Vector3 velocity, bool isKinematic = false) {
         transform.parent = null;
+        rb.isKinematic = isKinematic;
+        rb.velocity = velocity;
+        hand = null;
+        isAttached = false;
+    }
+
+    public void HandHoverBegin() {
+        Debug.Log($"Hand Hover Begin {hand}", hand);
+        Attach();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        Detach(true);
         transform.DOMove(other.transform.position, .1f);
         transform.DORotateQuaternion(other.transform.rotation, .1f);
     }

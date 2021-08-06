@@ -202,12 +202,17 @@ PrefabInstance:
     - target: {fileID: 1278066651179746198, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.025
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1278066651179746198, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.004
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3474357253031807544, guid: 2c32d1a8d57655b45ba547a775b7042a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3699296620529732419, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
@@ -249,10 +254,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 16.993
       objectReference: {fileID: 0}
+    - target: {fileID: 3900212638381123136, guid: 2c32d1a8d57655b45ba547a775b7042a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9025475116656739619, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
       propertyPath: m_Name
       value: LeftSticker
+      objectReference: {fileID: 0}
+    - target: {fileID: 9025475116656739619, guid: 2c32d1a8d57655b45ba547a775b7042a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9025475116656739623, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
@@ -317,12 +332,17 @@ PrefabInstance:
     - target: {fileID: 1278066651179746198, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0182
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1278066651179746198, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0082
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3474357253031807544, guid: 2c32d1a8d57655b45ba547a775b7042a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3699296620529732419, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
@@ -374,6 +394,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -12.751
       objectReference: {fileID: 0}
+    - target: {fileID: 3900212638381123136, guid: 2c32d1a8d57655b45ba547a775b7042a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6932611252178844194, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -383,6 +408,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RightSticker
+      objectReference: {fileID: 0}
+    - target: {fileID: 9025475116656739619, guid: 2c32d1a8d57655b45ba547a775b7042a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9025475116656739623, guid: 2c32d1a8d57655b45ba547a775b7042a,
         type: 3}
