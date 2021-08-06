@@ -43,6 +43,7 @@ public class ButtonUI : UIElement {
     public void LoadButtonUi() {
         GameObject loadingCircle = Instantiate(loadingCirclePrefab);
         loadingCircle.transform.SetParent(loadingCirclePoint);
+        loadingCircle.transform.GetComponent<RectTransform>().localRotation = Quaternion.identity;
         loadingCircle.transform.localPosition = Vector3.zero;
         loadingCircle.transform.localScale = Vector3.one;
         currentLoadingCircle = loadingCircle.GetComponent<LoadingCircle>();
