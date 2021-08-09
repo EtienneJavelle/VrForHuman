@@ -10,6 +10,7 @@ public class DefibrilatorSticker : MonoBehaviour {
     private bool isAttached;
     private Hand hand;
     private Rigidbody rb;
+    private Vector3 oldVelocity;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
@@ -20,17 +21,21 @@ public class DefibrilatorSticker : MonoBehaviour {
         if(isAttached) {
             Vector3 velocity = hand.GetTrackedObjectVelocity();
             if(velocity.sqrMagnitude > velocityThreshold) {
+                //if(velocity.sqrMagnitude < velocityThreshold && oldVelocity.sqrMagnitude > velocityThreshold) {
                 Detach(velocity);
             }
+            oldVelocity = velocity;
         }
     }
 
     private void Attach() {
-        hand = interactable.hoveringHand;
-        rb.isKinematic = true;
-        transform.parent = hand.transform;
-        transform.DOLocalMove(hand.objectAttachmentPoint.localPosition, interactable.snapAttachEaseInTime * (interactable.attachEaseIn ? 1 : 0));
-        isAttached = true;
+        if(enabled) {
+            hand = interactable.hoveringHand;
+            rb.isKinematic = true;
+            transform.parent = hand.transform;
+            transform.DOLocalMove(hand.objectAttachmentPoint.localPosition, interactable.snapAttachEaseInTime * (interactable.attachEaseIn ? 1 : 0));
+            isAttached = true;
+        }
     }
 
     private void Detach(bool isKinematic = false) {
@@ -38,11 +43,13 @@ public class DefibrilatorSticker : MonoBehaviour {
     }
 
     private void Detach(Vector3 velocity, bool isKinematic = false) {
-        transform.parent = null;
-        rb.isKinematic = isKinematic;
-        rb.velocity = velocity;
-        hand = null;
-        isAttached = false;
+        if(enabled) {
+            transform.parent = null;
+            rb.isKinematic = isKinematic;
+            rb.velocity = velocity;
+            hand = null;
+            isAttached = false;
+        }
     }
 
     public void HandHoverBegin() {

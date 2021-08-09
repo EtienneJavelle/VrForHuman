@@ -6,6 +6,7 @@ using UnityEngine;
 [Requirement(typeof(GameManager))]
 [RequireComponent(typeof(Path))]
 public class Defibrilator : MonoBehaviourWithRequirement {
+    [SerializeField] private Lid lid;
     [SerializeField] private float waitingTime = 3f, pathDuration = 3f;
 
     private Path path;
@@ -14,7 +15,7 @@ public class Defibrilator : MonoBehaviourWithRequirement {
     private void Awake() {
         path = GetComponent<Path>();
         targets = GetComponentsInChildren<DefibrilatorTargetEmplacement>();
-
+        lid ??= GetComponentInChildren<Lid>();
     }
 
     private void Start() {
@@ -29,7 +30,8 @@ public class Defibrilator : MonoBehaviourWithRequirement {
         Transform body = transform.GetChild(0);
         body.position = path.WorldWaypoints[0];
         sequence.Append(body.DOMove(body.position, waitingTime));
-        sequence.Append(body.DOPath(path.WorldWaypoints, pathDuration).OnComplete(EnableTargets));
+        sequence.Append(body.DOPath(path.WorldWaypoints, pathDuration));
+        sequence.Append(lid.Open().OnComplete(EnableTargets));
         sequence.Play();
     }
 
