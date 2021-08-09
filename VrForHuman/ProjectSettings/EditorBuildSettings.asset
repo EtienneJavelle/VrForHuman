@@ -15,8 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScore.unity
     guid: d7e0e8ac60601f04ea905bfe6123bf6f
   - enabled: 1
-    path: Assets/Scenes/EndGame.unity
+    path: Assets/Scenes/DebriefArcade.unity
     guid: 630bec7a096ca094d91add133c250d27
+  - enabled: 1
+    path: Assets/Scenes/DebriefClassic.unity
+    guid: 86ede668d1b17e6408eccb56d7464cfe
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
       type: 2}
