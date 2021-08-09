@@ -158,7 +158,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
         if(IsArcadeMode) {
             SceneLoader.Instance.ChangeScene(Scenes.DebriefSceneArcadeMode);
         } else {
-            //SceneLoader.Instance.ChangeScene(Scenes.DebriefSceneClassicMode);
+            SceneLoader.Instance.ChangeScene(Scenes.DebriefSceneClassicMode);
         }
     }
 

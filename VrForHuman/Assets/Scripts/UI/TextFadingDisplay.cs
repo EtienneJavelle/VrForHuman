@@ -47,6 +47,7 @@ public class TextFadingDisplay : MonoBehaviour {
 
             if(displayText.color.a <= 0) {
                 playerCanvasManager.ActiveCityDisplay(false);
+                fadeComplete = false;
             }
         }
     }

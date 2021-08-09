@@ -48,15 +48,17 @@ namespace CardiacMassage {
             interactable.onDetachedFromHand += _ => StopMassage();
         }
         private void Start() {
-            if(GameManager.Instance.PlayerCanvasManager != null) {
+            /*if(GameManager.Instance.PlayerCanvasManager != null) {
                 GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
                 GameManager.Instance.PlayerCanvasManager.ActiveEndSimlulationDisplay(false);
             } else {
                 Debug.LogWarning("Not PlayerCanvasManager Found");
-            }
+            }*/
 
-            ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
-            _scoreManager.cardiacMassage = this;
+            if(GameManager.Instance.IsArcadeMode) {
+                ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
+                _scoreManager.cardiacMassage = this;
+            }
 
             StartMassage();
         }

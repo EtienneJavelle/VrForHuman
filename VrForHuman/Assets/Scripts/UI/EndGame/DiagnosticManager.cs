@@ -21,10 +21,6 @@ public class DiagnosticManager : MonoBehaviour {
 
     [SerializeField] private string depthPerfectComment, depthSuccessComment, depthNotDeepComment, depthTooDeepComment;
 
-    [Space]
-
-    [SerializeField] private WindowGraph windowGraph;
-
     private void Start() {
 
         SetCardiacMassageSavingData();
@@ -70,14 +66,6 @@ public class DiagnosticManager : MonoBehaviour {
         }
     }
 
-    private void SetWindowGraphValues() {
-        for(int i = 1; i < cardiacMassageSaving.pushDatas.Count; i++) {
-            windowGraph.SetValuesList(cardiacMassageSaving.pushDatas[i]);
-        }
-
-        windowGraph.ShowGraph();
-    }
-
     private void UpdateDiagnosticResume() {
         totalScoreAmount.text = cardiacMassageSaving.totalScore.ToString();
 
@@ -94,8 +82,6 @@ public class DiagnosticManager : MonoBehaviour {
         SetRythmComment();
 
         SetDepthComment();
-
-        SetWindowGraphValues();
     }
 
     private int SortRanksByIterations(Rank _a, Rank _b) {

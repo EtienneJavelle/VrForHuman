@@ -47,29 +47,31 @@ namespace CardiacMassage {
             }
             Debug.Log(ranks[rank].Text);
 
-
-            if(countTimer != null) {
-                if(rank <= 1) {
-                    countTimer.SetInRythmValue(true);
+            if(GameManager.Instance.IsArcadeMode) {
+                if(countTimer != null) {
+                    if(rank <= 1) {
+                        countTimer.SetInRythmValue(true);
+                    } else {
+                        countTimer.SetInRythmValue(false);
+                    }
                 } else {
-                    countTimer.SetInRythmValue(false);
+                    Debug.LogWarning("CountTimer not found");
                 }
-            } else {
-                Debug.LogWarning("CountTimer not found");
             }
 
+            if(GameManager.Instance.IsArcadeMode) {
+                ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
+                if(_scoreManager != null) {
+                    _scoreManager.SetScoreModifier(ranks[rank].Points);
 
-            ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
-            if(_scoreManager != null) {
-                _scoreManager.SetScoreModifier(ranks[rank].Points);
-
-                if(_scoreManager.TimeSuccessTextPointSpawns.Length >= 4) {
-                    _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.TimeSuccessTextPointSpawns),
-                        ranks[rank].Text, ranks[rank].Colors);
-                    ranks[rank].Iterations++;
+                    if(_scoreManager.TimeSuccessTextPointSpawns.Length >= 4) {
+                        _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.TimeSuccessTextPointSpawns),
+                            ranks[rank].Text, ranks[rank].Colors);
+                        ranks[rank].Iterations++;
+                    }
+                } else {
+                    Debug.LogWarning("ScoreManager not found");
                 }
-            } else {
-                Debug.LogWarning("ScoreManager not found");
             }
 
             lastPressure = pressure;

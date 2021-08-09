@@ -21,6 +21,7 @@ public class EndSimulationDisplay : TextFadingDisplay {
             if(displayText.color.a <= 0) {
                 GameManager.Instance.toDebriefScene = true;
                 playerCanvasManager.ActiveEndSimlulationDisplay(false);
+                fadeComplete = false;
             }
         }
     }
