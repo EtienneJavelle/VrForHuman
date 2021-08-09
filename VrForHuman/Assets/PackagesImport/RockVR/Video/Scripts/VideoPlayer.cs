@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DG.Tweening;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,14 @@ namespace RockVR.Video {
         /// <summary>
         /// Play video properties.
         /// </summary>
-        private UnityEngine.Video.VideoPlayer videoPlayerImpl;
+        [SerializeField] private UnityEngine.Video.VideoPlayer videoPlayerImpl;
+
+        [SerializeField] private float extendSizeDuration;
+        [SerializeField] private Vector3 maxSize;
+        private Vector3 baseSize;
+
         private int index = 0;
-        public Transform videoPanel { get; set; }
+        //public Transform videoPanel { get; set; }
         public bool videoPlayerActive { get; set; }
         public bool saving { get; set; }
 
@@ -33,6 +39,7 @@ namespace RockVR.Video {
                 //SetVideoPlayerImplCameraTarget(null);
                 //Camera.main.GetComponent<CameraManager>().SetActiveReplayVideoCanvas(false);
                 videoPlayerImpl.GetComponent<RawImage>().enabled = false;
+                //ResetScaleVideoPlayer();
                 GameManager.Instance.replayVideoIsPlaying = false;
             }
         }
@@ -41,12 +48,20 @@ namespace RockVR.Video {
             videoPlayerImpl.targetCamera = _cam;
         }
 
-        public void SetParentVideoPlayerImpl() {
-            videoPlayerImpl.transform.SetParent(videoPanel.parent);
-            videoPlayerImpl.transform.localPosition = videoPanel.localPosition;
-            videoPlayerImpl.transform.GetComponent<RectTransform>().localRotation = videoPanel.transform.GetComponent<RectTransform>().localRotation;
+        public void SetTransformVideoPlayerImpl(Transform _propertiesObject) {
+            videoPlayerImpl.transform.localPosition = _propertiesObject.localPosition;
+            videoPlayerImpl.transform.GetComponent<RectTransform>().localRotation =
+                _propertiesObject.GetComponent<RectTransform>().localRotation;
         }
 
+        public void SetParentVideoPlayerImpl(Transform _parentObject) {
+            videoPlayerImpl.transform.SetParent(_parentObject);
+
+        }
+
+        public void SetBaseSizeVideoPlayerImpl() {
+            baseSize = videoPlayerImpl.transform.localScale;
+        }
         /// <summary>
         /// Add video file to video file list.
         /// </summary>
@@ -64,7 +79,7 @@ namespace RockVR.Video {
             }
             // Init VideoPlayer properties.
             //videoPlayerImpl = gameObject.GetComponent<UnityEngine.Video.VideoPlayer>();
-            videoPlayerImpl = FindObjectOfType<UnityEngine.Video.VideoPlayer>();
+            //videoPlayerImpl = FindObjectOfType<UnityEngine.Video.VideoPlayer>();
             videoPlayerImpl.source = UnityEngine.Video.VideoSource.Url;
             videoPlayerImpl.playOnAwake = false;
             //videoPlayerImpl.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
@@ -85,9 +100,14 @@ namespace RockVR.Video {
                 return;
             }
 
+            ResetScaleVideoPlayer();
+
             videoPlayerImpl.url = "file://" + videoFiles[index];
             videoPlayerImpl.GetComponent<RawImage>().enabled = true;
             Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + index + " " + videoFiles[index]);
+
+            AnimateVideoPlayer();
+
             videoPlayerImpl.Play();
         }
 
@@ -96,10 +116,23 @@ namespace RockVR.Video {
                 return;
             }
 
+            ResetScaleVideoPlayer();
+
             videoPlayerImpl.url = "file://" + currentVideoFiles[_index];
             videoPlayerImpl.GetComponent<RawImage>().enabled = true;
             Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + _index + " " + currentVideoFiles[_index]);
+
+            AnimateVideoPlayer();
+
             videoPlayerImpl.Play();
+        }
+
+        private void AnimateVideoPlayer() {
+            videoPlayerImpl.transform.DOScale(maxSize, extendSizeDuration);
+        }
+
+        private void ResetScaleVideoPlayer() {
+            videoPlayerImpl.transform.localScale = baseSize;
         }
 
         /// <summary>
@@ -126,6 +159,7 @@ namespace RockVR.Video {
         public void ExitVideoMode() {
             videoPlayerImpl.targetCamera = null;
             videoPlayerImpl.GetComponent<RawImage>().enabled = false;
+            //ResetScaleVideoPlayer();
         }
 
 

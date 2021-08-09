@@ -2,5 +2,6 @@
     BootScene,
     MainMenu,
     CardiacMassage,
-    EndGame,
+    DebriefSceneArcadeMode,
+    DebriefSceneClassicMode
 }

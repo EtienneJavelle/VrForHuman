@@ -23,8 +23,9 @@ public class ReplayVideoManager : MonoBehaviour {
 
     private void Start() {
 
-        VideoPlayer.instance.videoPanel = transform;
-        VideoPlayer.instance.SetParentVideoPlayerImpl();
+        VideoPlayer.instance.SetParentVideoPlayerImpl(transform.parent);
+        VideoPlayer.instance.SetTransformVideoPlayerImpl(transform);
+        VideoPlayer.instance.SetBaseSizeVideoPlayerImpl();
 
         for(int i = 0; i < VideoPlayer.instance.currentVideoFiles.Count; i++) {
             ReplayVideoButton videoButton = Instantiate(videoButtonPrefab);
@@ -33,6 +34,9 @@ public class ReplayVideoManager : MonoBehaviour {
             videoButton.transform.localPosition = Vector3.zero;
             videoButton.transform.localScale = Vector3.one;
             videoButton.videoIndex = i;
+            videoButton.GetComponent<UnityEngine.Video.VideoPlayer>().url =
+                VideoPlayer.instance.currentVideoFiles[i];
+            StartCoroutine(videoButton.VideoPlayerTimerActivation());
             //listReplayVideosButtons.Add(videoButton);
 
             videoButton.onHandClick.AddListener(_ => {

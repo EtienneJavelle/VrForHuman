@@ -108,7 +108,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
             if(RecordManager != null) {
                 RecordManager.SetRootFolderVideo();
             }
-            ScoreScreen();
+            DebriefScreen();
         }
     }
 
@@ -154,9 +154,11 @@ public class GameManager : Etienne.Singleton<GameManager> {
         }
     }
 
-    public void ScoreScreen() {
+    public void DebriefScreen() {
         if(IsArcadeMode) {
-            SceneLoader.Instance.ChangeScene(Scenes.EndGame);
+            SceneLoader.Instance.ChangeScene(Scenes.DebriefSceneArcadeMode);
+        } else {
+            //SceneLoader.Instance.ChangeScene(Scenes.DebriefSceneClassicMode);
         }
     }
 
