@@ -1,30 +1,24 @@
 ﻿//======= Copyright (c) Valve Corporation, All rights reserved. ===============
 
 using UnityEngine;
-using System.Collections;
 
-namespace Valve.VR.InteractionSystem.Sample
-{
-    public class RenderModelChangerUI : UIElement
-    {
+namespace Valve.VR.InteractionSystem.Sample {
+    public class RenderModelChangerUI : UIElement {
         public GameObject leftPrefab;
         public GameObject rightPrefab;
 
         protected SkeletonUIOptions ui;
 
-        protected override void Awake()
-        {
+        public override void Awake() {
             base.Awake();
 
-            ui = this.GetComponentInParent<SkeletonUIOptions>();
+            ui = GetComponentInParent<SkeletonUIOptions>();
         }
 
-        protected override void OnButtonClick()
-        {
+        protected override void OnButtonClick() {
             base.OnButtonClick();
 
-            if (ui != null)
-            {
+            if(ui != null) {
                 ui.SetRenderModel(this);
             }
         }

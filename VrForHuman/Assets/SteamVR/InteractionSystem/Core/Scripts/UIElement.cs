@@ -16,7 +16,7 @@ namespace Valve.VR.InteractionSystem {
         protected Hand currentHand;
 
         //-------------------------------------------------
-        protected virtual void Awake() {
+        public virtual void Awake() {
             Button button = GetComponent<Button>();
             if(button) {
                 button.onClick.AddListener(OnButtonClick);

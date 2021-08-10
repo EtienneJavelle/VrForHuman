@@ -97,10 +97,10 @@ public class TestDebug : MonoBehaviour {
                     VideoPlayer.instance.PreviousVideo();
                     UnityEngine.Debug.Log("PREVIOUS VIDEO");
                 }
-                if(Input.GetKeyDown(ExitVideoModeKey)) {
+                /*if(Input.GetKeyDown(ExitVideoModeKey)) {
                     VideoPlayer.instance.ExitVideoMode();
                     videoCaptureUI.isPlayVideo = false;
-                }
+                }*/
             }
         }
 #endif

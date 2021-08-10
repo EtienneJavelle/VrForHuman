@@ -22,6 +22,7 @@ public class ButtonUI : UIElement {
     [ContextMenu("Click Button")]
     protected override void OnButtonClick() {
         base.OnButtonClick();
+        UnloadButtonUI();
     }
 
     private void Update() {

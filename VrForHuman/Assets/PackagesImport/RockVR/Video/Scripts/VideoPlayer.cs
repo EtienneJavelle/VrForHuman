@@ -22,6 +22,11 @@ namespace RockVR.Video {
         private Vector3 baseSize;
 
         private int index = 0;
+
+        private VideoMenu videoMenu;
+
+        public bool pauseActive { get; set; }
+
         //public Transform videoPanel { get; set; }
         public bool videoPlayerActive { get; set; }
         public bool saving { get; set; }
@@ -34,14 +39,14 @@ namespace RockVR.Video {
         }
 
         private void Update() {
-            if(videoPlayerImpl != null && videoPlayerImpl.isPlaying == false && videoPlayerActive) {
-                videoPlayerActive = false;
-                //SetVideoPlayerImplCameraTarget(null);
-                //Camera.main.GetComponent<CameraManager>().SetActiveReplayVideoCanvas(false);
-                videoPlayerImpl.GetComponent<RawImage>().enabled = false;
-                //ResetScaleVideoPlayer();
-                GameManager.Instance.replayVideoIsPlaying = false;
+            if(videoPlayerImpl != null && videoPlayerImpl.isPlaying == false &&
+                videoPlayerImpl.isPaused == false && videoPlayerActive) {
+                ExitVideoMode();
             }
+        }
+
+        public void SetVideoMenuButtons(VideoMenu _videoMenu) {
+            videoMenu = _videoMenu;
         }
 
         public void SetVideoPlayerImplCameraTarget(Camera _cam) {
@@ -62,6 +67,21 @@ namespace RockVR.Video {
         public void SetBaseSizeVideoPlayerImpl() {
             baseSize = videoPlayerImpl.transform.localScale;
         }
+
+        public void SetPauseVideoPlayer() {
+            if(videoPlayerImpl.isPlaying) {
+                videoPlayerImpl.Pause();
+                pauseActive = true;
+            } else {
+                videoPlayerImpl.Play();
+                pauseActive = false;
+            }
+        }
+
+        public void SetCloseWindowVideoPlayer() {
+            ExitVideoMode();
+        }
+
         /// <summary>
         /// Add video file to video file list.
         /// </summary>
@@ -102,6 +122,8 @@ namespace RockVR.Video {
 
             ResetScaleVideoPlayer();
 
+            videoMenu.ActiveButtonsObjects(true);
+
             videoPlayerImpl.url = "file://" + videoFiles[index];
             videoPlayerImpl.GetComponent<RawImage>().enabled = true;
             Debug.Log("[VideoPlayer::PlayVideo] Video Path:" + "video : " + index + " " + videoFiles[index]);
@@ -117,6 +139,8 @@ namespace RockVR.Video {
             }
 
             ResetScaleVideoPlayer();
+
+            videoMenu.ActiveButtonsObjects(true);
 
             videoPlayerImpl.url = "file://" + currentVideoFiles[_index];
             videoPlayerImpl.GetComponent<RawImage>().enabled = true;
@@ -157,8 +181,21 @@ namespace RockVR.Video {
         }
 
         public void ExitVideoMode() {
-            videoPlayerImpl.targetCamera = null;
+
+            videoPlayerActive = false;
+            videoPlayerImpl.Stop();
+            //SetVideoPlayerImplCameraTarget(null);
+            //Camera.main.GetComponent<CameraManager>().SetActiveReplayVideoCanvas(false);
             videoPlayerImpl.GetComponent<RawImage>().enabled = false;
+            //ResetScaleVideoPlayer();
+            GameManager.Instance.replayVideoIsPlaying = false;
+
+            pauseActive = false;
+            videoMenu.SetButtonPauseSprite();
+            videoMenu.ActiveButtonsObjects(false);
+
+            //videoPlayerImpl.targetCamera = null;
+            //videoPlayerImpl.GetComponent<RawImage>().enabled = false;
             //ResetScaleVideoPlayer();
         }
 

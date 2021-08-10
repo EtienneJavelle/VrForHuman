@@ -71,6 +71,7 @@ public class EndMenu : MonoBehaviour {
 
     public void ExitGame() {
         if(goToExit) {
+            VideoPlayer.instance.SetCloseWindowVideoPlayer();
             Application.Quit();
             goToExit = false;
 #if UNITY_EDITOR
@@ -81,6 +82,7 @@ public class EndMenu : MonoBehaviour {
 
     public void MainMenu() {
         if(goToMenu) {
+            VideoPlayer.instance.SetCloseWindowVideoPlayer();
             VideoCaptureCtrl.instance.InitStatutCapture();
             VideoPlayer.instance.SetParentVideoPlayerImpl(VideoPlayer.instance.transform);
             SceneLoader.Instance.ChangeScene(Scenes.MainMenu);
