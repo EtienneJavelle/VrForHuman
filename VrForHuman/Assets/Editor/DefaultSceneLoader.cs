@@ -11,6 +11,7 @@ public static class DefaultSceneLoader {
     private static void LoadDefaultScene(PlayModeStateChange state) {
         if(state == PlayModeStateChange.EnteredPlayMode) {
             if(EditorUtility.DisplayDialog("Default Scene Loader Is Active", "Load first build scene?", "Yes", "No")) {
+                Etienne.Utils.ClearLog();
                 EditorSceneManager.LoadScene(0);
             }
         }
