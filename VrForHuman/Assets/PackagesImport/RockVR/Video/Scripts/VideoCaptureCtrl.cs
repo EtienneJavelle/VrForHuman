@@ -131,9 +131,10 @@ namespace RockVR.Video {
             // Reset record session count.
             videoCaptureFinishCount = 0;
             // Start garbage collect thread.
-            garbageCollectionThread = new Thread(GarbageCollectionThreadFunction);
-            garbageCollectionThread.Priority = System.Threading.ThreadPriority.Lowest;
-            garbageCollectionThread.IsBackground = true;
+            garbageCollectionThread = new Thread(GarbageCollectionThreadFunction) {
+                Priority = System.Threading.ThreadPriority.Lowest,
+                IsBackground = true
+            };
             garbageCollectionThread.Start();
             // Update current status.
             status = StatusType.STARTED;
@@ -220,9 +221,10 @@ namespace RockVR.Video {
         private void OnAudioCaptureComplete() {
             // Start merging thread when we have videos captured.
             if(IsCaptureAudio()) {
-                videoMergeThread = new Thread(VideoMergeThreadFunction);
-                videoMergeThread.Priority = System.Threading.ThreadPriority.Lowest;
-                videoMergeThread.IsBackground = true;
+                videoMergeThread = new Thread(VideoMergeThreadFunction) {
+                    Priority = System.Threading.ThreadPriority.Lowest,
+                    IsBackground = true
+                };
                 videoMergeThread.Start();
             }
         }
@@ -336,6 +338,7 @@ namespace RockVR.Video {
             }
         }
 
+#if !UNITY_EDITOR
         /// <summary>
         /// Check if still processing on application quit.
         /// </summary>
@@ -356,5 +359,6 @@ namespace RockVR.Video {
 
 
         }
+#endif
     }
 }
