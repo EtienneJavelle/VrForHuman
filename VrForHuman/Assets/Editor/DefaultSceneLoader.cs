@@ -16,6 +16,7 @@ public static class DefaultSceneLoader {
             Scene currentScene = EditorSceneManager.GetActiveScene();
             string defaultScenePath = EditorBuildSettings.scenes[0].path;
             if(currentScene.path != defaultScenePath) {
+                EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
                 if(EditorUtility.DisplayDialog("Default Scene Loader Is Active", "Load first build scene?", "Yes", "No")) {
                     PlayerPrefs.SetString(keySceneToLoadBack, currentScene.path);
                     EditorSceneManager.OpenScene(defaultScenePath, OpenSceneMode.Single);
