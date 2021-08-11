@@ -72,7 +72,7 @@ namespace RockVR.Video {
 
             VideoPlayer.instance.currentVideoFiles.Clear();
             VideoPlayer.instance.saving = false;
-            VideoCaptureCtrl.instance.saving = false;
+            VideoCaptureCtrl.Instance.saving = false;
 
             // Filter out disabled capture component.
             List<VideoCapture> validCaptures = new List<VideoCapture>();
@@ -339,8 +339,8 @@ namespace RockVR.Video {
         /// <summary>
         /// Check if still processing on application quit.
         /// </summary>
-        protected override void OnApplicationQuit() {
-            base.OnApplicationQuit();
+        protected void OnApplicationQuit() {
+            //base.OnApplicationQuit();
             Debug.Log(" Application après " + Time.time + " secondes ");
             // Issue an interrupt if still capturing.
             if(status == StatusType.STARTED) {

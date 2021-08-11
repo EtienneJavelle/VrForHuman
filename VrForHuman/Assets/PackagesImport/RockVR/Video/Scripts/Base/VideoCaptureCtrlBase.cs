@@ -5,7 +5,7 @@ namespace RockVR.Video {
     /// <summary>
     /// Base class for <c>VideoCaptureCtrl</c> and <c>VideoCaptureProCtrl</c> class.
     /// </summary>
-    public class VideoCaptureCtrlBase : Singleton<VideoCaptureCtrlBase> {
+    public class VideoCaptureCtrlBase : Etienne.Singleton<VideoCaptureCtrlBase> {
         /// <summary>
         ///                   NOT_START
         ///                      |

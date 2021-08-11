@@ -2991,6 +2991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce1c4f59cc9242fd926bcc78fcf4ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPersistant: 1
   debug: 0
   startOnAwake: 0
   captureTime: 10

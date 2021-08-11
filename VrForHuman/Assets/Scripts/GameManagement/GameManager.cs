@@ -103,7 +103,7 @@ public class GameManager : Etienne.Singleton<GameManager> {
     #endregion
 
     private void Update() {
-        if(toDebriefScene && VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
+        if(toDebriefScene && VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.FINISH) {
             toDebriefScene = false;
             if(RecordManager != null) {
                 RecordManager.SetRootFolderVideo();

@@ -57,19 +57,19 @@ public class TestDebug : MonoBehaviour {
             GameManager.Instance.EndSimulation();
         }
 
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.NOT_START && Input.GetKeyDown(StartRecordKey)) {
-            VideoCaptureCtrl.instance.StartCapture();
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.NOT_START && Input.GetKeyDown(StartRecordKey)) {
+            VideoCaptureCtrl.Instance.StartCapture();
             UnityEngine.Debug.Log("START");
-        } else if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.STARTED) {
+        } else if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.STARTED) {
             if(Input.GetKeyDown(StopRecordKey)) {
-                VideoCaptureCtrl.instance.StopCapture();
+                VideoCaptureCtrl.Instance.StopCapture();
                 UnityEngine.Debug.Log("STOP");
             }
             if(Input.GetKeyDown(PauseRecordKey)) {
-                VideoCaptureCtrl.instance.ToggleCapture();
+                VideoCaptureCtrl.Instance.ToggleCapture();
                 UnityEngine.Debug.Log("PAUSE");
             }
-        } else if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
+        } else if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.FINISH) {
             if(!videoCaptureUI.isPlayVideo) {
                 if(Input.GetKeyDown(PlayVideoKey)) {
 #if UNITY_5_6_OR_NEWER

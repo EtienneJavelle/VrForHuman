@@ -68,22 +68,20 @@ PANORAMA VIDEO:
      Note: The main camera unsupported to capture panorama video and panorama stereo video.
  */
 
-using UnityEngine;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
+using UnityEngine;
 
-namespace RockVR.Video
-{
+namespace RockVR.Video {
     /// <summary>
     /// <c>VideoCapture</c> component.
     /// Place this script to target <c>Camera</c> component, this will capture
     /// camera's render texture and encode to video file.
     /// </summary>
-    public class VideoCapture : VideoCaptureBase
-    {
+    public class VideoCapture : VideoCaptureBase {
         /// <summary>
         /// Get or set the current status.
         /// </summary>
@@ -127,8 +125,7 @@ namespace RockVR.Video
         /// <summary>
         /// Frame data will be sent to frame encode queue.
         /// </summary>
-        private struct FrameData
-        {
+        private struct FrameData {
             /// <summary>
             /// The RGB pixels will be encoded.
             /// </summary>a
@@ -140,8 +137,7 @@ namespace RockVR.Video
             /// <summary>
             /// Constructor.
             /// </summary>
-            public FrameData(byte[] p, int c)
-            {
+            public FrameData(byte[] p, int c) {
                 pixels = p;
                 count = c;
             }
@@ -157,38 +153,31 @@ namespace RockVR.Video
         /// <summary>
         /// Cleanup this instance.
         /// </summary>
-        public void Cleanup()
-        {
-            if (mode != ModeType.LIVE_STREAMING)
-            {
-                if (File.Exists(filePath)) File.Delete(filePath);
+        public void Cleanup() {
+            if(mode != ModeType.LIVE_STREAMING) {
+                if(File.Exists(filePath)) {
+                    File.Delete(filePath);
+                }
             }
-            if (mode == ModeType.LIVE_STREAMING)
-            {
+            if(mode == ModeType.LIVE_STREAMING) {
                 VideoStreamingLib_Clean(libAPI);
-            }
-            else
-            {
+            } else {
                 VideoCaptureLib_Clean(libAPI);
             }
         }
         /// <summary>
         /// Start capture video.
         /// </summary>
-        public override void StartCapture()
-        {
+        public override void StartCapture() {
             // Check if we can start capture session.
-            if (status != VideoCaptureCtrl.StatusType.NOT_START &&
-                status != VideoCaptureCtrl.StatusType.FINISH)
-            {
+            if(status != VideoCaptureCtrl.StatusType.NOT_START &&
+                status != VideoCaptureCtrl.StatusType.FINISH) {
                 Debug.LogWarning("[VideoCapture::StartCapture] Previous " +
                                  " capture not finish yet!");
                 return;
             }
-            if (mode == ModeType.LIVE_STREAMING)
-            {
-                if (!StringUtils.IsRtmpAddress(streamingAddress))
-                {
+            if(mode == ModeType.LIVE_STREAMING) {
+                if(!StringUtils.IsRtmpAddress(streamingAddress)) {
                     Debug.LogWarning(
                        "[VideoCapture::StartCapture] Video live streaming " +
                        "require rtmp server address setup!"
@@ -196,29 +185,24 @@ namespace RockVR.Video
                     return;
                 }
             }
-            if (format == FormatType.PANORAMA && !isDedicated)
-            {
+            if(format == FormatType.PANORAMA && !isDedicated) {
                 Debug.LogWarning(
                     "[VideoCapture::StartCapture] Capture equirectangular " +
                     "video always require dedicated camera!"
                 );
                 isDedicated = true;
             }
-            if (mode == ModeType.LOCAL)
-            {
+            if(mode == ModeType.LOCAL) {
                 filePath = PathConfig.SaveFolder + StringUtils.GetMp4FileName(StringUtils.GetRandomString(5));
             }
             // Create a RenderTexture with desired frame size for dedicated
             // camera capture to store pixels in GPU.
             // Use Camera.targetTexture as RenderTexture if already existed.
-            if (captureCamera.targetTexture != null)
-            {
+            if(captureCamera.targetTexture != null) {
                 // Use binded rendertexture will ignore antiAliasing config.
                 frameRenderTexture = captureCamera.targetTexture;
                 isCreateRenderTexture = false;
-            }
-            else
-            {
+            } else {
                 // Create a rendertexture for video capture.
                 // Size it according to the desired video frame size.
                 frameRenderTexture = new RenderTexture(frameWidth, frameHeight, 24);
@@ -229,18 +213,15 @@ namespace RockVR.Video
                 // Make sure the rendertexture is created.
                 frameRenderTexture.Create();
                 isCreateRenderTexture = true;
-                if (isDedicated)
-                {
+                if(isDedicated) {
                     captureCamera.targetTexture = frameRenderTexture;
                 }
             }
             // For capturing normal 2D video, use frameTexture(Texture2D) for
             // intermediate cpu saving, frameRenderTexture(RenderTexture) store
             // the pixels read by frameTexture.
-            if (format == FormatType.NORMAL)
-            {
-                if (isDedicated)
-                {
+            if(format == FormatType.NORMAL) {
+                if(isDedicated) {
                     // Set the aspect ratio of the camera to match the rendertexture.
                     captureCamera.aspect = frameWidth / ((float)frameHeight);
                     captureCamera.targetTexture = frameRenderTexture;
@@ -250,20 +231,16 @@ namespace RockVR.Video
             // EQUIRECTANGULAR: use frameCubemap(Cubemap) for intermediate cpu
             // saving.
             // CUBEMAP: use frameTexture(Texture2D) for intermediate cpu saving.
-            else if (format == FormatType.PANORAMA)
-            {
+            else if(format == FormatType.PANORAMA) {
                 copyReverseMaterial = Resources.Load("Materials/CopyReverse") as Material;
                 cubemap2Equirectangular = Resources.Load("Materials/Cubemap2Equirectangular") as Material;
-                if (panoramaProjection == PanoramaProjectionType.CUBEMAP)
-                {
+                if(panoramaProjection == PanoramaProjectionType.CUBEMAP) {
                     // Create render cubemap.
                     frameCubemap = new Cubemap(cubemapSize, TextureFormat.RGB24, false);
                     // Setup camera as required for panorama capture.
                     captureCamera.aspect = 1.0f;
                     captureCamera.fieldOfView = 90;
-                }
-                else
-                {
+                } else {
                     copyReverseMaterial.DisableKeyword("REVERSE_TOP_BOTTOM");
                     copyReverseMaterial.DisableKeyword("REVERSE_LEFT_RIGHT");
                     captureCamera.fieldOfView = 90;
@@ -275,8 +252,7 @@ namespace RockVR.Video
                     panoramaTempRenderTexture.antiAliasing = antiAliasing;
                     panoramaTempRenderTexture.wrapMode = TextureWrapMode.Clamp;
                     panoramaTempRenderTexture.filterMode = FilterMode.Bilinear;
-                    if (captureGUI)
-                    {
+                    if(captureGUI) {
                         faceTarget = new RenderTexture(cubemapSize, cubemapSize, 24);
                         faceTarget.antiAliasing = antiAliasing;
                         faceTarget.isPowerOfTwo = true;
@@ -287,11 +263,9 @@ namespace RockVR.Video
                     }
                 }
             }
-            if (stereo != StereoType.NONE)
-            {
+            if(stereo != StereoType.NONE) {
                 // Init stereo video material.
-                if (stereoPackMaterial == null)
-                {
+                if(stereoPackMaterial == null) {
                     stereoPackMaterial = new Material(Shader.Find("RockVR/Stereoscopic"));
                 }
                 stereoPackMaterial.hideFlags = HideFlags.HideAndDontSave;
@@ -332,23 +306,21 @@ namespace RockVR.Video
             frameQueue = new Queue<FrameData>();
             // Projection info for native plugin.
             int proj = 0;
-            if (format == FormatType.PANORAMA)
-            {
-                if (panoramaProjection == PanoramaProjectionType.EQUIRECTANGULAR)
+            if(format == FormatType.PANORAMA) {
+                if(panoramaProjection == PanoramaProjectionType.EQUIRECTANGULAR) {
                     proj = 1;
-                if (panoramaProjection == PanoramaProjectionType.CUBEMAP)
+                }
+
+                if(panoramaProjection == PanoramaProjectionType.CUBEMAP) {
                     proj = 2;
+                }
             }
-            if (stereo == StereoType.TOP_BOTTOM)
-            {
+            if(stereo == StereoType.TOP_BOTTOM) {
                 proj = 3;
-            }
-            else if (stereo == StereoType.LEFT_RIGHT)
-            {
+            } else if(stereo == StereoType.LEFT_RIGHT) {
                 proj = 4;
             }
-            if (mode == ModeType.LIVE_STREAMING)
-            {
+            if(mode == ModeType.LIVE_STREAMING) {
                 libAPI = VideoStreamingLib_Get(
                     frameWidth,
                     frameHeight,
@@ -356,9 +328,7 @@ namespace RockVR.Video
                     proj,
                     streamingAddress,
                     PathConfig.ffmpegPath);
-            }
-            else
-            {
+            } else {
                 libAPI = VideoCaptureLib_Get(
                     frameWidth,
                     frameHeight,
@@ -367,20 +337,17 @@ namespace RockVR.Video
                     filePath,
                     PathConfig.ffmpegPath);
             }
-            if (libAPI == System.IntPtr.Zero)
-            {
+            if(libAPI == System.IntPtr.Zero) {
                 Debug.LogWarning("[VideoCapture::StartCapture] Get native " +
                                  "capture api failed!");
                 return;
             }
-            if (offlineRender)
-            {
+            if(offlineRender) {
                 // Backup maximumDeltaTime states.
                 originalMaximumDeltaTime = Time.maximumDeltaTime;
                 Time.maximumDeltaTime = Time.fixedDeltaTime;
             }
-            if (encodeThread != null)
-            {
+            if(encodeThread != null) {
                 encodeThread.Abort();
             }
             // Start encoding thread.
@@ -394,16 +361,13 @@ namespace RockVR.Video
         /// <summary>
         /// Stop capture video.
         /// </summary>
-        public override void StopCapture()
-        {
-            if (status != VideoCaptureCtrl.StatusType.STARTED && status != VideoCaptureCtrl.StatusType.PAUSED)
-            {
+        public override void StopCapture() {
+            if(status != VideoCaptureCtrl.StatusType.STARTED && status != VideoCaptureCtrl.StatusType.PAUSED) {
                 Debug.LogWarning("[VideoCapture::StopCapture] capture session " +
                                  "not start yet!");
                 return;
             }
-            if (offlineRender)
-            {
+            if(offlineRender) {
                 // Restore maximumDeltaTime states.
                 Time.maximumDeltaTime = originalMaximumDeltaTime;
             }
@@ -413,14 +377,10 @@ namespace RockVR.Video
         /// <summary>
         /// Pause capture video.
         /// </summary>
-        public override void ToggleCapture()
-        {
-            if (status == VideoCaptureCtrlBase.StatusType.STARTED)
-            {
+        public override void ToggleCapture() {
+            if(status == VideoCaptureCtrlBase.StatusType.STARTED) {
                 status = VideoCaptureCtrlBase.StatusType.PAUSED;
-            }
-            else if (status == VideoCaptureCtrlBase.StatusType.PAUSED)
-            {
+            } else if(status == VideoCaptureCtrlBase.StatusType.PAUSED) {
                 status = VideoCaptureCtrlBase.StatusType.STARTED;
             }
         }
@@ -429,8 +389,7 @@ namespace RockVR.Video
         /// <summary>
         /// Called before any Start functions and also just after a prefab is instantiated.
         /// </summary>
-        private new void Awake()
-        {
+        private new void Awake() {
             base.Awake();
             status = VideoCaptureCtrl.StatusType.NOT_START;
             // Init the copy material use hidden shader.
@@ -440,13 +399,15 @@ namespace RockVR.Video
         /// <summary>
         /// OnRenderImage is called after all rendering is complete to render image.
         /// </summary>
-        private void OnRenderImage(RenderTexture source, RenderTexture destination)
-        {
+        private void OnRenderImage(RenderTexture source, RenderTexture destination) {
             Graphics.Blit(source, destination);// Render the screen.
-            if (status != VideoCaptureCtrl.StatusType.STARTED ||// Capture not started yet.
+            if(status != VideoCaptureCtrl.StatusType.STARTED ||// Capture not started yet.
                 format == FormatType.PANORAMA ||// Whether is stereo video capture process(unsupported panorama).
                 status == VideoCaptureCtrlBase.StatusType.PAUSED)// Whether is pausing.
+{
                 return;
+            }
+
             frameRenderTexture.DiscardContents();
             Graphics.SetRenderTarget(frameRenderTexture);
             Graphics.Blit(source, blitMaterial);
@@ -455,27 +416,25 @@ namespace RockVR.Video
         /// <summary>
         /// Called once per frame, after Update has finished.
         /// </summary>
-        private void LateUpdate()
-        {
-            if (status != VideoCaptureCtrl.StatusType.STARTED || // Capture not started yet.
+        private void LateUpdate() {
+            if(status != VideoCaptureCtrl.StatusType.STARTED || // Capture not started yet.
                 status == VideoCaptureCtrlBase.StatusType.PAUSED)// Whether is pausing.
+{
                 return;
+            }
+
             capturingTime += Time.deltaTime;
-            if (!isCapturingFrame)
-            {
+            if(!isCapturingFrame) {
                 int totalRequiredFrameCount =
                     (int)(capturingTime / deltaFrameTime);
                 // Skip frames if we already got enough.
-                if (totalRequiredFrameCount > capturedFrameCount)
-                {
+                if(totalRequiredFrameCount > capturedFrameCount) {
                     // Capture panorama mono video.
-                    if (format == FormatType.PANORAMA)
-                    {
+                    if(format == FormatType.PANORAMA) {
                         CaptureCubemapFrameSync();
                     }
                     // Capture normal stereo video.                   
-                    else if (format == FormatType.NORMAL)
-                    {
+                    else if(format == FormatType.NORMAL) {
                         StartCoroutine(CaptureFrameAsync());
                     }
                 }
@@ -484,36 +443,28 @@ namespace RockVR.Video
         /// <summary>
         /// This function is called when the MonoBehaviour will be destroyed.
         /// </summary>
-        private void OnDestroy()
-        {
-            if (finalTargetTexture != null)
-            {
+        private void OnDestroy() {
+            if(finalTargetTexture != null) {
                 RenderTexture.Destroy(finalTargetTexture);
             }
-            if (stereoTargetTexture != null)
-            {
+            if(stereoTargetTexture != null) {
                 RenderTexture.Destroy(stereoTargetTexture);
             }
-            if (frameRenderTexture != null && isCreateRenderTexture)
-            {
+            if(frameRenderTexture != null && isCreateRenderTexture) {
                 RenderTexture.Destroy(frameRenderTexture);
             }
-            if (panoramaTempRenderTexture != null)
-            {
+            if(panoramaTempRenderTexture != null) {
                 RenderTexture.Destroy(panoramaTempRenderTexture);
             }
-            if (faceTarget != null)
-            {
+            if(faceTarget != null) {
                 RenderTexture.Destroy(faceTarget);
             }
         }
         /// <summary>
         /// Sent to all game objects before the application is quit.
         /// </summary>
-        private void OnApplicationQuit()
-        {
-            if (status == VideoCaptureCtrl.StatusType.STARTED)
-            {
+        private void OnApplicationQuit() {
+            if(status == VideoCaptureCtrl.StatusType.STARTED) {
                 StopCapture();
             }
         }
@@ -523,11 +474,9 @@ namespace RockVR.Video
         /// <summary>
         ///  Capture frame Async impl.
         /// </summary>
-        private IEnumerator CaptureFrameAsync()
-        {
+        private IEnumerator CaptureFrameAsync() {
             isCapturingFrame = true;
-            if (status == VideoCaptureCtrl.StatusType.STARTED)
-            {
+            if(status == VideoCaptureCtrl.StatusType.STARTED) {
                 yield return new WaitForEndOfFrame();
                 CopyFrameTexture();
                 EnqueueFrameTexture();
@@ -537,11 +486,9 @@ namespace RockVR.Video
         /// <summary>
         /// Capture frame Sync impl.
         /// </summary>
-        private void CaptureCubemapFrameSync()
-        {
+        private void CaptureCubemapFrameSync() {
             // TODO, make this into shader for GPU fast processing.
-            if (panoramaProjection == PanoramaProjectionType.CUBEMAP)
-            {
+            if(panoramaProjection == PanoramaProjectionType.CUBEMAP) {
                 captureCamera.RenderToCubemap(frameCubemap);
                 captureCamera.Render();
                 frameTexture.SetPixels(0, cubemapSize, cubemapSize, cubemapSize, frameCubemap.GetPixels(CubemapFace.PositiveX));
@@ -551,19 +498,14 @@ namespace RockVR.Video
                 frameTexture.SetPixels(cubemapSize, 0, cubemapSize, cubemapSize, frameCubemap.GetPixels(CubemapFace.PositiveZ));
                 frameTexture.SetPixels(cubemapSize * 2, 0, cubemapSize, cubemapSize, frameCubemap.GetPixels(CubemapFace.NegativeZ));
                 frameTexture.Apply();
-            }
-            else if (panoramaProjection == PanoramaProjectionType.EQUIRECTANGULAR)
-            {
-                if (!captureGUI)
-                {
+            } else if(panoramaProjection == PanoramaProjectionType.EQUIRECTANGULAR) {
+                if(!captureGUI) {
                     captureCamera.farClipPlane = 100;
                     captureCamera.Render();
                     captureCamera.RenderToCubemap(panoramaTempRenderTexture);
                     // Convert to equirectangular projection.
                     Graphics.Blit(panoramaTempRenderTexture, frameRenderTexture, cubemap2Equirectangular);
-                }
-                else
-                {
+                } else {
                     RenderToCubemapWithGUI(captureCamera, panoramaTempRenderTexture);
                     // Convert to equirectangular projection.
                     frameRenderTexture.DiscardContents();
@@ -580,24 +522,23 @@ namespace RockVR.Video
             // Send for encoding.
             EnqueueFrameTexture();
         }
+
         /// <summary>
         /// Copy the frame texture from GPU to CPU.
         /// </summary>
-        void CopyFrameTexture()
-        {
-            if (stereo == StereoType.NONE)
-            {
-                if (isDedicated)
+        private void CopyFrameTexture() {
+            if(stereo == StereoType.NONE) {
+                if(isDedicated) {
                     // Bind texture.
                     RenderTexture.active = frameRenderTexture;
-            }
-            else
-            {
-                if (panoramaProjection == PanoramaProjectionType.CUBEMAP && format == FormatType.PANORAMA)
+                }
+            } else {
+                if(panoramaProjection == PanoramaProjectionType.CUBEMAP && format == FormatType.PANORAMA) {
                     return;
+                }
+
                 SetStereoVideoFormat(frameRenderTexture);
-                if (format == FormatType.PANORAMA && captureGUI)
-                {
+                if(format == FormatType.PANORAMA && captureGUI) {
                     copyReverseMaterial.DisableKeyword("REVERSE_TOP_BOTTOM");
                     copyReverseMaterial.EnableKeyword("REVERSE_LEFT_RIGHT");
                     frameRenderTexture.DiscardContents();
@@ -611,15 +552,14 @@ namespace RockVR.Video
             // Restore RenderTexture states.
             RenderTexture.active = null;
         }
+
         /// <summary>
         /// Send the captured frame texture to encode queue.
         /// </summary>
-        void EnqueueFrameTexture()
-        {
+        private void EnqueueFrameTexture() {
             int totalRequiredFrameCount = (int)(capturingTime / deltaFrameTime);
             int requiredFrameCount = totalRequiredFrameCount - capturedFrameCount;
-            lock (this)
-            {
+            lock(this) {
                 frameQueue.Enqueue(
                     new FrameData(frameTexture.GetRawTextureData(), requiredFrameCount));
             }
@@ -628,57 +568,42 @@ namespace RockVR.Video
         /// <summary>
         /// Frame encoding thread impl.
         /// </summary>
-        private void FrameEncodeThreadFunction()
-        {
-            while (status == VideoCaptureCtrl.StatusType.STARTED || frameQueue.Count > 0)
-            {
-                if (frameQueue.Count > 0 && status != VideoCaptureCtrlBase.StatusType.PAUSED)
-                {
+        private void FrameEncodeThreadFunction() {
+            while(status == VideoCaptureCtrl.StatusType.STARTED || frameQueue.Count > 0) {
+                if(frameQueue.Count > 0 && status != VideoCaptureCtrlBase.StatusType.PAUSED) {
                     FrameData frame;
-                    lock (this)
-                    {
+                    lock(this) {
                         frame = frameQueue.Dequeue();
                     }
-                    if (mode == ModeType.LIVE_STREAMING)
-                    {
+                    if(mode == ModeType.LIVE_STREAMING) {
                         VideoStreamingLib_WriteFrames(libAPI, frame.pixels, frame.count);
-                    }
-                    else
-                    {
+                    } else {
                         VideoCaptureLib_WriteFrames(libAPI, frame.pixels, frame.count);
                     }
                     encodedFrameCount++;
-                    if (VideoCaptureCtrl.instance.debug)
-                    {
+                    if(VideoCaptureCtrl.Instance.debug) {
                         Debug.Log(
                             "[VideoCapture::FrameEncodeThreadFunction] Encoded " +
                             encodedFrameCount + " frames. " + frameQueue.Count +
                             " frames remaining."
                         );
                     }
-                }
-                else
-                {
+                } else {
                     // Wait 1 second for captured frame.
                     Thread.Sleep(1000);
                 }
             }
             // Notify native encoding process finish.
-            if (mode == ModeType.LIVE_STREAMING)
-            {
+            if(mode == ModeType.LIVE_STREAMING) {
                 VideoStreamingLib_Close(libAPI);
-            }
-            else
-            {
+            } else {
                 VideoCaptureLib_Close(libAPI);
             }
             // Notify caller video capture complete.
-            if (eventDelegate.OnComplete != null)
-            {
+            if(eventDelegate.OnComplete != null) {
                 eventDelegate.OnComplete();
             }
-            if (VideoCaptureCtrl.instance.debug)
-            {
+            if(VideoCaptureCtrl.Instance.debug) {
                 Debug.Log("[VideoCapture::FrameEncodeThreadFunction] Encode " +
                           "process finish!");
             }
@@ -689,28 +614,28 @@ namespace RockVR.Video
 
         #region Dll Import
         [DllImport("VideoCaptureLib")]
-        static extern System.IntPtr VideoCaptureLib_Get(int width, int height, int rate, int proj, string path, string ffpath);
+        private static extern System.IntPtr VideoCaptureLib_Get(int width, int height, int rate, int proj, string path, string ffpath);
 
         [DllImport("VideoCaptureLib")]
-        static extern void VideoCaptureLib_WriteFrames(System.IntPtr api, byte[] data, int count);
+        private static extern void VideoCaptureLib_WriteFrames(System.IntPtr api, byte[] data, int count);
 
         [DllImport("VideoCaptureLib")]
-        static extern void VideoCaptureLib_Close(System.IntPtr api);
+        private static extern void VideoCaptureLib_Close(System.IntPtr api);
 
         [DllImport("VideoCaptureLib")]
-        static extern void VideoCaptureLib_Clean(System.IntPtr api);
+        private static extern void VideoCaptureLib_Clean(System.IntPtr api);
 
         [DllImport("VideoCaptureLib")]
-        static extern System.IntPtr VideoStreamingLib_Get(int width, int height, int rate, int proj, string address, string ffpath);
+        private static extern System.IntPtr VideoStreamingLib_Get(int width, int height, int rate, int proj, string address, string ffpath);
 
         [DllImport("VideoCaptureLib")]
-        static extern void VideoStreamingLib_WriteFrames(System.IntPtr api, byte[] data, int count);
+        private static extern void VideoStreamingLib_WriteFrames(System.IntPtr api, byte[] data, int count);
 
         [DllImport("VideoCaptureLib")]
-        static extern void VideoStreamingLib_Close(System.IntPtr api);
+        private static extern void VideoStreamingLib_Close(System.IntPtr api);
 
         [DllImport("VideoCaptureLib")]
-        static extern void VideoStreamingLib_Clean(System.IntPtr api);
+        private static extern void VideoStreamingLib_Clean(System.IntPtr api);
         #endregion // Dll Import
     }
 
@@ -719,8 +644,7 @@ namespace RockVR.Video
     /// temp audio captured. If audio captured, it will mux the video and audio
     /// into the same file.
     /// </summary>
-    public class VideoMuxing
-    {
+    public class VideoMuxing {
         /// <summary>
         /// The merged video file path.
         /// </summary>
@@ -738,8 +662,7 @@ namespace RockVR.Video
         /// </summary>
         /// <param name="videoCapture">Video capture.</param>
         /// <param name="audioCapture">Audio capture.</param>
-        public VideoMuxing(VideoCapture videoCapture, AudioCapture audioCapture)
-        {
+        public VideoMuxing(VideoCapture videoCapture, AudioCapture audioCapture) {
             this.videoCapture = videoCapture;
             this.audioCapture = audioCapture;
         }
@@ -747,8 +670,7 @@ namespace RockVR.Video
         /// Video/Audio mux function impl.
         /// Blocking function.
         /// </summary>
-        public bool Muxing()
-        {
+        public bool Muxing() {
             filePath = PathConfig.SaveFolder + StringUtils.GetMp4FileName(StringUtils.GetRandomString(5));
             System.IntPtr libAPI = MuxingLib_Get(
                 videoCapture.bitrate,
@@ -756,28 +678,24 @@ namespace RockVR.Video
                 videoCapture.filePath,
                 audioCapture.filePath,
                 PathConfig.ffmpegPath);
-            if (libAPI == System.IntPtr.Zero)
-            {
+            if(libAPI == System.IntPtr.Zero) {
                 Debug.LogWarning("[VideoMuxing::Muxing] Get native LibVideoMergeAPI failed!");
                 return false;
             }
             MuxingLib_Muxing(libAPI);
             // Make sure generated the merge file.
             int waitCount = 0;
-            while (!File.Exists(filePath))
-            {
-                if (waitCount++ < 100)
+            while(!File.Exists(filePath)) {
+                if(waitCount++ < 100) {
                     Thread.Sleep(500);
-                else
-                {
+                } else {
                     Debug.LogWarning("[VideoMuxing::Muxing] Mux process failed!");
                     MuxingLib_Clean(libAPI);
                     return false;
                 }
             }
             MuxingLib_Clean(libAPI);
-            if (VideoCaptureCtrl.instance.debug)
-            {
+            if(VideoCaptureCtrl.Instance.debug) {
                 Debug.Log("[VideoMuxing::Muxing] Mux process finish!");
             }
             return true;
@@ -785,13 +703,13 @@ namespace RockVR.Video
 
         #region Dll Import
         [DllImport("VideoCaptureLib")]
-        static extern System.IntPtr MuxingLib_Get(int rate, string path, string vpath, string apath, string ffpath);
+        private static extern System.IntPtr MuxingLib_Get(int rate, string path, string vpath, string apath, string ffpath);
 
         [DllImport("VideoCaptureLib")]
-        static extern void MuxingLib_Muxing(System.IntPtr api);
+        private static extern void MuxingLib_Muxing(System.IntPtr api);
 
         [DllImport("VideoCaptureLib")]
-        static extern void MuxingLib_Clean(System.IntPtr api);
+        private static extern void MuxingLib_Clean(System.IntPtr api);
         #endregion // Dll Import
     }
 }

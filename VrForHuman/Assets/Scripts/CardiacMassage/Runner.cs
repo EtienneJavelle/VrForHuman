@@ -29,5 +29,6 @@ public class Runner : MonoBehaviour {
     private void EndPath() {
         Debug.Log("End Path");
         runnerManager.ActiveCardiacMassage(true);
+        anim.SetBool("IsRunning", false);
     }
 }

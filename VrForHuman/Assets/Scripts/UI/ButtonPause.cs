@@ -20,9 +20,9 @@ public class ButtonPause : ButtonUI {
     }
 
     public void SetPauseSprite(bool _value) {
-        if(_value == true) {
+        if(_value == true && image != null) {
             image.sprite = replaySprite;
-        } else {
+        } else if(image != null) {
             image.sprite = pauseSprite;
         }
     }

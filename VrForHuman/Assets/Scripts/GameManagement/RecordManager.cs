@@ -22,32 +22,32 @@ public class RecordManager : MonoBehaviour {
 
     private void InitRecord() {
         VideoCapture[] _camerasViews = FindObjectsOfType<VideoCapture>();
-        VideoCaptureCtrl.instance.videoCaptures = _camerasViews;
+        VideoCaptureCtrl.Instance.videoCaptures = _camerasViews;
     }
 
     public void StartRecord() {
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.NOT_START) {
-            VideoCaptureCtrl.instance.StartCapture();
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.NOT_START) {
+            VideoCaptureCtrl.Instance.StartCapture();
             UnityEngine.Debug.Log("START");
         }
     }
 
     public void PauseRecord() {
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.STARTED) {
-            VideoCaptureCtrl.instance.ToggleCapture();
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.STARTED) {
+            VideoCaptureCtrl.Instance.ToggleCapture();
             UnityEngine.Debug.Log("PAUSE");
         }
     }
 
     public void StopRecord() {
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.STARTED) {
-            VideoCaptureCtrl.instance.StopCapture();
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.STARTED) {
+            VideoCaptureCtrl.Instance.StopCapture();
             UnityEngine.Debug.Log("STOP");
         }
     }
 
     public void SetRootFolderVideo() {
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.FINISH) {
             if(!videoCaptureUI.isPlayVideo) {
 #if UNITY_5_6_OR_NEWER
                 // Set root folder.

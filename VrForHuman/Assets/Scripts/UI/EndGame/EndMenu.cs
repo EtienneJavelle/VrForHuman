@@ -46,8 +46,8 @@ public class EndMenu : MonoBehaviour {
             VideoPlayer.instance.saving = true;
         }
 
-        if(VideoCaptureCtrl.instance != null) {
-            VideoCaptureCtrl.instance.saving = true;
+        if(VideoCaptureCtrl.Instance != null) {
+            VideoCaptureCtrl.Instance.saving = true;
         }
 
         ExitGame();
@@ -83,7 +83,7 @@ public class EndMenu : MonoBehaviour {
     public void MainMenu() {
         if(goToMenu) {
             VideoPlayer.instance.SetCloseWindowVideoPlayer();
-            VideoCaptureCtrl.instance.InitStatutCapture();
+            VideoCaptureCtrl.Instance.InitStatutCapture();
             VideoPlayer.instance.SetParentVideoPlayerImpl(VideoPlayer.instance.transform);
             SceneLoader.Instance.ChangeScene(Scenes.MainMenu);
             goToMenu = false;

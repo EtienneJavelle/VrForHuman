@@ -1991,6 +1991,7 @@ MonoBehaviour:
   runner: {fileID: 1116011064425102380}
   testBasicDummy: {fileID: 0}
   cardiacMassageButton: {fileID: 0}
+  defibrilator: {fileID: 0}
 --- !u!1 &4346375220093038849
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,7 +2163,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 48fa25afa629571428ed08317ac52bde, type: 2}
+  - {fileID: 2100000, guid: ccc50d631d14df84a982c4f4acd00013, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2389,7 +2390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 12386110883347928}
   path: {fileID: 4313547993878773842}
-  duration: 5
+  duration: 10
 --- !u!114 &4313547993878773842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2405,7 +2406,9 @@ MonoBehaviour:
   isLooped: 0
   waypoints:
   - {x: 0, y: 0, z: 0}
-  - {x: 4.6100903, y: 0, z: -7.474015}
-  - {x: 10.864202, y: 0, z: -7.315402}
-  - {x: 15.44125, y: 0, z: -4.4856815}
-  - {x: 15.108722, y: 0, z: 1.2008753}
+  - {x: -4.8028164, y: 0, z: 8.349983}
+  - {x: -16.277458, y: 0, z: 3.1926327}
+  - {x: -23.812418, y: 0, z: 12.347677}
+  - {x: -25.996796, y: 0, z: 1.2008753}
+  - {x: -20.694443, y: 0, z: -6.844426}
+  - {x: -15.238118, y: 0, z: -10.225058}

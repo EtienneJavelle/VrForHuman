@@ -50,7 +50,7 @@ public class ReplayVideoManager : MonoBehaviour {
     }
 
     public void PlayVideo() {
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.FINISH) {
 #if UNITY_5_6_OR_NEWER
             // Play capture video.
             VideoPlayer.instance.PlayVideo();
@@ -60,7 +60,7 @@ public class ReplayVideoManager : MonoBehaviour {
 #endif
 
     public void PlayVideoAtIndex(int _index) {
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.FINISH) {
 #if UNITY_5_6_OR_NEWER
             // Play capture video.
             VideoPlayer.instance.PlayVideoAtIndex(_index);
@@ -76,7 +76,7 @@ public class ReplayVideoManager : MonoBehaviour {
 #endif
 
     public void NextVideo() {
-        if(VideoCaptureCtrl.instance.status == VideoCaptureCtrl.StatusType.FINISH) {
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.FINISH) {
             if(videoCaptureUI.isPlayVideo) {
                 // Turn to next video.
                 VideoPlayer.instance.NextVideo();
