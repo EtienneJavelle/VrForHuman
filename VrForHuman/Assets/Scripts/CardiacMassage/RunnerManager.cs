@@ -9,15 +9,20 @@ public class RunnerManager : MonoBehaviourWithRequirement {
 
     [SerializeField] private GameObject testBasicDummy, cardiacMassageButton, defibrilator;
 
+    public bool isVictim;
+
     #endregion
 
     private void Awake() {
-        defibrilator ??= GameObject.FindObjectOfType<Defibrilator>().gameObject;
-
+        if(isVictim) {
+            defibrilator ??= GameObject.FindObjectOfType<Defibrilator>().gameObject;
+        }
     }
 
     private void Start() {
-        ActiveCardiacMassage(false);
+        if(isVictim) {
+            ActiveCardiacMassage(false);
+        }
     }
 
     public void ActiveCardiacMassage(bool _value) {

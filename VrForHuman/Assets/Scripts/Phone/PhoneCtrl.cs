@@ -4,14 +4,17 @@ public class PhoneCtrl : MonoBehaviour {
     #region UnityInspector
 
     [SerializeField] private PhoneInputField phoneInputField;
+    [SerializeField] private GameObject baseScreenPhone, screenCall;
 
-    [Space]
+    [SerializeField] private int samuNumero;
 
-    [SerializeField] private ButtonUI callKey, specialCharLeftKey, specialCharRightKey, supprKey;
+    //[Space]
 
-    [Space]
+    //[SerializeField] private ButtonUI callKey, /*specialCharLeftKey, specialCharRightKey,*/ supprKey;
 
-    [SerializeField] private ButtonUI[] keypad;
+    //[Space]
+
+    //[SerializeField] private ButtonUI[] keypad;
 
     #endregion
 
@@ -23,7 +26,10 @@ public class PhoneCtrl : MonoBehaviour {
         specialCharLeftKey.onHandClick.AddListener(_ => KeypadButton(specialCharLeftKey));
         specialCharRightKey.onHandClick.AddListener(_ => KeypadButton(specialCharRightKey));*/
 
-        supprKey.onHandClick.AddListener(_ => DeleteButton());
+        //supprKey.onHandClick.AddListener(_ => DeleteButton());
+
+        baseScreenPhone.SetActive(true);
+        screenCall.SetActive(false);
 
     }
 
@@ -35,11 +41,18 @@ public class PhoneCtrl : MonoBehaviour {
         Debug.Log("KeypadButton");
     }
 
-    private void DeleteButton() {
+    public void DeleteButton() {
 
         phoneInputField.RemoveChar();
 
         Debug.Log("DeleteButton");
     }
 
+    public void CallButton() {
+        Debug.Log("CallButton");
+        if(phoneInputField.GetInputFieldText() == samuNumero.ToString()) {
+            baseScreenPhone.SetActive(false);
+            screenCall.SetActive(true);
+        }
+    }
 }

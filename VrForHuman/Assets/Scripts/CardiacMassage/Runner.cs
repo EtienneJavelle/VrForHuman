@@ -28,7 +28,14 @@ public class Runner : MonoBehaviour {
 
     private void EndPath() {
         Debug.Log("End Path");
-        runnerManager.ActiveCardiacMassage(true);
+        if(runnerManager.isVictim) {
+            runnerManager.ActiveCardiacMassage(true);
+        } else {
+            DialogManager _dialogManager = runnerManager.GetComponent<DialogManager>();
+            _dialogManager.SetBoxDialogActive(true);
+            _dialogManager.LaunchDialog(0);
+        }
+
         anim.SetBool("IsRunning", false);
     }
 }

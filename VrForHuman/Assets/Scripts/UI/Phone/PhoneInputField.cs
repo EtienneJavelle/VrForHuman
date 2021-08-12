@@ -9,6 +9,10 @@ public class PhoneInputField : MonoBehaviour {
 
     #endregion
 
+    public string GetInputFieldText() {
+        return inputField.text;
+    }
+
     public void InputChar(string _text) {
         if(inputField.text.Length < maxSizeText) {
             inputField.text = inputField.text + _text;
@@ -18,7 +22,8 @@ public class PhoneInputField : MonoBehaviour {
     public void RemoveChar() {
         Debug.Log("Remove Char");
         if(inputField.text.Length >= 1) {
-            inputField.text.Remove(inputField.text.Length - 1);
+            inputField.text = inputField.text.Remove(inputField.text.Length - 1, 1);
+            Debug.Log(inputField.text);
         }
     }
 }

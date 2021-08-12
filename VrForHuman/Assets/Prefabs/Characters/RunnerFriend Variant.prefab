@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &603964333783611967
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 299495611193533160, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_Name
+      value: RunnerFriend Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 820932561012778259, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 863877814181645465, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 990836459079849092, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971497926286344188, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971497926286344188, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: dialogs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971497926286344188, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: dialogs.Array.data[0].Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971497926286344188, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: dialogs.Array.data[0].texts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971497926286344188, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: dialogs.Array.data[0].texts.Array.data[0]
+      value: Christophe ?
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971497926286344188, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: dialogs.Array.data[0].texts.Array.data[1]
+      value: "Christophe, hey ! tu m\u2019entends ?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2971497926286344188, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: dialogs.Array.data[0].texts.Array.data[2]
+      value: "Mon ami a besoin d\u2019aide !"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346375220104540341, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 48fa25afa629571428ed08317ac52bde, type: 2}
+    - target: {fileID: 8210994819844860556, guid: 0f7400af763f81a43bcf082216d856d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f7400af763f81a43bcf082216d856d3, type: 3}

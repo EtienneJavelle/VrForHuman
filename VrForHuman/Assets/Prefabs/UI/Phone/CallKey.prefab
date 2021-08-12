@@ -213,12 +213,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHandClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PhoneCtrl, Assembly-CSharp
+        m_MethodName: KeypadButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7140955449829220490}
+          m_ObjectArgumentAssemblyTypeName: ButtonUI, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   loadingCirclePoint: {fileID: 1812172479484850408}
-  loadingCirclePrefab: {fileID: 1462687789817707382, guid: d8b1da1519548804c91ce8f9b84ad540,
+  loadingCirclePrefab: {fileID: 9063204079898383236, guid: 0f668a78a295b87429157d5f5041d5fb,
     type: 3}
   loadingSpeed: 0.5
-  keyToDisplay: 
+  keyToDisplay: 1
 --- !u!114 &3965862493554094018
 MonoBehaviour:
   m_ObjectHideFlags: 0
