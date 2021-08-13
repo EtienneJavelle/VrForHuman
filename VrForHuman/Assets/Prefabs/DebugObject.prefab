@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d663442f13006404ab0651f49baed0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPersistant: 1
   AddScoreKey: 105
   RemoveScoreKey: 107
   EndGameKey: 112

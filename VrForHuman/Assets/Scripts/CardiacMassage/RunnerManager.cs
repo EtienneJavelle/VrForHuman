@@ -15,7 +15,7 @@ public class RunnerManager : MonoBehaviourWithRequirement {
 
     private void Awake() {
         if(isVictim) {
-            defibrilator ??= GameObject.FindObjectOfType<Defibrilator>().gameObject;
+            defibrilator ??= GameObject.FindObjectOfType<CardiacMassage.Defibrilator>().gameObject;
         }
     }
 
@@ -33,5 +33,6 @@ public class RunnerManager : MonoBehaviourWithRequirement {
         GameManager.Instance.arrestCardiacStarted = _value;
 
         runner.gameObject.SetActive(!_value);
+        StartCoroutine(TestDebug.Instance.RescueAlertTimer());
     }
 }

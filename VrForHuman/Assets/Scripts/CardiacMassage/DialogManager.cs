@@ -36,6 +36,7 @@ public class DialogManager : MonoBehaviour {
         if(currentTextIndex < dialogs[_currentDialogIndex].Texts.Length) {
             StartCoroutine(PlayDialogText(_currentDialogIndex));
         } else {
+            dialogs[_currentDialogIndex].dialogCompleted.Invoke();
             SetBoxDialogActive(false);
         }
     }

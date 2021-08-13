@@ -8,28 +8,18 @@ public class PhoneCtrl : MonoBehaviour {
 
     [SerializeField] private int samuNumero;
 
-    //[Space]
-
-    //[SerializeField] private ButtonUI callKey, /*specialCharLeftKey, specialCharRightKey,*/ supprKey;
-
-    //[Space]
-
-    //[SerializeField] private ButtonUI[] keypad;
-
     #endregion
 
+    private void Awake() {
+
+    }
+
     private void Start() {
-        /*for(int i = 0; i < keypad.Length; i++) {
-            keypad[i].onHandClick.AddListener(_ => KeypadButton(keypad[i]));
-        }
-
-        specialCharLeftKey.onHandClick.AddListener(_ => KeypadButton(specialCharLeftKey));
-        specialCharRightKey.onHandClick.AddListener(_ => KeypadButton(specialCharRightKey));*/
-
-        //supprKey.onHandClick.AddListener(_ => DeleteButton());
-
-        baseScreenPhone.SetActive(true);
+        baseScreenPhone.SetActive(false);
         screenCall.SetActive(false);
+    }
+
+    public void PlayerPhoneCall(DialogManager _dialogManager, int _indexDialog) {
 
     }
 
@@ -46,6 +36,10 @@ public class PhoneCtrl : MonoBehaviour {
         phoneInputField.RemoveChar();
 
         Debug.Log("DeleteButton");
+    }
+
+    public void ActivePhoneScreen() {
+        baseScreenPhone.SetActive(true);
     }
 
     public void CallButton() {
