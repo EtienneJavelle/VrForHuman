@@ -5,7 +5,7 @@ namespace Etienne {
         public static T Instance => instance;
 
         [Header("Singleton")]
-        [SerializeField] private bool isPersistant = false;
+        [SerializeField] protected bool isPersistant = false;
 
         protected virtual void Awake() {
             if(Singleton<T>.instance != null) {

@@ -81,20 +81,10 @@ namespace Etienne {
             source.loop = sound.Parameters.Loop;
             source.pitch = sound.Parameters.Pitch;
             source.volume = sound.Parameters.Volume;
+            source.spatialBlend = sound.Parameters.SpacialBlend;
             return source;
         }
 
-        public static AudioSource FindFreeAudiosource(this Component instance, List<AudioSource> audioSources) {
-            foreach(AudioSource audioSource in audioSources) {
-                if(!audioSource.isPlaying) {
-                    return audioSource;
-                }
-            }
-            AudioSource newAudioSource = instance.gameObject.AddComponent<AudioSource>();
-            newAudioSource.playOnAwake = false;
-            audioSources.Add(newAudioSource);
-            return audioSources.Last();
-        }
         #endregion
     }
 }

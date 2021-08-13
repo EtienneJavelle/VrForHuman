@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI {
     [AddComponentMenu(menuName: "UI/Button Audio")]
     [RequireComponent(typeof(Button))]
-    [Requirement(typeof(AudioManager2D))]
+    [Requirement(typeof(AudioManager))]
     public class ButtonAudio : MonoBehaviourWithRequirement, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler {
         [SerializeField]
         private Sound higlightedSound = new Sound(null),
@@ -12,15 +12,15 @@ namespace UnityEngine.UI {
             releasedSound = new Sound(null);
 
         public void OnPointerEnter(PointerEventData eventData) {
-            AudioManager2D.Play(higlightedSound);
+            AudioManager.Play(higlightedSound);
         }
 
         public void OnPointerDown(PointerEventData eventData) {
-            AudioManager2D.Play(pressedSound);
+            AudioManager.Play(pressedSound);
         }
 
         public void OnPointerUp(PointerEventData eventData) {
-            AudioManager2D.Play(releasedSound);
+            AudioManager.Play(releasedSound);
         }
     }
 }
