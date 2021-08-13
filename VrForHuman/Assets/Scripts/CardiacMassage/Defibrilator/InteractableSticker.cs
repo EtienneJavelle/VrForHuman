@@ -14,9 +14,10 @@ public class InteractableSticker : MonoBehaviour {
     private Hand hand;
     private Rigidbody rb;
 
-    private void Start() {
+    protected virtual void Start() {
         rb = GetComponent<Rigidbody>();
         interactableHover.onHandHoverBegin.AddListener(HandHoverBegin);
+        SceneLoader.Instance.OnSceneChanged += () => GameObject.Destroy(gameObject);
     }
 
     private void Update() {
