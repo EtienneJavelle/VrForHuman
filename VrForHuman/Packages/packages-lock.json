@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.etienne": {
+      "version": "https://github.com/Omadel/Etienne.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "314efb7d4e038281de9383e383c34484cd41b3b0"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
