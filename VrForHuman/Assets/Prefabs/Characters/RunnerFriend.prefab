@@ -2477,7 +2477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5079028246671118936}
   - component: {fileID: 587454886491394116}
-  - component: {fileID: 4361485786582608954}
+  - component: {fileID: 4099725193651202249}
   m_Layer: 0
   m_Name: RunnerCtrl
   m_TagString: Untagged
@@ -2513,9 +2513,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 538127546580734384}
-  path: {fileID: 4361485786582608954}
+  path: {fileID: 4099725193651202249}
   duration: 10
---- !u!114 &4361485786582608954
+--- !u!114 &4099725193651202249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2524,18 +2524,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5813441983229138447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e81d551b9a803d47a6e54987411f12a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e2d60c6da2f4a5429a924d880f294ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isLooped: 0
   waypoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: -4.8028164, y: 0, z: 8.349983}
-  - {x: -16.277458, y: 0, z: 3.1926327}
-  - {x: -23.812418, y: 0, z: 12.347677}
-  - {x: -25.996796, y: 0, z: 1.2008753}
-  - {x: -20.694443, y: 0, z: -6.844426}
-  - {x: -15.238118, y: 0, z: -10.225058}
+  - {x: 0, y: 0, z: 1}
+  - {x: -15.250041, y: 0, z: 4.6684303}
+  - {x: -25.606674, y: 0, z: -2.2307196}
+  - {x: -15.504585, y: 0, z: -10.28164}
 --- !u!1 &6341585112505150661
 GameObject:
   m_ObjectHideFlags: 0
