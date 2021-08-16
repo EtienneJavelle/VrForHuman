@@ -18,6 +18,7 @@ namespace CardiacMassage {
         private Coroutine coroutine;
 
         private void Awake() {
+            cardiacMassage ??= FindObjectOfType<CardiacMassage>().GetComponent<Interactable>();
             message ??= GetComponentInChildren<TMPro.TextMeshProUGUI>();
             UpdateMessage("Veuillez coller Les Electrodes.");
         }

@@ -17,7 +17,12 @@ public class InteractableSticker : MonoBehaviour {
     protected virtual void Start() {
         rb = GetComponent<Rigidbody>();
         interactableHover.onHandHoverBegin.AddListener(HandHoverBegin);
-        SceneLoader.Instance.OnSceneChanged += () => GameObject.Destroy(gameObject);
+        SceneLoader.Instance.OnSceneChanged += Kill;
+    }
+
+    private void Kill() {
+        SceneLoader.Instance.OnSceneChanged -= Kill;
+        GameObject.Destroy(gameObject);
     }
 
     private void Update() {

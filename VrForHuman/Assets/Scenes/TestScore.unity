@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.59937465, g: 0.5997507, b: 0.59948814, a: 1}
+  m_IndirectSpecularColor: {r: 0.59937525, g: 0.5997512, b: 0.59948856, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3494,6 +3494,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2254486842045338803, guid: a9f8f7a60c7f3324cb354fd35e5b5011,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2254486842045338803, guid: a9f8f7a60c7f3324cb354fd35e5b5011,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3203014118601301761, guid: a9f8f7a60c7f3324cb354fd35e5b5011,
         type: 3}
       propertyPath: waitingTime
@@ -3564,6 +3574,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Defibrilator
       objectReference: {fileID: 0}
+    - target: {fileID: 5519278440116675322, guid: a9f8f7a60c7f3324cb354fd35e5b5011,
+        type: 3}
+      propertyPath: cardiacMassage
+      value: 
+      objectReference: {fileID: 8419190898579715292}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9f8f7a60c7f3324cb354fd35e5b5011, type: 3}
 --- !u!1 &5293518853126949963 stripped
@@ -3802,3 +3817,16 @@ MonoBehaviour:
       volume: 1
       pitch: 1
       loop: 0
+      spacialBlend: 0
+--- !u!114 &8419190898579715292 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9143706936806192407, guid: 29a5d98c27ccc8240ae7eab963ac060f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8419190898579715289}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8419190898579715290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93b6a877adcbf94c89a9d6e0c0e844d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

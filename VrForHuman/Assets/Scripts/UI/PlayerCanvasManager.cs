@@ -36,5 +36,6 @@ public class PlayerCanvasManager : MonoBehaviourWithRequirement {
         sequence.Append(blood.DOFade(.8f, .1f).SetEase(Ease.OutElastic));
         sequence.Append(blood.DOFade(.1f, .9f).OnComplete(() => canBeHurt = true));
         sequence.Play();
+        GameManager.Instance.ScoreManager.ChangeScore(-1000);
     }
 }

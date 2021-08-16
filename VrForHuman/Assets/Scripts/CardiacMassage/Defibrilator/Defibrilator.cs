@@ -1,6 +1,5 @@
 using DG.Tweening;
 using Etienne;
-using System;
 using UnityEngine;
 
 namespace CardiacMassage {
@@ -18,15 +17,16 @@ namespace CardiacMassage {
         private DefibrilatorElectrodes[] electrodes;
         private Defibrilation defibrilation;
         private GameObject parent;
+        private bool AreBothElectrodesPlaced => electrodes[0].IsPlaced && electrodes[1].IsPlaced;
 
         private void Awake() {
             path = GetComponent<Path>();
             targets = GetComponentsInChildren<DefibrilatorTargetEmplacement>();
             electrodes = GetComponentsInChildren<DefibrilatorElectrodes>();
             foreach(DefibrilatorElectrodes electrode in electrodes) {
-                electrode.OnPlaced += CheckIfBothAreConnected;
+                electrode.OnPlaced += HandleDefibrilation;
                 electrode.OnPlaced += DisableEmplacement;
-                electrode.OnAttach += CheckIfBothAreConnected;
+                electrode.OnAttach += HandleDefibrilation;
                 electrode.OnAttach += EnableEmplacement;
             }
             lid ??= GetComponentInChildren<Lid>();
@@ -37,11 +37,13 @@ namespace CardiacMassage {
         }
 
         private void EnableEmplacement() {
-            throw new NotImplementedException();
+            SetActiveTargets(true);
         }
 
         private void DisableEmplacement() {
-            throw new NotImplementedException();
+            if(AreBothElectrodesPlaced) {
+                SetActiveTargets(false);
+            }
         }
 
         private void Start() {
@@ -90,24 +92,15 @@ namespace CardiacMassage {
             }
         }
 
-        private void CheckIfBothAreConnected() {
-            int count = 0;
-            foreach(DefibrilatorElectrodes electrode in electrodes) {
-                if(electrode.IsPlaced) {
-                    count++;
-                }
-            }
-            if(count == electrodes.Length) {
-                //todo  Start Defibrilator Sound=>actions
+        private void HandleDefibrilation() {
+            if(AreBothElectrodesPlaced) {
                 if(defibrilation.StartDefibrilation()) {
                     foreach(DefibrilatorElectrodes electrode in electrodes) {
                         electrode.enabled = false;
                     }
                 }
-                Debug.Log("Both Are Connected !");
             } else {
                 defibrilation.PauseDefibrilation();
-                Debug.Log("Only one is connected.");
             }
         }
     }

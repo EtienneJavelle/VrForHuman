@@ -7,6 +7,10 @@ using UnityEngine.Audio;
 public class AudioManager : Singleton<AudioManager> {
     [SerializeField] private AudioMixerGroup output3D, output2D;
 
+    private void Start() {
+        SceneLoader.Instance.OnSceneChanged += AudioManager.Instance.audioSources.Clear;
+    }
+
     /// <summary>Play a Sound in 2D.</summary>
     /// <param name="sound">The Sound to play</param>
     public static AudioSource Play(Sound sound) {
