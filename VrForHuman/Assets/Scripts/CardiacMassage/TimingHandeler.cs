@@ -11,6 +11,7 @@ namespace CardiacMassage {
         [SerializeField] private float beat;
         [SerializeField] private CardiacMassage cardiacMassage;
         [SerializeField] private Cue beatCue = new Cue(null);
+        [SerializeField] private Etienne.SoundParameters soundParameters = new SoundParameters(1);
 
         private void Awake() {
             cardiacMassage ??= GetComponent<CardiacMassage>();
@@ -48,36 +49,51 @@ namespace CardiacMassage {
             Debug.Log(ranks[rank].Text);
 
             if(GameManager.Instance.IsArcadeMode) {
-                if(countTimer != null) {
-                    if(rank <= 1) {
-                        countTimer.SetInRythmValue(true);
-                    } else {
-                        countTimer.SetInRythmValue(false);
-                    }
-                } else {
-                    Debug.LogWarning("CountTimer not found");
-                }
-            }
+                HandleTimer(rank);
 
-            if(GameManager.Instance.IsArcadeMode) {
-                ScoreManager _scoreManager = FindObjectOfType<ScoreManager>();
-                if(_scoreManager != null) {
-                    _scoreManager.SetScoreModifier(ranks[rank].Points);
+                HandleScore(rank);
 
-                    if(_scoreManager.TimeSuccessTextPointSpawns.Length >= 4) {
-                        _scoreManager.SetSuccessText(_scoreManager.RandomGenerationSpawners(_scoreManager.TimeSuccessTextPointSpawns),
-                            ranks[rank].Text, ranks[rank].Colors);
-                        ranks[rank].Iterations++;
-                    }
-                } else {
-                    Debug.LogWarning("ScoreManager not found");
-                }
+                PlaySound(rank);
             }
 
             lastPressure = pressure;
             return pressure;
         }
 
+        private void HandleTimer(int rank) {
+            if(countTimer != null) {
+                if(rank <= 1) {
+                    countTimer.SetInRythmValue(true);
+                } else {
+                    countTimer.SetInRythmValue(false);
+                }
+            } else {
+                Debug.LogWarning("CountTimer not found");
+            }
+        }
+
+        private void HandleScore(int rank) {
+            scoreManager ??= FindObjectOfType<ScoreManager>();
+            if(scoreManager != null) {
+                scoreManager.SetScoreModifier(ranks[rank].Points);
+
+                if(scoreManager.TimeSuccessTextPointSpawns.Length >= 4) {
+                    scoreManager.SetSuccessText(scoreManager.RandomGenerationSpawners(scoreManager.TimeSuccessTextPointSpawns),
+                        ranks[rank].Text, ranks[rank].Colors);
+                    ranks[rank].Iterations++;
+                }
+            } else {
+                Debug.LogWarning("ScoreManager not found");
+            }
+        }
+
+        private void PlaySound(int rank) {
+            if(ranks[rank].Clip == null) return;
+            Etienne.Sound sound = new Sound(ranks[rank].Clip, soundParameters);
+            AudioManager.Play(sound);
+        }
+
+        private ScoreManager scoreManager;
         private Coroutine beatCoroutine;
         private CardiacMassagePressureData lastPressure;
         private CountTimer countTimer;
