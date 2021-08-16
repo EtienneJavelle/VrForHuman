@@ -93,7 +93,19 @@ MonoBehaviour:
     - "Quel est le bon num\xE9ro ?...je n\u2019arrive plus \xE0 m\u2019en souvenir..."
     OnCompleted:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 7460161545634569018}
+          m_TargetAssemblyTypeName: PhoneCtrl, Assembly-CSharp
+          m_MethodName: PlayerCanUsePhone
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   textDuration: 1.5
 --- !u!1 &441353420744240846
 GameObject:

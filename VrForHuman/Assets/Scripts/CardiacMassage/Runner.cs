@@ -36,7 +36,8 @@ public class Runner : MonoBehaviour {
             anim.SetBool("ArrestCardiacFriendView", true);
             DialogManager _dialogManager = runnerManager.GetComponent<DialogManager>();
             _dialogManager.LaunchDialog(0);
-            TestDebug.Instance.friendDialogManager = _dialogManager;
+            runnerManager.friendDialogManager = _dialogManager;
+            StartCoroutine(runnerManager.RescueAlertTimer());
         }
     }
 }

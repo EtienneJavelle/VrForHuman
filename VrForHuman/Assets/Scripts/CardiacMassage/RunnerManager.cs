@@ -1,4 +1,5 @@
 using Etienne;
+using System.Collections;
 using UnityEngine;
 
 [Requirement(typeof(GameManager))]
@@ -8,6 +9,8 @@ public class RunnerManager : MonoBehaviourWithRequirement {
     [SerializeField] private Runner runner;
 
     [SerializeField] private GameObject testBasicDummy, cardiacMassageButton, defibrilator;
+
+    public DialogManager friendDialogManager { get; set; }
 
     public bool isVictim;
 
@@ -25,7 +28,14 @@ public class RunnerManager : MonoBehaviourWithRequirement {
         }
     }
 
+    public IEnumerator RescueAlertTimer() {
+        yield return new WaitForSeconds(15f);
+
+        friendDialogManager.LaunchDialog(1);
+    }
+
     public void ActiveCardiacMassage(bool _value) {
+        Debug.Log(gameObject.name + " ActiveCardiacMassage");
         testBasicDummy.SetActive(_value);
         cardiacMassageButton.SetActive(_value);
         defibrilator.SetActive(_value);
@@ -33,6 +43,5 @@ public class RunnerManager : MonoBehaviourWithRequirement {
         GameManager.Instance.arrestCardiacStarted = _value;
 
         runner.gameObject.SetActive(!_value);
-        StartCoroutine(TestDebug.Instance.RescueAlertTimer());
     }
 }

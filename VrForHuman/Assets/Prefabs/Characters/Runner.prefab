@@ -1955,7 +1955,6 @@ GameObject:
   m_Component:
   - component: {fileID: 820932561012778259}
   - component: {fileID: 1264870215}
-  - component: {fileID: 2971497926286344188}
   m_Layer: 0
   m_Name: Runner
   m_TagString: Untagged
@@ -1995,22 +1994,6 @@ MonoBehaviour:
   cardiacMassageButton: {fileID: 0}
   defibrilator: {fileID: 0}
   isVictim: 0
---- !u!114 &2971497926286344188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299495611193533160}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84afe563ae38a1341b22c5613e0395b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 8210994819844860593}
-  dialogLabel: {fileID: 863877814181645465}
-  dialogs: []
-  textDuration: 1.5
 --- !u!1 &990836459079849092
 GameObject:
   m_ObjectHideFlags: 0

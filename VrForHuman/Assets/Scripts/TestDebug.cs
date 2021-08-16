@@ -1,7 +1,6 @@
 using CardiacMassage;
 using RockVR.Video;
 using RockVR.Video.Demo;
-using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,8 +16,6 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
         StartRecordKey, PauseRecordKey, StopRecordKey, PlayVideoKey, NextVideoKey, PreviousVideoKey, ExitVideoModeKey,
         ExitGameKey;
 
-    public DialogManager friendDialogManager { get; set; }
-
     // Start is called before the first frame update
     private void Start() {
         mainMenu = FindObjectOfType<MainMenu>();
@@ -26,12 +23,6 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
 
         videoCaptureUI = FindObjectOfType<VideoCaptureUI>();
         recordManager = FindObjectOfType<RecordManager>();
-    }
-
-    public IEnumerator RescueAlertTimer() {
-        yield return new WaitForSeconds(15f);
-
-        friendDialogManager.LaunchDialog(1);
     }
 
     // Update is called once per frame
