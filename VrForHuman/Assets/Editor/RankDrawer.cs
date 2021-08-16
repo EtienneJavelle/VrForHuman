@@ -16,8 +16,12 @@ namespace CardiacMassage {
             Rect textPosition = new Rect(position.x, position.y, quarter * 1.5f, rankHeight);
             Rect pointPosition = new Rect(position.x + quarter * 1.5f, position.y, quarter * 1.5f, rankHeight);
             Rect valuePosition = new Rect(position.x + (quarter * 3), position.y, quarter, rankHeight);
-            Rect colorsPosition = new Rect(position) {
+            Rect clipPosition = new Rect(position) {
                 y = position.y + rankHeight + 2,
+                height = rankHeight,
+            };
+            Rect colorsPosition = new Rect(position) {
+                y = clipPosition.y + rankHeight + 2,
                 height = rankHeight * 2,
             };
 
@@ -28,15 +32,15 @@ namespace CardiacMassage {
             points.intValue = EditorGUI.IntField(pointPosition, new GUIContent("Points"), points.intValue);
             offset.floatValue = EditorGUI.FloatField(valuePosition, new GUIContent("Offset"), offset.floatValue);
             EditorGUIUtility.labelWidth = old;
-
+            EditorGUI.PropertyField(clipPosition, property.FindPropertyRelative("clip"));
             EditorGUI.PropertyField(colorsPosition, colors);
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
             if(!EditorGUIUtility.wideMode) {
-                return EditorGUIUtility.singleLineHeight * 5 + 8;
+                return EditorGUIUtility.singleLineHeight * 6 + 12;
             }
-            return EditorGUIUtility.singleLineHeight * 3 + 4;
+            return EditorGUIUtility.singleLineHeight * 4 + 10;
         }
     }
 }
