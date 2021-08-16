@@ -2,6 +2,12 @@ using DG.Tweening;
 using UnityEngine;
 
 public class PhoneCtrl : MonoBehaviour {
+    #region Properties
+
+    public DialogManager phoneDialogManager { get; protected set; }
+
+    #endregion
+
     #region UnityInspector
 
     [SerializeField] private PhoneInputField phoneInputField;
@@ -16,6 +22,8 @@ public class PhoneCtrl : MonoBehaviour {
 
     private void Awake() {
         path ??= GetComponent<Etienne.Path>();
+        phoneDialogManager = GetComponent<DialogManager>();
+        TestDebug.Instance.SetPhoneCtrl(this);
     }
 
     private void Start() {
@@ -23,15 +31,25 @@ public class PhoneCtrl : MonoBehaviour {
         screenCall.SetActive(false);
     }
 
+    public void DialogCompleted(int _dialogIndex) {
+        phoneDialogManager.GetDialog(_dialogIndex).dialogCompleted = true;
+        Debug.Log("Dialog Completed " + _dialogIndex);
+    }
+
     public void PlayerCanUsePhone() {
         Debug.Log("Can Use Phone");
         transform.parent = null;
         transform.DOLocalPath(path.LocalWaypoints, duration, PathType.CatmullRom, PathMode.Full3D, 10, Color.blue).SetLookAt(0.01f).OnComplete(PhoneEndPath);
+
+        GameManager.Instance.PlayerCanvasManager.GetCityDisplay().fading = false;
+        GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
+        GameManager.Instance.PlayerCanvasManager.ActivePhoneNumberDisplay(true);
     }
 
     private void PhoneEndPath() {
         Debug.Log("PhoneEndPath");
         baseScreenPhone.SetActive(true);
+        transform.localEulerAngles = new Vector3(0, 180, 0);
     }
 
     public void PlayerPhoneCallRequest(DialogManager _dialogManager) {
@@ -62,6 +80,8 @@ public class PhoneCtrl : MonoBehaviour {
         if(phoneInputField.GetInputFieldText() == samuNumero.ToString()) {
             baseScreenPhone.SetActive(false);
             screenCall.SetActive(true);
+
+            phoneDialogManager.LaunchDialog(0);
         }
     }
 }

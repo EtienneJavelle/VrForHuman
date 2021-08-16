@@ -20,6 +20,10 @@ public class DialogManager : MonoBehaviour {
         SetBoxDialogActive(false);
     }
 
+    public Dialog GetDialog(int _index) {
+        return dialogs[_index];
+    }
+
     public void SetBoxDialogActive(bool _value) {
         canvas.gameObject.SetActive(_value);
     }

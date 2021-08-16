@@ -29,7 +29,7 @@ public class RunnerManager : MonoBehaviourWithRequirement {
     }
 
     public IEnumerator RescueAlertTimer() {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(7f);
 
         friendDialogManager.LaunchDialog(1);
     }

@@ -8,6 +8,7 @@ public class PlayerCanvasManager : MonoBehaviourWithRequirement {
 
     [SerializeField] private TextFadingDisplay cityDisplay;
     [SerializeField] private GameObject endSimulationDisplay;
+    [SerializeField] private GameObject phoneNumberDisplay;
     [SerializeField] private UnityEngine.UI.Image blood;
     [SerializeField] private Sound hurtSound;
 
@@ -23,12 +24,23 @@ public class PlayerCanvasManager : MonoBehaviourWithRequirement {
         endSimulationDisplay.SetActive(_value);
     }
 
+    public TextFadingDisplay GetCityDisplay() {
+        return cityDisplay;
+    }
+
     public void ActiveCityDisplay(bool _value) {
         cityDisplay.gameObject.SetActive(_value);
     }
 
+    public void ActivePhoneNumberDisplay(bool _value) {
+        phoneNumberDisplay.SetActive(_value);
+    }
+
     public void BeHurt() {
-        if(!canBeHurt) return;
+        if(!canBeHurt) {
+            return;
+        }
+
         canBeHurt = false;
         AudioManager.Play(hurtSound);
         blood.DOComplete();

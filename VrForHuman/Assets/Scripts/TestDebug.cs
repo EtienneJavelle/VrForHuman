@@ -11,10 +11,18 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
     private VideoCaptureUI videoCaptureUI;
     private RecordManager recordManager;
 
+    private PhoneCtrl phoneCtrl;
+
     public KeyCode AddScoreKey, RemoveScoreKey, EndGameKey,
         ClassicModeKey, ArcadeModeKey,
         StartRecordKey, PauseRecordKey, StopRecordKey, PlayVideoKey, NextVideoKey, PreviousVideoKey, ExitVideoModeKey,
         ExitGameKey;
+
+    [Space]
+
+    [SerializeField] private KeyCode callRescueStep01Key;
+    [SerializeField] private KeyCode callRescueStep02Key;
+    [SerializeField] private KeyCode callRescueStep03Key;
 
     // Start is called before the first frame update
     private void Start() {
@@ -25,18 +33,11 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
         recordManager = FindObjectOfType<RecordManager>();
     }
 
-    // Update is called once per frame
-    private void Update() {
+    public void SetPhoneCtrl(PhoneCtrl _phoneCtrl) {
+        phoneCtrl = _phoneCtrl;
+    }
 
-        if(Input.GetKeyDown(ExitGameKey)) {
-            Application.Quit();
-#if UNITY_EDITOR
-            EditorApplication.ExitPlaymode();
-#endif
-        }
-
-#if UNITY_EDITOR
-
+    private void GameModeDebug() {
         if(mainMenu != null && Input.GetKeyDown(ClassicModeKey)) {
             mainMenu.ClassicMode();
         }
@@ -45,6 +46,12 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
             mainMenu.ArcadeMode();
         }
 
+        if(Input.GetKeyDown(EndGameKey)) {
+            GameManager.Instance.EndSimulation();
+        }
+    }
+
+    private void ScoreDebug() {
         if(Input.GetKeyDown(AddScoreKey) && scoreManager != null) {
             scoreManager.ChangeScore(1000);
         }
@@ -52,11 +59,9 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
         if(Input.GetKeyDown(RemoveScoreKey) && scoreManager != null) {
             scoreManager.ChangeScore(1000);
         }
+    }
 
-        if(Input.GetKeyDown(EndGameKey)) {
-            GameManager.Instance.EndSimulation();
-        }
-
+    private void RecordDebug() {
         if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.NOT_START && Input.GetKeyDown(StartRecordKey)) {
             VideoCaptureCtrl.Instance.StartCapture();
             UnityEngine.Debug.Log("START");
@@ -103,6 +108,49 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
                 }*/
             }
         }
+    }
+
+    private void CallRescueStepsDebug() {
+        if(Input.GetKeyDown(callRescueStep01Key) &&
+            phoneCtrl.phoneDialogManager.GetDialog(0).dialogCompleted) {
+            Debug.Log("Call Rescue Step 01 Completed");
+            phoneCtrl.phoneDialogManager.LaunchDialog(1);
+        }
+
+        if(Input.GetKeyDown(callRescueStep02Key) &&
+            phoneCtrl.phoneDialogManager.GetDialog(1).dialogCompleted) {
+            Debug.Log("Call Rescue Step 02 Completed");
+            phoneCtrl.phoneDialogManager.LaunchDialog(2);
+        }
+
+        if(Input.GetKeyDown(callRescueStep03Key) &&
+            phoneCtrl.phoneDialogManager.GetDialog(2).dialogCompleted) {
+            Debug.Log("Call Rescue Step 03 Completed");
+            phoneCtrl.phoneDialogManager.LaunchDialog(3);
+            GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(false);
+            GameManager.Instance.PlayerCanvasManager.ActivePhoneNumberDisplay(false);
+        }
+    }
+
+    // Update is called once per frame
+    private void Update() {
+
+        if(Input.GetKeyDown(ExitGameKey)) {
+            Application.Quit();
+#if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+#endif
+        }
+
+#if UNITY_EDITOR
+
+        GameModeDebug();
+
+        ScoreDebug();
+
+        RecordDebug();
+
+        CallRescueStepsDebug();
 #endif
     }
 }

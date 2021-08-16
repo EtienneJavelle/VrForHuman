@@ -8,4 +8,6 @@ public class Dialog {
     [SerializeField] private string[] texts;
 
     public UnityEvent OnCompleted = new UnityEvent();
+
+    public bool dialogCompleted { get; set; }
 }

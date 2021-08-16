@@ -26,6 +26,7 @@ public class MainMenu : MonoBehaviour {
     public void ClassicMode() {
         GameManager.Instance.IsArcadeMode = false;
         if(GameManager.Instance.PlayerCanvasManager != null) {
+            GameManager.Instance.PlayerCanvasManager.GetCityDisplay().fading = true;
             GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
         }
 
@@ -36,6 +37,7 @@ public class MainMenu : MonoBehaviour {
     public void ArcadeMode() {
         GameManager.Instance.IsArcadeMode = true;
         if(GameManager.Instance.PlayerCanvasManager != null) {
+            GameManager.Instance.PlayerCanvasManager.GetCityDisplay().fading = true;
             GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
         }
 

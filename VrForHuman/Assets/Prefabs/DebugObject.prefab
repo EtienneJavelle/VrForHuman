@@ -57,3 +57,6 @@ MonoBehaviour:
   PreviousVideoKey: 102
   ExitVideoModeKey: 106
   ExitGameKey: 282
+  callRescueStep01Key: 257
+  callRescueStep02Key: 258
+  callRescueStep03Key: 259
