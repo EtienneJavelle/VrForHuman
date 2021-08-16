@@ -19,8 +19,8 @@ public class PhoneCtrl : MonoBehaviour {
         screenCall.SetActive(false);
     }
 
-    public void PlayerPhoneCall(DialogManager _dialogManager, int _indexDialog) {
-
+    public void PlayerPhoneCallRequest(DialogManager _dialogManager) {
+        _dialogManager.LaunchDialog(2);
     }
 
     public void KeypadButton(ButtonUI _keypadButton) {

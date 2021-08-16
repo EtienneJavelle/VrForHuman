@@ -7,5 +7,5 @@ public class Dialog {
 
     [SerializeField] private string[] texts;
 
-    public UnityEvent dialogCompleted = new UnityEvent();
+    public UnityEvent OnCompleted = new UnityEvent();
 }

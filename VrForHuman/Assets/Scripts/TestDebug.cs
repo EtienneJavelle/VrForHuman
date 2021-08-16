@@ -31,7 +31,6 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
     public IEnumerator RescueAlertTimer() {
         yield return new WaitForSeconds(15f);
 
-        friendDialogManager.SetBoxDialogActive(true);
         friendDialogManager.LaunchDialog(1);
     }
 

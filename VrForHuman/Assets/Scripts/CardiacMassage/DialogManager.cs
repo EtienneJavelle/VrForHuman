@@ -25,6 +25,7 @@ public class DialogManager : MonoBehaviour {
     }
 
     public void LaunchDialog(int _currentDialogIndex) {
+        SetBoxDialogActive(true);
         currentTextIndex = 0;
         StartCoroutine(PlayDialogText(_currentDialogIndex));
     }
@@ -36,7 +37,7 @@ public class DialogManager : MonoBehaviour {
         if(currentTextIndex < dialogs[_currentDialogIndex].Texts.Length) {
             StartCoroutine(PlayDialogText(_currentDialogIndex));
         } else {
-            dialogs[_currentDialogIndex].dialogCompleted.Invoke();
+            dialogs[_currentDialogIndex].OnCompleted.Invoke();
             SetBoxDialogActive(false);
         }
     }

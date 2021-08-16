@@ -69,21 +69,21 @@ MonoBehaviour:
     - Christophe ?
     - "Christophe, hey ! tu m\u2019entends ?"
     - "Mon ami a besoin d\u2019aide !"
-    dialogCompleted:
+    OnCompleted:
       m_PersistentCalls:
         m_Calls: []
   - texts:
     - J'appelle les secours
-    dialogCompleted:
+    OnCompleted:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 7460161545634569018}
           m_TargetAssemblyTypeName: PhoneCtrl, Assembly-CSharp
-          m_MethodName: PhonePath
-          m_Mode: 1
+          m_MethodName: PlayerPhoneCallRequest
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 3343694728902136724}
+            m_ObjectArgumentAssemblyTypeName: DialogManager, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -91,7 +91,7 @@ MonoBehaviour:
           m_CallState: 2
   - texts:
     - "Quel est le bon num\xE9ro ?...je n\u2019arrive plus \xE0 m\u2019en souvenir..."
-    dialogCompleted:
+    OnCompleted:
       m_PersistentCalls:
         m_Calls: []
   textDuration: 1.5
