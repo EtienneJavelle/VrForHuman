@@ -1993,7 +1993,7 @@ MonoBehaviour:
   testBasicDummy: {fileID: 0}
   cardiacMassageButton: {fileID: 0}
   defibrilator: {fileID: 0}
-  isVictim: 0
+  isVictim: 1
 --- !u!1 &990836459079849092
 GameObject:
   m_ObjectHideFlags: 0

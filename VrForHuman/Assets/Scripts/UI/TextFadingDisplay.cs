@@ -12,6 +12,12 @@ public class TextFadingDisplay : MonoBehaviour {
 
     #endregion
 
+    #region Properties
+
+    public bool fading { get; set; }
+
+    #endregion
+
     #region UnityInspector
 
     public float speedFade;
@@ -26,28 +32,43 @@ public class TextFadingDisplay : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
+        if(fading) {
+            SetDisplayTextColorTransparent();
+        } else {
+            SetDisplayTextColorVisible();
+        }
+    }
+
+    public void SetDisplayTextColorTransparent() {
         displayText.color = new Color(displayText.color.r, displayText.color.g, displayText.color.b, 0);
     }
 
+    public void SetDisplayTextColorVisible() {
+        displayText.color = new Color(displayText.color.r, displayText.color.g, displayText.color.b, 1);
+    }
+
     public virtual void Update() {
-        if(displayText.color.a < 1) {
-            if(fadeComplete == false) {
+        if(fading) {
+            if(displayText.color.a < 1) {
+                if(fadeComplete == false) {
+                    displayText.color = new Color(displayText.color.r, displayText.color.g,
+                    displayText.color.b, displayText.color.a + speedFade * Time.deltaTime);
+                }
+            } else {
+                if(fadeComplete == false) {
+                    fadeComplete = true;
+                }
+            }
+
+            if(fadeComplete) {
                 displayText.color = new Color(displayText.color.r, displayText.color.g,
-                displayText.color.b, displayText.color.a + speedFade * Time.deltaTime);
-            }
-        } else {
-            if(fadeComplete == false) {
-                fadeComplete = true;
-            }
-        }
+                displayText.color.b, displayText.color.a - speedFade * Time.deltaTime);
 
-        if(fadeComplete) {
-            displayText.color = new Color(displayText.color.r, displayText.color.g,
-            displayText.color.b, displayText.color.a - speedFade * Time.deltaTime);
-
-            if(displayText.color.a <= 0) {
-                playerCanvasManager.ActiveCityDisplay(false);
-                fadeComplete = false;
+                if(displayText.color.a <= 0) {
+                    fading = false;
+                    playerCanvasManager.ActiveCityDisplay(false);
+                    fadeComplete = false;
+                }
             }
         }
     }
