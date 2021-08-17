@@ -8,10 +8,20 @@ namespace CardiacMassage {
     [Etienne.Requirement(typeof(AudioManager))]
     public class Defibrilation : Etienne.MonoBehaviourWithRequirement {
         [SerializeField] private TMPro.TextMeshProUGUI message;
-        [SerializeField] private Sound sound;
-        [SerializeField] private float intervalBetweenDefibrilations = 20f;
-        [SerializeField] private int backOffCountdown = 5, backOffAdditionalTime = 3;
         [SerializeField] private Interactable cardiacMassage;
+        [SerializeField] private Etienne.SoundParameters soundParameters;
+
+        [Header("Audio Clips")]
+        [SerializeField]
+        private AudioClip placeElectrodesClip;
+        [SerializeField]
+        private AudioClip
+            analyseClip,
+            chocClip,
+            chocDeliveredClip,
+            ambulanceClip,
+            tutoClip,
+            metronomeClip;
 
         private bool isStarted, isRunning;
         private AudioSource audioSource;
@@ -20,7 +30,16 @@ namespace CardiacMassage {
         private void Awake() {
             cardiacMassage ??= FindObjectOfType<CardiacMassage>().GetComponent<Interactable>();
             message ??= GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            UpdateMessage("Veuillez coller Les Electrodes.");
+            UpdateMessage("");
+        }
+
+        public void SetLid(Lid lid) {
+            lid.OnOpenLid += PlayPlaceElectrodesSound;
+        }
+
+        private void PlayPlaceElectrodesSound() {
+            UpdateMessage("Placez les electrodes");
+            audioSource = AudioManager.Play(new Sound(placeElectrodesClip, soundParameters));
         }
 
         private void Update() {
@@ -34,35 +53,31 @@ namespace CardiacMassage {
         public bool StartDefibrilation() {
             if(isStarted) return false;
             isStarted = true;
-            UpdateMessage("Massez au rythme du click!");
-            if(coroutine != null) {
-                StopCoroutine(coroutine);
-            }
-            coroutine = StartCoroutine(DefibrilationInterval());
+            coroutine = StartCoroutine(DefibrilationCoroutine());
             return true;
         }
 
-        public IEnumerator DefibrilationInterval() {
-            audioSource = AudioManager.Play(sound, transform);
-            yield return new WaitForSeconds(intervalBetweenDefibrilations);
-            audioSource.Stop();
-            coroutine = StartCoroutine(DefibrilationCountdown());
-        }
-
-        public IEnumerator DefibrilationCountdown() {
-            for(int i = backOffCountdown - 1; i >= 0; i--) {
-                UpdateMessage($"Reculez !\r\nDefibrilation dans {i} secondes.");
-                yield return new WaitForSeconds(1);
+        public IEnumerator DefibrilationCoroutine() {
+            if(audioSource.isPlaying && audioSource.clip == placeElectrodesClip) {
+                audioSource.Stop();
             }
-            UpdateMessage("Derfibrilation");
+            yield return DefibrilationMessage(analyseClip, "Analyse, ne pas toucher le patient");
+            yield return DefibrilationMessage(chocClip, "Choc recommandé, <b>écartez vous du patient</b>");
             isRunning = true;
-            yield return new WaitForSeconds(backOffAdditionalTime);
-            UpdateMessage("Reprenez le massage !");
+            yield return DefibrilationMessage(chocDeliveredClip, "Choc délivré");
             isRunning = false;
-            coroutine = StartCoroutine(DefibrilationInterval());
+            yield return DefibrilationMessage(ambulanceClip, "Assurez vous qu'une ambulance\r\nà bien été apellé.");
+            yield return DefibrilationMessage(tutoClip, "Il n'y a plus de risque de toucher le patient,\r\nPlacez vous bien pour commencer le massage");
+            yield return DefibrilationMessage(metronomeClip, "Massez au rythme du bip");
         }
 
-        private void UpdateMessage(string text) {
+        private WaitForSeconds DefibrilationMessage(AudioClip clip, string message) {
+            UpdateMessage(message);
+            audioSource = AudioManager.Play(new Sound(clip, soundParameters), transform);
+            return new WaitForSeconds(clip.length);
+        }
+
+        public void UpdateMessage(string text) {
             message.text = text;
             message.DOComplete();
             message.transform.DOPunchScale(Vector2.one * 1.25f, .25f);

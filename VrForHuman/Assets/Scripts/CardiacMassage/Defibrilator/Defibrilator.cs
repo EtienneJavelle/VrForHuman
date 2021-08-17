@@ -20,6 +20,7 @@ namespace CardiacMassage {
         private DefibrilatorElectrodes[] electrodes;
         private Defibrilation defibrilation;
         private GameObject parent;
+        private AudioSource mainAudioSource;
         private bool AreBothElectrodesPlaced => electrodes[0].IsPlaced && electrodes[1].IsPlaced;
 
         private void Awake() {
@@ -37,6 +38,7 @@ namespace CardiacMassage {
             lid.OnCloseLid += DisableDefibrilator;
             pouch ??= GetComponentInChildren<Pouch>();
             defibrilation = GetComponent<Defibrilation>();
+            defibrilation.SetLid(lid);
         }
 
         private void EnableEmplacement() {
@@ -69,12 +71,16 @@ namespace CardiacMassage {
             foreach(DefibrilatorTargetEmplacement target in targets) {
                 target.transform.parent = parent.transform;
             }
+            defibrilation.UpdateMessage("Ouvrez le <b>Defibrilateur</b>.");
         }
 
         private void DisableDefibrilator() {
             SetActiveTargets(false);
             SetActiveElectrodes(false);
             pouch.gameObject.SetActive(false);
+            if(mainAudioSource != null && mainAudioSource.isPlaying) {
+                mainAudioSource.Pause();
+            }
         }
 
         private void EnableDefibrilator() {

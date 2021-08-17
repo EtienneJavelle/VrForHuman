@@ -10,9 +10,11 @@ public class Lid : MonoBehaviour {
     public event Action OnOpenLid, OnCloseLid;
 
     [SerializeField] private Vector3 openedRotation, closedRotation;
-    [SerializeField] private Etienne.Sound openSound = new Etienne.Sound(null), closeSound = new Etienne.Sound(null);
+    [SerializeField]
+    private Etienne.Sound openSound = new Etienne.Sound(null),
+        closeSound = new Etienne.Sound(null);
 
-    private bool isOpened, isMoving;
+    private bool isOpened, isMoving, hasBeenOpened;
 
     private void Awake() {
         GetComponent<InteractableHoverEvents>().onHandHoverBegin.AddListener(Toggle);
