@@ -13,6 +13,8 @@ public class PhoneCtrl : MonoBehaviour {
     [SerializeField] private PhoneInputField phoneInputField;
     [SerializeField] private GameObject baseScreenPhone, screenCall;
 
+    [SerializeField] private Etienne.Sound callSound = new Etienne.Sound(null);
+
     [SerializeField] private int samuNumero;
 
     [SerializeField] private Etienne.Path path;
@@ -39,10 +41,14 @@ public class PhoneCtrl : MonoBehaviour {
     public void PlayerCanUsePhone() {
         Debug.Log("Can Use Phone");
         transform.parent = null;
+        //TODO: Faire en sorte que le téléphone colle à la main
         transform.DOLocalPath(path.LocalWaypoints, duration, PathType.CatmullRom, PathMode.Full3D, 10, Color.blue).SetLookAt(0.01f).OnComplete(PhoneEndPath);
+
 
         GameManager.Instance.PlayerCanvasManager.GetCityDisplay().fading = false;
         GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
+        GameManager.Instance.PlayerCanvasManager.GetCityDisplay().SetDisplayTextColorVisible();
+
         GameManager.Instance.PlayerCanvasManager.ActivePhoneNumberDisplay(true);
     }
 
@@ -52,8 +58,7 @@ public class PhoneCtrl : MonoBehaviour {
         transform.localEulerAngles = new Vector3(0, 180, 0);
     }
 
-    public void EndCallRescue()
-    {
+    public void EndCallRescue() {
         screenCall.SetActive(false);
     }
 
@@ -85,6 +90,8 @@ public class PhoneCtrl : MonoBehaviour {
         if(phoneInputField.GetInputFieldText() == samuNumero.ToString()) {
             baseScreenPhone.SetActive(false);
             screenCall.SetActive(true);
+
+            //AudioManager.Play(callSound, transform);
 
             phoneDialogManager.LaunchDialog(0);
         }

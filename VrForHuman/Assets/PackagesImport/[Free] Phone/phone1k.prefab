@@ -688,9 +688,16 @@ MonoBehaviour:
   phoneInputField: {fileID: 1893438502434640900}
   baseScreenPhone: {fileID: 6676897053131299955}
   screenCall: {fileID: 1389991985}
+  callSound:
+    clip: {fileID: 8300000, guid: 24e94d4c9f87e29468ccc7e32f17a8cb, type: 3}
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
+      spacialBlend: 1
   samuNumero: 15
   path: {fileID: 6769309339683288998}
-  duration: 3
+  duration: 1
 --- !u!114 &6769309339683288998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,7 +764,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - texts:
-    - "Y a t-il un t\xE9moin qui sache r\xE9aliser une massage cardiaque ?"
+    - "Y a t-il un t\xE9moin qui sache r\xE9aliser un massage cardiaque ?"
     OnCompleted:
       m_PersistentCalls:
         m_Calls:
@@ -782,6 +789,18 @@ MonoBehaviour:
           m_TargetAssemblyTypeName: PhoneCtrl, Assembly-CSharp
           m_MethodName: DialogCompleted
           m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6818330650735283709}
+          m_TargetAssemblyTypeName: PhoneCtrl, Assembly-CSharp
+          m_MethodName: EndCallRescue
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -825,8 +844,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0073633194, y: 372.0016}
-  m_SizeDelta: {x: 750, y: 325}
+  m_AnchoredPosition: {x: -0.00013161, y: 0.0019836}
+  m_SizeDelta: {x: 629.81, y: 143.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1641560901151405445
 CanvasRenderer:
@@ -1265,8 +1284,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.0007, y: -0.00059}
-  m_SizeDelta: {x: 169.06134, y: 351.54547}
+  m_AnchoredPosition: {x: 0.0041, y: 0.1478}
+  m_SizeDelta: {x: 629.8055, y: 143.1579}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &482849152018767030
 Canvas:
