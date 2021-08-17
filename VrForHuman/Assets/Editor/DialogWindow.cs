@@ -9,8 +9,12 @@ public class DialogWindow : EditorWindow {
     }
 
     private void OnGUI() {
-        if(property == null) return;
+        if(property == null) {
+            return;
+        }
+
         EditorGUILayout.PropertyField(property.FindPropertyRelative("texts"));
+        EditorGUILayout.PropertyField(property.FindPropertyRelative("dialogSound"));
         EditorGUILayout.PropertyField(property.FindPropertyRelative("OnCompleted"));
     }
 }

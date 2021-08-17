@@ -15,6 +15,10 @@ public class RunnerManager : MonoBehaviourWithRequirement {
 
     #endregion
 
+    public Runner GetRunner() {
+        return runner;
+    }
+
     private void Awake() {
         if(isVictim) {
             defibrilator ??= GameObject.FindObjectOfType<CardiacMassage.Defibrilator>().gameObject;
@@ -23,7 +27,9 @@ public class RunnerManager : MonoBehaviourWithRequirement {
 
     private void Start() {
         if(isVictim) {
+            ActiveArrestCardiacSimulation(false);
             ActiveCardiacMassage(false);
+            ActiveDefibrilator(false);
         }
     }
 
@@ -33,14 +39,22 @@ public class RunnerManager : MonoBehaviourWithRequirement {
         friendDialogManager.LaunchDialog(1);
     }
 
-    public void ActiveCardiacMassage(bool _value) {
-        Debug.Log(gameObject.name + " ActiveCardiacMassage");
+    public void ActiveArrestCardiacSimulation(bool _value) {
+        Debug.Log(gameObject.name + " ActiveArrestCardiac");
         testBasicDummy.SetActive(_value);
-        cardiacMassageButton.SetActive(_value);
-        defibrilator.SetActive(_value);
+        //cardiacMassageButton.SetActive(_value);
+        //defibrilator.SetActive(_value);
 
         GameManager.Instance.arrestCardiacStarted = _value;
 
         runner.gameObject.SetActive(!_value);
+    }
+
+    public void ActiveCardiacMassage(bool _value) {
+        cardiacMassageButton.SetActive(_value);
+    }
+
+    public void ActiveDefibrilator(bool _value) {
+        defibrilator.SetActive(_value);
     }
 }

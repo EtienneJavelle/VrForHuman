@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour {
             GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
         }
 
+        GameManager.Instance.InstantiateTeacherCtrl();
         SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
     }
 
@@ -41,6 +42,7 @@ public class MainMenu : MonoBehaviour {
             GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(true);
         }
 
+        GameManager.Instance.InstantiateTeacherCtrl();
         SceneLoader.Instance.ChangeScene(Scenes.CardiacMassage);
     }
 

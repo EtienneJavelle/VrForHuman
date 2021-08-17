@@ -13,6 +13,9 @@ public class PhoneCtrl : MonoBehaviour {
     [SerializeField] private PhoneInputField phoneInputField;
     [SerializeField] private GameObject baseScreenPhone, screenCall;
 
+    [SerializeField] private RunnerManager runnerManager;
+    [SerializeField] private RunnerFriend runnerFriend;
+
     [SerializeField] private Etienne.Sound callSound = new Etienne.Sound(null);
 
     [SerializeField] private int samuNumero;
@@ -50,6 +53,9 @@ public class PhoneCtrl : MonoBehaviour {
         GameManager.Instance.PlayerCanvasManager.GetCityDisplay().SetDisplayTextColorVisible();
 
         GameManager.Instance.PlayerCanvasManager.ActivePhoneNumberDisplay(true);
+
+        Debug.Log("L'ami part chercher le défibrilateur");
+        runnerFriend.SetCurrentPathToDefibrilatorPath();
     }
 
     private void PhoneEndPath() {
@@ -60,6 +66,9 @@ public class PhoneCtrl : MonoBehaviour {
 
     public void EndCallRescue() {
         screenCall.SetActive(false);
+
+        Debug.Log("Le joueur peut commencer le massage cardiaque");
+        runnerManager.ActiveCardiacMassage(true);
     }
 
     public void PlayerPhoneCallRequest(DialogManager _dialogManager) {

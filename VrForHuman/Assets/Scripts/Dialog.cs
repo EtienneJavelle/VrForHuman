@@ -7,6 +7,11 @@ public class Dialog {
 
     [SerializeField] private string[] texts;
 
+    public Etienne.Sound DialogSound => dialogSound;
+
+    [SerializeField] private Etienne.Sound dialogSound = new Etienne.Sound(null);
+
+
     public UnityEvent OnCompleted = new UnityEvent();
 
     public bool dialogCompleted { get; set; }
