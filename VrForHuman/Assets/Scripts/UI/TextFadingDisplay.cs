@@ -40,10 +40,12 @@ public class TextFadingDisplay : MonoBehaviour {
     }
 
     public void SetDisplayTextColorTransparent() {
+        Debug.Log("Transparent");
         displayText.color = new Color(displayText.color.r, displayText.color.g, displayText.color.b, 0);
     }
 
     public void SetDisplayTextColorVisible() {
+        Debug.Log("Visible");
         displayText.color = new Color(displayText.color.r, displayText.color.g, displayText.color.b, 1);
     }
 
