@@ -28,6 +28,8 @@ public class GameManager : Etienne.Singleton<GameManager> {
     #region UnityInspector
     [SerializeField] private GameObject levelLoader;
 
+    [SerializeField] private GameObject teacherCtrl;
+
     [SerializeField] private CardiacMassageSaving cardiacMassageSaving;
     #endregion
 
@@ -41,6 +43,12 @@ public class GameManager : Etienne.Singleton<GameManager> {
     private void EssentialLoading() {
         if(levelLoader != null && SceneLoader.Instance == null) {
             Instantiate(levelLoader);
+        }
+    }
+
+    public void InstantiateTeacherCtrl() {
+        if(teacherCtrl != null && TeacherCtrl.Instance == null) {
+            Instantiate(teacherCtrl);
         }
     }
 

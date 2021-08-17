@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 882521829890214267}
   - component: {fileID: 530247442846830383}
+  - component: {fileID: 5429697429697174314}
   - component: {fileID: 3343694728902136724}
   m_Layer: 0
   m_Name: RunnerFriend
@@ -50,6 +51,22 @@ MonoBehaviour:
   cardiacMassageButton: {fileID: 0}
   defibrilator: {fileID: 0}
   isVictim: 0
+--- !u!114 &5429697429697174314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248776148609076864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37793c8b7582e184abb231f61b8fd4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runner: {fileID: 587454886491394116}
+  timeBeforeBringDefibrilator: 100
+  toDefibrilatorPath: {fileID: 692208922752744668}
+  returnDefibrilatorPath: {fileID: 2354782464826912104}
 --- !u!114 &3343694728902136724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2509,6 +2526,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 447097807137690902}
+  - {fileID: 3953536883328278518}
+  - {fileID: 602433130697848092}
   m_Father: {fileID: 882521829890214267}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2707,6 +2726,103 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &8028646269540438683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 602433130697848092}
+  - component: {fileID: 2354782464826912104}
+  m_Layer: 0
+  m_Name: PathReturnDefibrilator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &602433130697848092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028646269540438683}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5079028246671118936}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2354782464826912104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028646269540438683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e2d60c6da2f4a5429a924d880f294ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLooped: 0
+  waypoints:
+  - {x: 0, y: 0, z: 1}
+  - {x: -6.469126, y: 0, z: -0.8999519}
+  - {x: -13.127, y: 0, z: -11.265}
+--- !u!1 &8536594487733351175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3953536883328278518}
+  - component: {fileID: 692208922752744668}
+  m_Layer: 0
+  m_Name: PathDefibrilator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3953536883328278518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536594487733351175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5079028246671118936}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &692208922752744668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536594487733351175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e2d60c6da2f4a5429a924d880f294ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLooped: 0
+  waypoints:
+  - {x: 0, y: 0, z: 1}
+  - {x: 6.4691257, y: 0, z: 0.89995193}
+  - {x: 14.463659, y: 0, z: -3.5963106}
+  - {x: 34.442467, y: 0, z: 0.089634895}
 --- !u!1 &8550226235630372580
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,6 +2936,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Phone Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3940149181265373866, guid: 6b085d6cdddb48848af606f93d0cdab5,
+        type: 3}
+      propertyPath: runnerFriend
+      value: 
+      objectReference: {fileID: 5429697429697174314}
+    - target: {fileID: 3940149181265373866, guid: 6b085d6cdddb48848af606f93d0cdab5,
+        type: 3}
+      propertyPath: runnerManager
+      value: 
+      objectReference: {fileID: 530247442846830383}
     - target: {fileID: 4766461805907621045, guid: 6b085d6cdddb48848af606f93d0cdab5,
         type: 3}
       propertyPath: m_RootOrder
