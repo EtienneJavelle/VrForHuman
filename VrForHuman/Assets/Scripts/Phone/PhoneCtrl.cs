@@ -52,6 +52,11 @@ public class PhoneCtrl : MonoBehaviour {
         transform.localEulerAngles = new Vector3(0, 180, 0);
     }
 
+    public void EndCallRescue()
+    {
+        screenCall.SetActive(false);
+    }
+
     public void PlayerPhoneCallRequest(DialogManager _dialogManager) {
         _dialogManager.LaunchDialog(2);
     }

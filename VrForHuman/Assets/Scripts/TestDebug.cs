@@ -13,6 +13,8 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
 
     private PhoneCtrl phoneCtrl;
 
+    private bool callRescueStep01Completed, callRescueStep02Completed, callRescueStep03Completed;
+
     public KeyCode AddScoreKey, RemoveScoreKey, EndGameKey,
         ClassicModeKey, ArcadeModeKey,
         StartRecordKey, PauseRecordKey, StopRecordKey, PlayVideoKey, NextVideoKey, PreviousVideoKey, ExitVideoModeKey,
@@ -112,23 +114,26 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
 
     private void CallRescueStepsDebug() {
         if(Input.GetKeyDown(callRescueStep01Key) &&
-            phoneCtrl.phoneDialogManager.GetDialog(0).dialogCompleted) {
+            phoneCtrl.phoneDialogManager.GetDialog(0).dialogCompleted && callRescueStep01Completed == false) {
             Debug.Log("Call Rescue Step 01 Completed");
             phoneCtrl.phoneDialogManager.LaunchDialog(1);
+            callRescueStep01Completed = true;
         }
 
         if(Input.GetKeyDown(callRescueStep02Key) &&
-            phoneCtrl.phoneDialogManager.GetDialog(1).dialogCompleted) {
+            phoneCtrl.phoneDialogManager.GetDialog(1).dialogCompleted && callRescueStep02Completed == false) {
             Debug.Log("Call Rescue Step 02 Completed");
             phoneCtrl.phoneDialogManager.LaunchDialog(2);
+            callRescueStep02Completed = true;
         }
 
         if(Input.GetKeyDown(callRescueStep03Key) &&
-            phoneCtrl.phoneDialogManager.GetDialog(2).dialogCompleted) {
+            phoneCtrl.phoneDialogManager.GetDialog(2).dialogCompleted && callRescueStep03Completed == false) {
             Debug.Log("Call Rescue Step 03 Completed");
             phoneCtrl.phoneDialogManager.LaunchDialog(3);
             GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(false);
             GameManager.Instance.PlayerCanvasManager.ActivePhoneNumberDisplay(false);
+            callRescueStep03Completed = true;
         }
     }
 

@@ -7,6 +7,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 917362378422008918, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 629.8055
+      objectReference: {fileID: 0}
+    - target: {fileID: 917362378422008918, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 143.1579
+      objectReference: {fileID: 0}
+    - target: {fileID: 917362378422008918, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0041
+      objectReference: {fileID: 0}
+    - target: {fileID: 917362378422008918, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.1478
+      objectReference: {fileID: 0}
+    - target: {fileID: 964559949111484428, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3032176635680216034, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
         type: 3}
       propertyPath: m_RootOrder
@@ -61,6 +86,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004122889173928137, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 629.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004122889173928137, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 143.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004122889173928137, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00013161
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004122889173928137, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0019836
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451024188956023345, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
+        type: 3}
+      propertyPath: dialogs.Array.data[2].texts.Array.data[0]
+      value: "Y a t-il un t\xE9moin qui sache r\xE9aliser un massage cardiaque ?"
       objectReference: {fileID: 0}
     - target: {fileID: 5560905291789515636, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
         type: 3}
