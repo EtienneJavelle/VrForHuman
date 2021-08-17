@@ -54,8 +54,6 @@ namespace CardiacMassage {
                 UpdateMessage($"Reculez !\r\nDefibrilation dans {i} secondes.");
                 yield return new WaitForSeconds(1);
             }
-            //todo defibrilation points
-            //todo defbrilation degats
             UpdateMessage("Derfibrilation");
             isRunning = true;
             yield return new WaitForSeconds(backOffAdditionalTime);

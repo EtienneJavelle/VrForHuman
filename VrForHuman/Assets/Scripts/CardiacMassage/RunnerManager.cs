@@ -5,7 +5,6 @@ using UnityEngine;
 [Requirement(typeof(GameManager))]
 public class RunnerManager : MonoBehaviourWithRequirement {
     #region UnityInspector
-
     [SerializeField] private Runner runner;
 
     [SerializeField] private GameObject testBasicDummy, cardiacMassageButton, defibrilator;

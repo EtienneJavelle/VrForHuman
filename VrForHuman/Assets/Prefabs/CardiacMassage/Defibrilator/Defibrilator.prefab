@@ -295,6 +295,20 @@ MonoBehaviour:
   pouch: {fileID: 5448666557287247655}
   waitingTime: 0
   pathDuration: 0
+  enableTargetSound:
+    clip: {fileID: 8300000, guid: 7113854dded09be418cf3be1158d444c, type: 3}
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
+      spacialBlend: 0
+  disableTargetSound:
+    clip: {fileID: 8300000, guid: e9befd794befe7540ad040be41dba757, type: 3}
+    parameters:
+      volume: 0.509
+      pitch: 1
+      loop: 0
+      spacialBlend: 0
 --- !u!114 &5519278440116675322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +515,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openedRotation: {x: -120, y: 0, z: 0}
   closedRotation: {x: 0, y: 0, z: 0}
+  openSound:
+    clip: {fileID: 8300000, guid: ebf848d63ce32d047a0acbc338e35371, type: 3}
+    parameters:
+      volume: 0.881
+      pitch: 1
+      loop: 0
+      spacialBlend: 1
+  closeSound:
+    clip: {fileID: 8300000, guid: 5dea26c1298d78149af149b8bd73ff63, type: 3}
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
+      spacialBlend: 1
 --- !u!65 &9025865143597012894
 BoxCollider:
   m_ObjectHideFlags: 0

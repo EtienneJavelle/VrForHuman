@@ -11,6 +11,9 @@ namespace CardiacMassage {
         [SerializeField] private Lid lid;
         [SerializeField] private Pouch pouch;
         [SerializeField] private float waitingTime = 3f, pathDuration = 3f;
+        [SerializeField]
+        private Etienne.Sound enableTargetSound = new Sound(null),
+            disableTargetSound = new Sound(null);
 
         private Path path;
         private DefibrilatorTargetEmplacement[] targets;
@@ -37,11 +40,13 @@ namespace CardiacMassage {
         }
 
         private void EnableEmplacement() {
+            AudioManager.Play(enableTargetSound);
             SetActiveTargets(true);
         }
 
         private void DisableEmplacement() {
             if(AreBothElectrodesPlaced) {
+                AudioManager.Play(disableTargetSound);
                 SetActiveTargets(false);
             }
         }

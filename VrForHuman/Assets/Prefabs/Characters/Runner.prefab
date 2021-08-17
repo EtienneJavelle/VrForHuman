@@ -2465,6 +2465,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11eab5916017ca544b3de50209d23963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runningSound:
+    clip: {fileID: 8300000, guid: 663259c63f1ddc643a3f3010c13dade5, type: 3}
+    parameters:
+      volume: 1
+      pitch: 1.3
+      loop: 0
+      spacialBlend: 1
+  gruntSound:
+    clip: {fileID: 8300000, guid: 9f1c02b6b032d934fab452f8f36d5e4b, type: 3}
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
+      spacialBlend: 1
+  fallingSound:
+    clip: {fileID: 8300000, guid: e2ac084bbab7d284b812c3f39ab61e1a, type: 3}
+    parameters:
+      volume: 1
+      pitch: 0.3
+      loop: 0
+      spacialBlend: 1
+  breathingSound:
+    clip: {fileID: 8300000, guid: 27b960f0379946345b75c5eedb524ca0, type: 3}
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
+      spacialBlend: 1
   anim: {fileID: 12386110883347928}
   path: {fileID: 2098076697024272685}
   duration: 10

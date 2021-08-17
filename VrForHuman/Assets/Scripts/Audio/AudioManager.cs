@@ -8,7 +8,17 @@ public class AudioManager : Singleton<AudioManager> {
     [SerializeField] private AudioMixerGroup output3D, output2D;
 
     private void Start() {
-        SceneLoader.Instance.OnSceneChanged += AudioManager.Instance.audioSources.Clear;
+        SceneLoader.Instance.OnSceneChanged += ClearAudioSources;
+    }
+
+    private void ClearAudioSources() {
+        foreach(AudioSource audioSource in audioSources) {
+            if(audioSource != null) {
+                audioSource.Stop();
+                GameObject.Destroy(audioSource.gameObject);
+            }
+        }
+        audioSources.Clear();
     }
 
     /// <summary>Play a Sound in 2D.</summary>
