@@ -50,3 +50,10 @@ MonoBehaviour:
     type: 3}
   cardiacMassageSaving: {fileID: 11400000, guid: 2c8d16d4a5fcde44aa886bf35e5b194a,
     type: 2}
+  ambulanceSound:
+    clip: {fileID: 8300000, guid: 14dabc36a1afd294c93d8c5a070f32cd, type: 3}
+    parameters:
+      volume: 0.058
+      pitch: 1
+      loop: 0
+      spacialBlend: 0
