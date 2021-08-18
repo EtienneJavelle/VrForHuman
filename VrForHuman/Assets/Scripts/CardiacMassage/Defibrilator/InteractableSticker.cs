@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
@@ -7,17 +6,23 @@ using Valve.VR.InteractionSystem;
 public class InteractableSticker : MonoBehaviour {
     public event Action OnAttach, OnDetach;
 
-    [SerializeField] private Interactable interactable;
+    [Header("Sticker")]
+    [SerializeField] protected Interactable interactable;
     [SerializeField] private InteractableHoverEvents interactableHover;
     [SerializeField] private float velocityThreshold = 1.1f;
+    protected Hand hand;
+    protected Rigidbody rb;
+    private BoxCollider otherHandCollider;
     private bool isAttached;
-    private Hand hand;
-    private Rigidbody rb;
 
     protected virtual void Start() {
         rb = GetComponent<Rigidbody>();
         interactableHover.onHandHoverBegin.AddListener(HandHoverBegin);
-        SceneLoader.Instance.OnSceneChanged += Kill;
+        if(SceneLoader.Instance != null) {
+            SceneLoader.Instance.OnSceneChanged += Kill;
+        } else {
+            Debug.LogWarning($"There is no SceneLoader");
+        }
     }
 
     private void Kill() {
@@ -35,11 +40,13 @@ public class InteractableSticker : MonoBehaviour {
     }
 
     private void Attach() {
-        if(enabled) {
+        if(enabled && !isAttached) {
             hand = interactable.hoveringHand;
+            otherHandCollider = hand.otherHand.GetComponent<BoxCollider>();
+            otherHandCollider.enabled = true;
             rb.isKinematic = true;
             transform.parent = hand.transform;
-            transform.DOLocalMove(hand.objectAttachmentPoint.localPosition, interactable.snapAttachEaseInTime * (interactable.attachEaseIn ? 1 : 0));
+            transform.localPosition = hand.objectAttachmentPoint.localPosition;
             isAttached = true;
             OnAttach?.Invoke();
         }
@@ -51,12 +58,14 @@ public class InteractableSticker : MonoBehaviour {
 
     protected void Detach(Vector3 velocity, bool isKinematic = false) {
         if(enabled) {
+            OnDetach?.Invoke();
+            otherHandCollider.enabled = false;
             transform.parent = null;
             rb.isKinematic = isKinematic;
             rb.velocity = velocity;
-            hand = null;
             isAttached = false;
-            OnDetach?.Invoke();
+            hand = null;
+            otherHandCollider = null;
         }
     }
 

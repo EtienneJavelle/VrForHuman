@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1812172479484850408}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: LoadingCirclePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 549536205738610802}
   - component: {fileID: 7140955449829220490}
   - component: {fileID: 3965862493554094018}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CallKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6344335328693702616}
   - component: {fileID: 4753164632212667476}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 7355625703661823847}
   - component: {fileID: 5742471050711994228}
   - component: {fileID: 2522795954348710741}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

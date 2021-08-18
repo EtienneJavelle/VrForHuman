@@ -2954,10 +2954,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 447080723137906336}
     m_Modifications:
+    - target: {fileID: 1933616988796866855, guid: 6b085d6cdddb48848af606f93d0cdab5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136850768642827565, guid: 6b085d6cdddb48848af606f93d0cdab5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2674547404226059299, guid: 6b085d6cdddb48848af606f93d0cdab5,
         type: 3}
       propertyPath: m_Name
       value: Phone Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3789973878313073444, guid: 6b085d6cdddb48848af606f93d0cdab5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3940149181265373866, guid: 6b085d6cdddb48848af606f93d0cdab5,
         type: 3}
@@ -3023,6 +3038,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5236500972574147884, guid: 6b085d6cdddb48848af606f93d0cdab5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7301291013580621659, guid: 6b085d6cdddb48848af606f93d0cdab5,
         type: 3}

@@ -289,7 +289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8267209901234928122}
   - component: {fileID: 2529490588534404731}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CallKeys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,6 +635,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c8036aff4cf3f4daa9f9aac7d02eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactable: {fileID: 0}
+  interactableHover: {fileID: 0}
+  velocityThreshold: 1.1
+  handPosition: {x: 0, y: 0, z: 0}
+  handEulerRotation: {x: 0, y: 0, z: 0}
+  phoneCollider: {fileID: 0}
+  inputZone: {fileID: 0}
   phoneInputField: {fileID: 1893438502434640900}
   baseScreenPhone: {fileID: 6676897053131299955}
   screenCall: {fileID: 1389991985}

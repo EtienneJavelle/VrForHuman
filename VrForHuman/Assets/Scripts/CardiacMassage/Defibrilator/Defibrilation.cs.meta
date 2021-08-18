@@ -3,7 +3,17 @@ guid: 0f6cccbdfe7bd2f409c6a1dfc2212ede
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - message: {instanceID: 0}
+  - cardiacMassage: {instanceID: 0}
+  - placeElectrodesClip: {fileID: 8300000, guid: 5284e89029bea134c8da3b1724d0f324,
+      type: 3}
+  - analyseClip: {fileID: 8300000, guid: b154f72d6d14c9d41af67f7482bb132e, type: 3}
+  - chocClip: {fileID: 8300000, guid: b8f2db561fc8eca40b4a8daca45985a0, type: 3}
+  - chocDeliveredClip: {fileID: 8300000, guid: 513be13cdf4ae234d8846e67da2c255e, type: 3}
+  - ambulanceClip: {fileID: 8300000, guid: ac4629f4c837bb04f9cd81c630433058, type: 3}
+  - tutoClip: {fileID: 8300000, guid: 340425dde816b3b45b113ca64e16b4da, type: 3}
+  - metronomeClip: {fileID: 8300000, guid: 2cdbc308926c0b4488c8909a5f7a7212, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

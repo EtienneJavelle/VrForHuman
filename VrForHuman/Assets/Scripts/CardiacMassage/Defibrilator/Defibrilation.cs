@@ -26,6 +26,7 @@ namespace CardiacMassage {
         private bool isStarted, isRunning;
         private AudioSource audioSource;
         private Coroutine coroutine;
+        private Lid lid;
 
         private void Awake() {
             cardiacMassage ??= FindObjectOfType<CardiacMassage>().GetComponent<Interactable>();
@@ -35,9 +36,11 @@ namespace CardiacMassage {
 
         public void SetLid(Lid lid) {
             lid.OnOpenLid += PlayPlaceElectrodesSound;
+            this.lid = lid;
         }
 
         private void PlayPlaceElectrodesSound() {
+            lid.OnOpenLid -= PlayPlaceElectrodesSound;
             UpdateMessage("Placez les electrodes");
             audioSource = AudioManager.Play(new Sound(placeElectrodesClip, soundParameters));
         }
@@ -61,17 +64,20 @@ namespace CardiacMassage {
             if(audioSource.isPlaying && audioSource.clip == placeElectrodesClip) {
                 audioSource.Stop();
             }
-            yield return DefibrilationMessage(analyseClip, "Analyse, ne pas toucher le patient");
-            yield return DefibrilationMessage(chocClip, "Choc recommandé, <b>écartez vous du patient</b>");
+            yield return DefibrilationMessageAndWait(analyseClip, "Analyse, ne pas toucher le patient");
+            yield return DefibrilationMessageAndWait(chocClip, "Choc recommandé, <b>écartez vous du patient</b>");
             isRunning = true;
-            yield return DefibrilationMessage(chocDeliveredClip, "Choc délivré");
+            yield return DefibrilationMessageAndWait(chocDeliveredClip, "Choc délivré");
             isRunning = false;
-            yield return DefibrilationMessage(ambulanceClip, "Assurez vous qu'une ambulance\r\nà bien été apellé.");
-            yield return DefibrilationMessage(tutoClip, "Il n'y a plus de risque de toucher le patient,\r\nPlacez vous bien pour commencer le massage");
-            yield return DefibrilationMessage(metronomeClip, "Massez au rythme du bip");
+            yield return DefibrilationMessageAndWait(ambulanceClip, "Assurez vous qu'une ambulance\r\nà bien été apellé.");
+            yield return DefibrilationMessageAndWait(tutoClip, "Il n'y a plus de risque de toucher le patient,\r\nPlacez vous bien pour commencer le massage");
+            UpdateMessage("Massez au rythme du bip");
+            audioSource = AudioManager.Play(new Sound(metronomeClip,
+                new SoundParameters(soundParameters.Volume, soundParameters.Pitch, true, soundParameters.SpacialBlend)),
+               transform);
         }
 
-        private WaitForSeconds DefibrilationMessage(AudioClip clip, string message) {
+        private WaitForSeconds DefibrilationMessageAndWait(AudioClip clip, string message) {
             UpdateMessage(message);
             audioSource = AudioManager.Play(new Sound(clip, soundParameters), transform);
             return new WaitForSeconds(clip.length);

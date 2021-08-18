@@ -3,7 +3,7 @@ using Etienne;
 using System.Collections;
 using UnityEngine;
 
-public class PhoneCtrl : MonoBehaviour {
+public class PhoneCtrl : InteractableSticker {
 
     #region Fields
 
@@ -18,7 +18,11 @@ public class PhoneCtrl : MonoBehaviour {
     #endregion
 
     #region UnityInspector
+    [SerializeField] private Vector3 handPosition, handEulerRotation;
+    [SerializeField] private BoxCollider phoneCollider, inputZone;
 
+
+    [Header("Phone")]
     [SerializeField] private PhoneInputField phoneInputField;
     [SerializeField] private GameObject baseScreenPhone, screenCall;
 
@@ -42,9 +46,35 @@ public class PhoneCtrl : MonoBehaviour {
         TestDebug.Instance.SetPhoneCtrl(this);
     }
 
-    private void Start() {
+    protected override void Start() {
+        base.Start();
         baseScreenPhone.SetActive(false);
         screenCall.SetActive(false);
+        OnAttach += PlacePhoneInHand;
+        OnDetach += RemovePhoneFromHand;
+        rb.detectCollisions = false;
+        phoneCollider.isTrigger = false;
+        phoneCollider.enabled = true;
+        inputZone.isTrigger = true;
+        inputZone.enabled = false;
+    }
+
+    private void PlacePhoneInHand() {
+        Debug.Log("In Hand");
+        baseScreenPhone.SetActive(true);
+        transform.localPosition = handPosition;
+        transform.localEulerAngles = handEulerRotation;
+        hand.useHoverSphere = false;
+        //phoneCollider.enabled = false;
+        inputZone.enabled = true;
+    }
+
+    private void RemovePhoneFromHand() {
+        Debug.Log("off Hand");
+        baseScreenPhone.SetActive(false);
+        hand.useHoverSphere = true;
+        //phoneCollider.enabled = true;
+        inputZone.enabled = false;
     }
 
     public void DialogCompleted(int _dialogIndex) {
@@ -54,6 +84,7 @@ public class PhoneCtrl : MonoBehaviour {
 
     public void PlayerCanUsePhone() {
         Debug.Log("Can Use Phone");
+        rb.detectCollisions = true;
         transform.parent = null;
         //TODO: Faire en sorte que le téléphone colle à la main
         transform.DOLocalPath(path.LocalWaypoints, duration, PathType.CatmullRom, PathMode.Full3D, 10, Color.blue).SetLookAt(0.01f).OnComplete(PhoneEndPath);
@@ -72,7 +103,6 @@ public class PhoneCtrl : MonoBehaviour {
 
     private void PhoneEndPath() {
         Debug.Log("PhoneEndPath");
-        baseScreenPhone.SetActive(true);
         transform.localEulerAngles = new Vector3(0, 180, 0);
     }
 

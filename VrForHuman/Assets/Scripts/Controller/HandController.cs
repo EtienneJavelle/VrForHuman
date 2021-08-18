@@ -3,9 +3,8 @@ using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 
-[RequireComponent(typeof(BoxCollider))]
 public class HandController : MonoBehaviour {
-    private Hand hand;
+    [SerializeField] private Hand hand;
 
     private float palmRadius;
     private Transform palm;
@@ -15,21 +14,31 @@ public class HandController : MonoBehaviour {
 
     private SteamVR_Behaviour_Skeleton skeleton;
     private Transform fingerTip;
+    private bool isFinger;
+    private BoxCollider boxCollider;
 
     private void Awake() {
-        hand = GetComponent<Hand>();
         palm = hand.hoverSphereTransform;
         palmRadius = hand.hoverSphereRadius;
+        boxCollider = GetComponent<BoxCollider>();
+    }
+
+    private void Update() {
+        if(isFinger && !boxCollider.enabled) {
+            Palm();
+        }
     }
 
     [ContextMenu("Finger")]
     private void Finger() {
+        isFinger = true;
         if(FingerTip == null) return;
         hand.hoverSphereTransform = FingerTip;
         hand.hoverSphereRadius = hand.fingerJointHoverRadius;
     }
     [ContextMenu("Palm")]
     private void Palm() {
+        isFinger = false;
         hand.hoverSphereTransform = palm;
         hand.hoverSphereRadius = palmRadius;
     }
@@ -37,7 +46,6 @@ public class HandController : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         Finger();
     }
-
     private void OnTriggerExit(Collider other) {
         Palm();
     }
