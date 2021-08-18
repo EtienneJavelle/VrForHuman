@@ -36,12 +36,15 @@ public class DialogManager : MonoBehaviour {
 
     private IEnumerator PlayDialogText(int _currentDialogIndex) {
         dialogLabel.text = dialogs[_currentDialogIndex].Texts[currentTextIndex];
+
+        AudioManager.Play(dialogs[_currentDialogIndex].DialogSound, transform);
+
         yield return new WaitForSeconds(textDuration);
         currentTextIndex++;
         if(currentTextIndex < dialogs[_currentDialogIndex].Texts.Length) {
             StartCoroutine(PlayDialogText(_currentDialogIndex));
         } else {
-            SetBoxDialogActive(false);
+            //SetBoxDialogActive(false);
             dialogs[_currentDialogIndex].OnCompleted.Invoke();
         }
     }

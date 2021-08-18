@@ -234,6 +234,13 @@ MonoBehaviour:
     type: 3}
   loadingSpeed: 0.5
   keyToDisplay: 2
+  touchPhoneSound:
+    clip: {fileID: 8300000, guid: 16b716daba92d1f4182195efe8976e6a, type: 3}
+    parameters:
+      volume: 1
+      pitch: 1
+      loop: 0
+      spacialBlend: 0
 --- !u!114 &3965862493554094018
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,7 +1,16 @@
 using DG.Tweening;
+using Etienne;
+using System.Collections;
 using UnityEngine;
 
 public class PhoneCtrl : MonoBehaviour {
+
+    #region Fields
+
+    private AudioSource audioSource;
+
+    #endregion
+
     #region Properties
 
     public DialogManager phoneDialogManager { get; protected set; }
@@ -16,17 +25,18 @@ public class PhoneCtrl : MonoBehaviour {
     [SerializeField] private RunnerManager runnerManager;
     [SerializeField] private RunnerFriend runnerFriend;
 
-    [SerializeField] private Etienne.Sound callSound = new Etienne.Sound(null);
+    [SerializeField] private Sound launchCallSound = new Sound(null);
+    [SerializeField] private Sound quitCallSound = new Sound(null);
 
     [SerializeField] private int samuNumero;
 
-    [SerializeField] private Etienne.Path path;
+    [SerializeField] private Path path;
     [SerializeField] private float duration = 5f;
 
     #endregion
 
     private void Awake() {
-        path ??= GetComponent<Etienne.Path>();
+        path ??= GetComponent<Path>();
         phoneDialogManager = GetComponent<DialogManager>();
         TestDebug.Instance.SetPhoneCtrl(this);
     }
@@ -56,6 +66,7 @@ public class PhoneCtrl : MonoBehaviour {
 
         Debug.Log("L'ami part chercher le défibrilateur");
         runnerFriend.SetCurrentPathToDefibrilatorPath();
+        runnerManager.friendDialogManager.SetBoxDialogActive(false);
     }
 
     private void PhoneEndPath() {
@@ -65,6 +76,17 @@ public class PhoneCtrl : MonoBehaviour {
     }
 
     public void EndCallRescue() {
+        StartCoroutine(EndCallRescueCoroutine());
+    }
+
+    private IEnumerator EndCallRescueCoroutine() {
+
+        yield return WaitSoundCompleted(phoneDialogManager.GetDialog(3).DialogSound);
+
+        phoneDialogManager.SetBoxDialogActive(false);
+
+        yield return PhoneSound(quitCallSound);
+
         screenCall.SetActive(false);
 
         Debug.Log("Le joueur peut commencer le massage cardiaque");
@@ -79,6 +101,7 @@ public class PhoneCtrl : MonoBehaviour {
         ButtonCallKey _buttonCallKey = _keypadButton.GetComponent<ButtonCallKey>();
 
         phoneInputField.InputChar(_buttonCallKey.keyToDisplay);
+        AudioManager.Play(_buttonCallKey.touchPhoneSound);
 
         Debug.Log("KeypadButton");
     }
@@ -96,13 +119,27 @@ public class PhoneCtrl : MonoBehaviour {
 
     public void CallButton() {
         Debug.Log("CallButton");
+        StartCoroutine(CallButtonCoroutine());
+    }
+
+    private IEnumerator CallButtonCoroutine() {
         if(phoneInputField.GetInputFieldText() == samuNumero.ToString()) {
             baseScreenPhone.SetActive(false);
             screenCall.SetActive(true);
 
-            //AudioManager.Play(callSound, transform);
+            yield return PhoneSound(launchCallSound);
+            //AudioManager.Play(launchCallSound, transform);
 
             phoneDialogManager.LaunchDialog(0);
         }
+    }
+
+    private WaitForSeconds PhoneSound(Sound sound) {
+        audioSource = AudioManager.Play(sound, transform);
+        return new WaitForSeconds(sound.Clip.length);
+    }
+
+    private WaitForSeconds WaitSoundCompleted(Sound sound) {
+        return new WaitForSeconds(sound.Clip.length);
     }
 }

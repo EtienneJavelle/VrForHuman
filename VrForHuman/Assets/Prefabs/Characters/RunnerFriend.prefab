@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runner: {fileID: 587454886491394116}
-  timeBeforeBringDefibrilator: 100
+  timeBeforeBringDefibrilator: 75
   toDefibrilatorPath: {fileID: 692208922752744668}
   returnDefibrilatorPath: {fileID: 2354782464826912104}
 --- !u!114 &3343694728902136724
@@ -86,11 +86,25 @@ MonoBehaviour:
     - Christophe ?
     - "Christophe, hey ! tu m\u2019entends ?"
     - "Mon ami a besoin d\u2019aide !"
+    dialogSound:
+      clip: {fileID: 0}
+      parameters:
+        volume: 1
+        pitch: 1
+        loop: 0
+        spacialBlend: 0
     OnCompleted:
       m_PersistentCalls:
         m_Calls: []
   - texts:
     - J'appelle les secours
+    dialogSound:
+      clip: {fileID: 0}
+      parameters:
+        volume: 1
+        pitch: 1
+        loop: 0
+        spacialBlend: 0
     OnCompleted:
       m_PersistentCalls:
         m_Calls:
@@ -108,6 +122,15 @@ MonoBehaviour:
           m_CallState: 2
   - texts:
     - "Quel est le bon num\xE9ro ?...je n\u2019arrive plus \xE0 m\u2019en souvenir..."
+    - "Tenez, prenez le t\xE9l\xE9phone et appelez les secours, je pars chercher
+      le d\xE9fibrilateur le plus proche"
+    dialogSound:
+      clip: {fileID: 0}
+      parameters:
+        volume: 1
+        pitch: 1
+        loop: 0
+        spacialBlend: 0
     OnCompleted:
       m_PersistentCalls:
         m_Calls:
