@@ -29,6 +29,7 @@ public class PhoneCtrl : MonoBehaviour {
     [SerializeField] private Sound quitCallSound = new Sound(null);
 
     [SerializeField] private int samuNumero;
+    [SerializeField] private int emergencyNumero;
 
     [SerializeField] private Path path;
     [SerializeField] private float duration = 5f;
@@ -123,7 +124,8 @@ public class PhoneCtrl : MonoBehaviour {
     }
 
     private IEnumerator CallButtonCoroutine() {
-        if(phoneInputField.GetInputFieldText() == samuNumero.ToString()) {
+        if(phoneInputField.GetInputFieldText() == samuNumero.ToString() ||
+            phoneInputField.GetInputFieldText() == emergencyNumero.ToString()) {
             baseScreenPhone.SetActive(false);
             screenCall.SetActive(true);
 

@@ -50,20 +50,26 @@ public class Runner : MonoBehaviour {
     public void DefibrilatorPath() {
         anim.SetTrigger("LaunchRun");
         anim.SetBool("IsRunning", true);
+        audioSources.Add(AudioManager.Play(runningSound, transform));
+        audioSources.Add(AudioManager.Play(breathingSound, transform));
         transform.DOLocalPath(path.LocalWaypoints, duration, PathType.CatmullRom, PathMode.Full3D).SetLookAt(0.01f).OnComplete(EndDefibrilatorPath);
     }
 
     public void ReturnDefibrilatorPath() {
         anim.SetTrigger("LaunchRun");
         anim.SetBool("IsRunning", true);
+        audioSources.Add(AudioManager.Play(runningSound, transform));
+        audioSources.Add(AudioManager.Play(breathingSound, transform));
         transform.DOLocalPath(path.LocalWaypoints, duration, PathType.CatmullRom, PathMode.Full3D).SetLookAt(0.01f).OnComplete(EndReturnDefibrilatorPath);
     }
 
     private void EndBasePath() {
         Debug.Log("End Path");
+
         foreach(AudioSource audioSource in audioSources) {
             audioSource.Stop();
         }
+
         if(runnerManager.isVictim) {
             AudioManager.Play(fallingSound, transform.position);
             AudioManager.Play(gruntSound, transform);
@@ -83,12 +89,22 @@ public class Runner : MonoBehaviour {
 
     private void EndDefibrilatorPath() {
         Debug.Log("End Defibrilator Path");
+
+        foreach(AudioSource audioSource in audioSources) {
+            audioSource.Stop();
+        }
+
         SetActiveVisual(false);
         StartCoroutine(runnerFriend.TimerBeforeBringDefibrilator());
     }
 
     private void EndReturnDefibrilatorPath() {
         Debug.Log("End Return Defibrilator Path");
+
+        foreach(AudioSource audioSource in audioSources) {
+            audioSource.Stop();
+        }
+
         anim.SetBool("IsRunning", false);
         anim.SetTrigger("ArrestCardiacFriendView");
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -75f, transform.localEulerAngles.z);
