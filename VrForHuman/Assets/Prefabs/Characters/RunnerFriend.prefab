@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runner: {fileID: 587454886491394116}
-  timeBeforeBringDefibrilator: 75
+  timeBeforeBringDefibrilator: 60
   toDefibrilatorPath: {fileID: 692208922752744668}
   returnDefibrilatorPath: {fileID: 2354782464826912104}
 --- !u!114 &3343694728902136724
@@ -146,7 +146,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  textDuration: 1.5
+  textDuration: 2
 --- !u!1 &441353420744240846
 GameObject:
   m_ObjectHideFlags: 0

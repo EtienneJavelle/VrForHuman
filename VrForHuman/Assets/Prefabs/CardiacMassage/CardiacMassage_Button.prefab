@@ -234,7 +234,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   pushThreshold: 0.1
   TestChestBone: {fileID: 0}
-  totalDurationSimulation: 240
+  totalDurationSimulation: 180
 --- !u!114 &8047237479332188405
 MonoBehaviour:
   m_ObjectHideFlags: 0

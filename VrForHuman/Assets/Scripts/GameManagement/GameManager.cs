@@ -31,6 +31,8 @@ public class GameManager : Etienne.Singleton<GameManager> {
     [SerializeField] private GameObject teacherCtrl;
 
     [SerializeField] private CardiacMassageSaving cardiacMassageSaving;
+
+    [SerializeField] private Etienne.Sound ambulanceSound;
     #endregion
 
     #region Behaviour
@@ -121,6 +123,8 @@ public class GameManager : Etienne.Singleton<GameManager> {
     }
 
     public void EndSimulation() {
+        AudioManager.Play(ambulanceSound);
+
         if(PlayerCanvasManager != null) {
             PlayerCanvasManager.ActiveEndSimlulationDisplay(true);
         } else {
@@ -163,6 +167,11 @@ public class GameManager : Etienne.Singleton<GameManager> {
     }
 
     public void DebriefScreen() {
+
+        if(TeacherCtrl.Instance != null) {
+            TeacherCtrl.Instance.gameObject.SetActive(false);
+        }
+
         if(IsArcadeMode) {
             SceneLoader.Instance.ChangeScene(Scenes.DebriefSceneArcadeMode);
         } else {
