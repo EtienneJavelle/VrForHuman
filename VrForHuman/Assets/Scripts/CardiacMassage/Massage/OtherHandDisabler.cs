@@ -27,6 +27,8 @@ public class OtherHandDisabler : MonoBehaviour {
         otherHand.useHoverSphere = true;
     }
     private void OnDisable() {
-        HandHoverEnd();
+        if(otherHand != null) {
+            HandHoverEnd();
+        }
     }
 }

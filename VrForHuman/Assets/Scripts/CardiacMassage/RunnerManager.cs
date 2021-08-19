@@ -35,7 +35,9 @@ public class RunnerManager : MonoBehaviourWithRequirement {
     }
 
     public IEnumerator RescueAlertTimer() {
-        yield return new WaitForSeconds(7f);
+        Debug.Log("Time before Launch Call Rescue - Coroutine Temp");
+
+        yield return new WaitForSeconds(9f);
 
         DialogManager.LaunchDialog(1);
     }

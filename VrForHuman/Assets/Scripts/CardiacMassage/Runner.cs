@@ -73,11 +73,12 @@ public class Runner : MonoBehaviour {
         anim.SetBool("IsRunning", false);
         if(runnerManager.IsVictim) {
             Debug.Log("Is Victim");
+            AudioManager.Play(fallingSound, transform.position);
+            AudioManager.Play(gruntSound, transform);
+
             anim.SetTrigger("ArrestCardiacVictimView");
             runnerManager.ActiveArrestCardiacSimulation(true);
 
-            AudioManager.Play(fallingSound, transform.position);
-            AudioManager.Play(gruntSound, transform);
         } else {
             Debug.Log("Not Victim");
             anim.SetTrigger("ArrestCardiacFriendView");
