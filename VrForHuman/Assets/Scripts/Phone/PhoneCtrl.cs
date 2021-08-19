@@ -141,6 +141,9 @@ public class PhoneCtrl : InteractableSticker {
     public void Hangup() {
         if(canHangup && endCoroutine != null) {
             StopCoroutine(endCoroutine);
+            if(audioSource != null & audioSource.isPlaying) {
+                audioSource.Stop();
+            }
             TestDebug.Instance.EndRescueStep03();
             AudioManager.Play(hangupCallSound, transform);
             phoneDialogManager.SetBoxDialogActive(false);
