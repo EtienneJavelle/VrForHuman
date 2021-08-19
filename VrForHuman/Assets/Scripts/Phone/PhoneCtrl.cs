@@ -70,20 +70,18 @@ public class PhoneCtrl : InteractableSticker {
     }
 
     private void PlacePhoneInHand() {
-        Debug.Log("In Hand");
-        baseScreenPhone.SetActive(true);
+        if(!screenCall.activeSelf) {
+            baseScreenPhone.SetActive(true);
+        }
         transform.localPosition = handPosition;
         transform.localEulerAngles = handEulerRotation;
         hand.useHoverSphere = false;
-        //phoneCollider.enabled = false;
         inputZone.enabled = true;
     }
 
     private void RemovePhoneFromHand() {
-        Debug.Log("off Hand");
         baseScreenPhone.SetActive(false);
         hand.useHoverSphere = true;
-        //phoneCollider.enabled = true;
         inputZone.enabled = false;
     }
 
