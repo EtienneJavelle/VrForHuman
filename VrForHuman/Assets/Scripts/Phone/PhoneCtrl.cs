@@ -8,6 +8,8 @@ public class PhoneCtrl : InteractableSticker {
     #region Fields
 
     private AudioSource audioSource;
+    private bool canHangup;
+    private Coroutine endCoroutine;
 
     #endregion
 
@@ -31,6 +33,7 @@ public class PhoneCtrl : InteractableSticker {
 
     [SerializeField] private Sound launchCallSound = new Sound(null);
     [SerializeField] private Sound quitCallSound = new Sound(null);
+    [SerializeField] private Sound hangupCallSound = new Sound(null);
 
     [SerializeField] private int samuNumero;
     [SerializeField] private int emergencyNumero;
@@ -115,21 +118,34 @@ public class PhoneCtrl : InteractableSticker {
     }
 
     public void EndCallRescue() {
-        StartCoroutine(EndCallRescueCoroutine());
+        endCoroutine = StartCoroutine(EndCallRescueCoroutine());
     }
 
     private IEnumerator EndCallRescueCoroutine() {
 
+        canHangup = true;
         yield return WaitSoundCompleted(phoneDialogManager.GetDialog(3).DialogSound);
 
         phoneDialogManager.SetBoxDialogActive(false);
 
         yield return PhoneSound(quitCallSound);
+        AudioManager.Play(hangupCallSound, transform);
 
         screenCall.SetActive(false);
 
         Debug.Log("Le joueur peut commencer le massage cardiaque");
         runnerManager.ActiveCardiacMassage(true);
+    }
+
+    public void Hangup() {
+        if(canHangup && endCoroutine != null) {
+            StopCoroutine(endCoroutine);
+            TestDebug.Instance.EndRescueStep03();
+            AudioManager.Play(hangupCallSound, transform);
+            phoneDialogManager.SetBoxDialogActive(false);
+            screenCall.SetActive(false);
+            runnerManager.ActiveCardiacMassage(true);
+        }
     }
 
     public void PlayerPhoneCallRequest(DialogManager _dialogManager) {

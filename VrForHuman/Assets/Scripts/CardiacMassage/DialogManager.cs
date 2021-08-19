@@ -16,6 +16,8 @@ public class DialogManager : MonoBehaviour {
 
     #endregion
 
+    private AudioSource audioSource;
+
     private void Start() {
         SetBoxDialogActive(false);
     }
@@ -28,16 +30,17 @@ public class DialogManager : MonoBehaviour {
         canvas.gameObject.SetActive(_value);
     }
 
-    public void LaunchDialog(int _currentDialogIndex) {
+    public AudioSource LaunchDialog(int _currentDialogIndex) {
         SetBoxDialogActive(true);
         currentTextIndex = 0;
         StartCoroutine(PlayDialogText(_currentDialogIndex));
+        return audioSource;
     }
 
     private IEnumerator PlayDialogText(int _currentDialogIndex) {
         dialogLabel.text = dialogs[_currentDialogIndex].Texts[currentTextIndex];
 
-        AudioManager.Play(dialogs[_currentDialogIndex].DialogSound, transform);
+        audioSource = AudioManager.Play(dialogs[_currentDialogIndex].DialogSound, transform);
 
         yield return new WaitForSeconds(textDuration);
         currentTextIndex++;

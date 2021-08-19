@@ -12,6 +12,7 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
     private RecordManager recordManager;
 
     private PhoneCtrl phoneCtrl;
+    private AudioSource lastDialogueAudioSource;
 
     private bool callRescueStep01Completed, callRescueStep02Completed, callRescueStep03Completed;
 
@@ -156,11 +157,15 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
     public void CallRescueStep03Completed() {
         if(phoneCtrl.phoneDialogManager.GetDialog(2).dialogCompleted && callRescueStep03Completed == false) {
             Debug.Log("Call Rescue Step 03 Completed");
-            phoneCtrl.phoneDialogManager.LaunchDialog(3);
+            lastDialogueAudioSource = phoneCtrl.phoneDialogManager.LaunchDialog(3);
             GameManager.Instance.PlayerCanvasManager.ActiveCityDisplay(false);
             GameManager.Instance.PlayerCanvasManager.ActivePhoneNumberDisplay(false);
             callRescueStep03Completed = true;
         }
+    }
+
+    public void EndRescueStep03() {
+        lastDialogueAudioSource.Stop();
     }
 
     // Update is called once per frame
