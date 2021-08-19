@@ -16,7 +16,7 @@ public class PlayerCanvasManager : MonoBehaviourWithRequirement {
 
     private bool canBeHurt = true;
 
-    private void Awake() {
+    private void Start() {
         GameManager.Instance.SetPlayerCanvasManager(this);
     }
 
