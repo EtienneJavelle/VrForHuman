@@ -41,7 +41,7 @@ public class DialogManager : MonoBehaviour {
         dialogLabel.text = dialogs[_currentDialogIndex].Texts[currentTextIndex];
 
         if(dialogs[_currentDialogIndex].DialogSounds.Length >= 1) {
-            audioSource = AudioManager.Play(dialogs[_currentDialogIndex].DialogSounds[currentTextIndex], transform);
+            audioSource = AudioManager.Play(dialogs[_currentDialogIndex].DialogSounds[currentTextIndex], transform.GetChild(0));
         }
 
         yield return new WaitForSeconds(textDuration);

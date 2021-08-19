@@ -128,14 +128,6 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
         if(Input.GetKeyDown(callRescueStep03Key)) {
             CallRescueStep03Completed();
         }
-
-        if(Input.GetKeyDown(activePhoneKey)) {
-            phoneCtrl.ActivePhoneScreen();
-        }
-
-        if(Input.GetKeyDown(launchRescueCallKey)) {
-            StartCoroutine(phoneCtrl.StartRecueCall());
-        }
     }
 
     public void CallRescueStep01Completed() {
@@ -171,8 +163,17 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
     // Update is called once per frame
     private void Update() {
 
+        if(Input.GetKeyDown(activePhoneKey)) {
+            phoneCtrl.ActivePhoneScreen();
+        }
+
+        if(Input.GetKeyDown(launchRescueCallKey)) {
+            StartCoroutine(phoneCtrl.StartRecueCall());
+        }
+
         if(Input.GetKeyDown(ExitGameKey)) {
             Application.Quit();
+
 #if UNITY_EDITOR
             EditorApplication.ExitPlaymode();
 #endif

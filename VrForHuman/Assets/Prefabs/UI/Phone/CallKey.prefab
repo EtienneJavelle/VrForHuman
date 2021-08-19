@@ -232,7 +232,7 @@ MonoBehaviour:
   loadingCirclePoint: {fileID: 1812172479484850408}
   loadingCirclePrefab: {fileID: 9063204079898383236, guid: 0f668a78a295b87429157d5f5041d5fb,
     type: 3}
-  loadingSpeed: 0.5
+  loadingSpeed: 1
   keyToDisplay: 2
   touchPhoneSound:
     clip: {fileID: 8300000, guid: 16b716daba92d1f4182195efe8976e6a, type: 3}
