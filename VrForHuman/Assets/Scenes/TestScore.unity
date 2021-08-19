@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.59937465, g: 0.5997507, b: 0.59948814, a: 1}
+  m_IndirectSpecularColor: {r: 0.59937525, g: 0.5997512, b: 0.59948856, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2557,52 +2557,57 @@ PrefabInstance:
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.14
+      value: -1.446
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.73
+      value: 2.075
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.14
+      value: -1.073
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.86442184
+      value: 0.89236957
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.4260621
+      value: 0.25736663
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.2588752
+      value: 0.35620892
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.065035656
+      value: -0.10273354
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 50.378
+      value: 32.176
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -37.945
+      value: 43.521
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801956, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -9.765
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 703619307832801957, guid: e54c111c4687bb643acdd3505a02fb0f,
+        type: 3}
+      propertyPath: field of view
+      value: 47.1
       objectReference: {fileID: 0}
     - target: {fileID: 703619307832801976, guid: e54c111c4687bb643acdd3505a02fb0f,
         type: 3}
@@ -3830,78 +3835,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8419190898579715289}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8419190898579715291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8419190898579715290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44f66ecbbfa350e4eafcc6e33a1ea18a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ranks:
-  - text: Perfect
-    offset: 50
-    points: 1000
-    colors:
-      topLeft: {r: 0.5058824, g: 0, b: 1, a: 1}
-      topRight: {r: 0.57254905, g: 0.023529414, b: 0.7254902, a: 1}
-      bottomLeft: {r: 0.8117648, g: 0.12941177, b: 0.8196079, a: 1}
-      bottomRight: {r: 1, g: 0.31764707, b: 0.6745098, a: 1}
-    clip: {fileID: 0}
-  - text: Good
-    offset: 100
-    points: 800
-    colors:
-      topLeft: {r: 0, g: 1, b: 0.9607844, a: 1}
-      topRight: {r: 0.023529414, g: 0.54901963, b: 0.7254902, a: 1}
-      bottomLeft: {r: 0.12941177, g: 0.42352945, b: 0.8196079, a: 1}
-      bottomRight: {r: 0.31764707, g: 0.4431373, b: 1, a: 1}
-    clip: {fileID: 0}
-  - text: Poor
-    offset: 150
-    points: 500
-    colors:
-      topLeft: {r: 0.43529415, g: 1, b: 0, a: 1}
-      topRight: {r: 0.13725491, g: 0.7254902, b: 0.023529414, a: 1}
-      bottomLeft: {r: 0.12941177, g: 0.8196079, b: 0.14901961, a: 1}
-      bottomRight: {r: 0.31764707, g: 1, b: 0.5137255, a: 1}
-    clip: {fileID: 0}
-  - text: Mediocre
-    offset: 200
-    points: 100
-    colors:
-      topLeft: {r: 1, g: 0.454902, b: 0, a: 1}
-      topRight: {r: 0.7254902, g: 0.5294118, b: 0.023529414, a: 1}
-      bottomLeft: {r: 0.80392164, g: 0.8196079, b: 0.12941177, a: 1}
-      bottomRight: {r: 0.8235295, g: 1, b: 0.31764707, a: 1}
-    clip: {fileID: 0}
-  - text: Late
-    offset: 250
-    points: 10
-    colors:
-      topLeft: {r: 1, g: 1, b: 1, a: 1}
-      topRight: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
-      bottomLeft: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
-      bottomRight: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}
-    clip: {fileID: 0}
-  beat: 500
-  cardiacMassage: {fileID: 0}
-  beatCue:
-    clips: []
-    parameters:
-      volume: 1
-      pitch: 1
-      loop: 0
-      spacialBlend: 0
-  soundParameters:
-    volume: 1
-    pitch: 1
-    loop: 0
-    spacialBlend: 0
 --- !u!114 &8419190898579715292 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9143706936806192407, guid: 29a5d98c27ccc8240ae7eab963ac060f,

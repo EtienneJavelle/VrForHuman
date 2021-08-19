@@ -108,6 +108,8 @@ GameObject:
   - component: {fileID: 9143706936806192404}
   - component: {fileID: 9143706936806192406}
   - component: {fileID: 8047237479332188405}
+  - component: {fileID: 3077223846552285966}
+  - component: {fileID: 2864601014984557303}
   m_Layer: 3
   m_Name: CardiacMassage_Button
   m_TagString: Untagged
@@ -307,3 +309,41 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     spacialBlend: 0
+--- !u!114 &3077223846552285966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143706936806192405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4153b26428ccf041950b92c057812a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHandHoverBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onHandHoverEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onAttachedToHand:
+    m_PersistentCalls:
+      m_Calls: []
+  onDetachedFromHand:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2864601014984557303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143706936806192405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68c21f263cafe4489e3311a04e99a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: {fileID: 9143706936806192407}
+  interactableHover: {fileID: 3077223846552285966}
