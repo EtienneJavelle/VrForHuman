@@ -109,7 +109,7 @@ public class PhoneCtrl : InteractableSticker {
 
         Debug.Log("L'ami part chercher le défibrilateur");
         runnerFriend.SetCurrentPathToDefibrilatorPath();
-        runnerManager.friendDialogManager.SetBoxDialogActive(false);
+        runnerManager.DialogManager.SetBoxDialogActive(false);
     }
 
     private void PhoneEndPath() {
@@ -124,7 +124,7 @@ public class PhoneCtrl : InteractableSticker {
     private IEnumerator EndCallRescueCoroutine() {
 
         canHangup = true;
-        yield return WaitSoundCompleted(phoneDialogManager.GetDialog(3).DialogSound);
+        yield return WaitSoundCompleted(phoneDialogManager.GetDialog(3).DialogSounds[0]);
 
         phoneDialogManager.SetBoxDialogActive(false);
 
@@ -135,6 +135,7 @@ public class PhoneCtrl : InteractableSticker {
 
         Debug.Log("Le joueur peut commencer le massage cardiaque");
         runnerManager.ActiveCardiacMassage(true);
+        GameManager.Instance.CardiacMassage.ActiveCardiacMassageDialog();
     }
 
     public void Hangup() {

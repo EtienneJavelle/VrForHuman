@@ -40,7 +40,9 @@ public class DialogManager : MonoBehaviour {
     private IEnumerator PlayDialogText(int _currentDialogIndex) {
         dialogLabel.text = dialogs[_currentDialogIndex].Texts[currentTextIndex];
 
-        audioSource = AudioManager.Play(dialogs[_currentDialogIndex].DialogSound, transform);
+        if(dialogs[_currentDialogIndex].DialogSounds.Length >= 1) {
+            audioSource = AudioManager.Play(dialogs[_currentDialogIndex].DialogSounds[currentTextIndex], transform);
+        }
 
         yield return new WaitForSeconds(textDuration);
         currentTextIndex++;

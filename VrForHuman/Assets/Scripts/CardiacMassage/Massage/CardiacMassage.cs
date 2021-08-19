@@ -23,6 +23,8 @@ namespace CardiacMassage {
 
         [SerializeField] private float totalDurationSimulation;
 
+        [SerializeField] private DialogManager DialogManager;
+
         private enum State { Idle, Up, Down }
         private bool isStarted;
         private Vector3 startPosition;
@@ -33,8 +35,13 @@ namespace CardiacMassage {
         private bool isGoingUp, isGoingDown;
         private float startMassageTime;
 
+        private bool firstMassageDone;
+
         private float countTime = 0.0f;
+
         public List<CardiacMassagePressureData> pushDatas { get; protected set; }
+
+
 
         private void Awake() {
             if(GameManager.Instance.CardiacMassage == null) {
@@ -136,6 +143,11 @@ namespace CardiacMassage {
                     keyframe = new Keyframe(push.Time, push.Depth, 0, 0, 0, 0);
                     pushes.AddKey(keyframe);
 
+                    if(firstMassageDone == false) {
+                        DialogManager.SetBoxDialogActive(false);
+                        firstMassageDone = true;
+                    }
+
                     OnPressureDone?.Invoke(push);
                     break;
                 case State.Down:
@@ -177,6 +189,10 @@ namespace CardiacMassage {
             }
         }
 
+
+        public void ActiveCardiacMassageDialog() {
+            DialogManager.LaunchDialog(0);
+        }
 
     }
 }

@@ -14,7 +14,7 @@ public class DialogWindow : EditorWindow {
         }
 
         EditorGUILayout.PropertyField(property.FindPropertyRelative("texts"));
-        EditorGUILayout.PropertyField(property.FindPropertyRelative("dialogSound"));
+        EditorGUILayout.PropertyField(property.FindPropertyRelative("dialogSounds"));
         EditorGUILayout.PropertyField(property.FindPropertyRelative("OnCompleted"));
     }
 }

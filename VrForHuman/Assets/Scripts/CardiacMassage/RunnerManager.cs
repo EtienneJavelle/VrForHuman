@@ -9,9 +9,9 @@ public class RunnerManager : MonoBehaviourWithRequirement {
 
     [SerializeField] private GameObject testBasicDummy, cardiacMassageButton, defibrilator;
 
-    public DialogManager friendDialogManager { get; set; }
+    public DialogManager DialogManager { get; set; }
 
-    public bool isVictim;
+    public bool IsVictim;
 
     #endregion
 
@@ -20,13 +20,14 @@ public class RunnerManager : MonoBehaviourWithRequirement {
     }
 
     private void Awake() {
-        if(isVictim) {
+        if(IsVictim) {
             defibrilator ??= GameObject.FindObjectOfType<CardiacMassage.Defibrilator>().gameObject;
+            DialogManager = GetComponent<DialogManager>();
         }
     }
 
     private void Start() {
-        if(isVictim) {
+        if(IsVictim) {
             ActiveArrestCardiacSimulation(false);
             ActiveCardiacMassage(false);
             ActiveDefibrilator(false);
@@ -36,7 +37,7 @@ public class RunnerManager : MonoBehaviourWithRequirement {
     public IEnumerator RescueAlertTimer() {
         yield return new WaitForSeconds(7f);
 
-        friendDialogManager.LaunchDialog(1);
+        DialogManager.LaunchDialog(1);
     }
 
     public void ActiveArrestCardiacSimulation(bool _value) {

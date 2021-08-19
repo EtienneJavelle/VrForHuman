@@ -70,19 +70,20 @@ public class Runner : MonoBehaviour {
             audioSource.Stop();
         }
 
-        if(runnerManager.isVictim) {
-            AudioManager.Play(fallingSound, transform.position);
-            AudioManager.Play(gruntSound, transform);
-        }
         anim.SetBool("IsRunning", false);
-        if(runnerManager.isVictim) {
+        if(runnerManager.IsVictim) {
+            Debug.Log("Is Victim");
             anim.SetTrigger("ArrestCardiacVictimView");
             runnerManager.ActiveArrestCardiacSimulation(true);
+
+            AudioManager.Play(fallingSound, transform.position);
+            AudioManager.Play(gruntSound, transform);
         } else {
+            Debug.Log("Not Victim");
             anim.SetTrigger("ArrestCardiacFriendView");
             DialogManager _dialogManager = runnerManager.GetComponent<DialogManager>();
             _dialogManager.LaunchDialog(0);
-            runnerManager.friendDialogManager = _dialogManager;
+            runnerManager.DialogManager = _dialogManager;
             StartCoroutine(runnerManager.RescueAlertTimer());
         }
     }

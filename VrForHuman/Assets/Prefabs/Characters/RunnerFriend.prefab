@@ -50,7 +50,7 @@ MonoBehaviour:
   testBasicDummy: {fileID: 0}
   cardiacMassageButton: {fileID: 0}
   defibrilator: {fileID: 0}
-  isVictim: 0
+  IsVictim: 0
 --- !u!114 &5429697429697174314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,25 +86,37 @@ MonoBehaviour:
     - Christophe ?
     - "Christophe, hey ! tu m\u2019entends ?"
     - "Mon ami a besoin d\u2019aide !"
-    dialogSound:
-      clip: {fileID: 0}
+    dialogSounds:
+    - clip: {fileID: 8300000, guid: 1eb6afb4b0ecb7a4799b79e42e160329, type: 3}
       parameters:
         volume: 1
         pitch: 1
         loop: 0
-        spacialBlend: 0
+        spacialBlend: 1
+    - clip: {fileID: 8300000, guid: 845ed44e284cd384c80ad5bbdad4e9c5, type: 3}
+      parameters:
+        volume: 1
+        pitch: 1
+        loop: 0
+        spacialBlend: 1
+    - clip: {fileID: 8300000, guid: cfdbedc8e4aa81f4fab00a3e7662899a, type: 3}
+      parameters:
+        volume: 1
+        pitch: 1
+        loop: 0
+        spacialBlend: 1
     OnCompleted:
       m_PersistentCalls:
         m_Calls: []
   - texts:
     - J'appelle les secours
-    dialogSound:
-      clip: {fileID: 0}
+    dialogSounds:
+    - clip: {fileID: 8300000, guid: 6b19700f8110779459003ba4eed31adc, type: 3}
       parameters:
         volume: 1
         pitch: 1
         loop: 0
-        spacialBlend: 0
+        spacialBlend: 1
     OnCompleted:
       m_PersistentCalls:
         m_Calls:
@@ -124,13 +136,19 @@ MonoBehaviour:
     - "Quel est le bon num\xE9ro ?...je n\u2019arrive plus \xE0 m\u2019en souvenir..."
     - "Tenez, prenez le t\xE9l\xE9phone et appelez les secours, je pars chercher
       le d\xE9fibrilateur le plus proche"
-    dialogSound:
-      clip: {fileID: 0}
+    dialogSounds:
+    - clip: {fileID: 8300000, guid: 0ea840ba41aa561468a0677562dc66c0, type: 3}
       parameters:
         volume: 1
         pitch: 1
         loop: 0
-        spacialBlend: 0
+        spacialBlend: 1
+    - clip: {fileID: 8300000, guid: 0acc367fa184fe442bd8045553c55f34, type: 3}
+      parameters:
+        volume: 1
+        pitch: 1
+        loop: 0
+        spacialBlend: 1
     OnCompleted:
       m_PersistentCalls:
         m_Calls:
