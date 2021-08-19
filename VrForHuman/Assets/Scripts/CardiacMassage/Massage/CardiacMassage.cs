@@ -63,6 +63,7 @@ namespace CardiacMassage {
             StartMassage();
         }
         private void Update() {
+            //todo: quand une main hover le vube desactiver l'autre main pour eviter des mitraillettes
             if(isStarted) {
                 TestChestBone.localScale = new Vector3(1, 1,
                     Mathf.Min(hoverButton.movingPart.position.y, transform.position.y) / transform.position.y);
