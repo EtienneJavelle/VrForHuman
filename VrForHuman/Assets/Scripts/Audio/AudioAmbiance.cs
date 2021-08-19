@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioAmbiance : MonoBehaviourWithRequirement {
     [SerializeField] private Sound[] ambiantSounds = new Sound[] { new Sound(null) };
 
-    private void Start() {
+    protected virtual void Start() {
         foreach(Sound sound in ambiantSounds) {
             AudioManager.Play(sound);
         }

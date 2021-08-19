@@ -169,7 +169,8 @@ public class GameManager : Etienne.Singleton<GameManager> {
     public void DebriefScreen() {
 
         if(TeacherCtrl.Instance != null) {
-            TeacherCtrl.Instance.gameObject.SetActive(false);
+            Destroy(TeacherCtrl.Instance.gameObject);
+            TeacherCtrl.ResetInstance();
         }
 
         if(IsArcadeMode) {

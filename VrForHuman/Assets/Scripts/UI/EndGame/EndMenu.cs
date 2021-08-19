@@ -85,6 +85,8 @@ public class EndMenu : MonoBehaviour {
             VideoPlayer.instance.SetCloseWindowVideoPlayer();
             VideoCaptureCtrl.Instance.InitStatutCapture();
             VideoPlayer.instance.SetParentVideoPlayerImpl(VideoPlayer.instance.transform);
+
+
             SceneLoader.Instance.ChangeScene(Scenes.MainMenu);
             goToMenu = false;
         }
