@@ -15,6 +15,12 @@ public class InteractableSticker : MonoBehaviour {
     private BoxCollider otherHandCollider;
     private bool isAttached;
 
+    [ContextMenu("Cash Fields")]
+    protected virtual void CashFields() {
+        interactable = GetComponent<Interactable>();
+        interactableHover = GetComponent<InteractableHoverEvents>();
+    }
+
     protected virtual void Start() {
         rb = GetComponent<Rigidbody>();
         interactableHover.onHandHoverBegin.AddListener(HandHoverBegin);
