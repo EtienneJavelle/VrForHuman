@@ -60,3 +60,5 @@ MonoBehaviour:
   callRescueStep01Key: 257
   callRescueStep02Key: 258
   callRescueStep03Key: 259
+  activePhoneKey: 283
+  launchRescueCallKey: 284

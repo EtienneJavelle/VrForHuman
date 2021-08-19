@@ -59,6 +59,16 @@ public class PhoneCtrl : InteractableSticker {
         inputZone.enabled = false;
     }
 
+    public IEnumerator StartRecueCall() {
+        baseScreenPhone.SetActive(false);
+        screenCall.SetActive(true);
+
+        yield return PhoneSound(launchCallSound);
+        //AudioManager.Play(launchCallSound, transform);
+
+        phoneDialogManager.LaunchDialog(0);
+    }
+
     private void PlacePhoneInHand() {
         Debug.Log("In Hand");
         baseScreenPhone.SetActive(true);

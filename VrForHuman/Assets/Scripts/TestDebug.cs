@@ -26,6 +26,8 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
     [SerializeField] private KeyCode callRescueStep02Key;
     [SerializeField] private KeyCode callRescueStep03Key;
 
+    [SerializeField] private KeyCode activePhoneKey, launchRescueCallKey;
+
     // Start is called before the first frame update
     private void Start() {
         mainMenu = FindObjectOfType<MainMenu>();
@@ -124,6 +126,14 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
 
         if(Input.GetKeyDown(callRescueStep03Key)) {
             CallRescueStep03Completed();
+        }
+
+        if(Input.GetKeyDown(activePhoneKey)) {
+            phoneCtrl.ActivePhoneScreen();
+        }
+
+        if(Input.GetKeyDown(launchRescueCallKey)) {
+            StartCoroutine(phoneCtrl.StartRecueCall());
         }
     }
 
