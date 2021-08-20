@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PanneauLarge
+  m_Name: Shoes
   m_Shader: {fileID: 4800000, guid: 71bdb48fbe85a6a4fa571e4ce579df9a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: eed44a5ca5f101548a45af5fb602eb17, type: 3}
+        m_Texture: {fileID: 2800000, guid: 82e19cf9e6668a843a6f5803708a211b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MRA:
-        m_Texture: {fileID: 2800000, guid: 1da7d6c0051d3ed4ab5fa5d63921e743, type: 3}
+        m_Texture: {fileID: 2800000, guid: f9f309f3b9a2fff459532fe1323fc4ed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: b8d005152cc979d419eae642bc398738, type: 3}
+        m_Texture: {fileID: 2800000, guid: bb95c72351d036541b588a5aeeb987f1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

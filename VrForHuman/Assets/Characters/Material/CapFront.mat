@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PanneauLarge
+  m_Name: CapFront
   m_Shader: {fileID: 4800000, guid: 71bdb48fbe85a6a4fa571e4ce579df9a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: eed44a5ca5f101548a45af5fb602eb17, type: 3}
+        m_Texture: {fileID: 2800000, guid: e49ca5c8b528919439af2224de32b899, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MRA:
-        m_Texture: {fileID: 2800000, guid: 1da7d6c0051d3ed4ab5fa5d63921e743, type: 3}
+        m_Texture: {fileID: 2800000, guid: 40fb09b256d823a4f8b2778edb6a2fdf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: b8d005152cc979d419eae642bc398738, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7f837fc484e39ae448932ab7fc4ae5d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
