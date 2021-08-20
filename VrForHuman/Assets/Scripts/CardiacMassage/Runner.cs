@@ -85,6 +85,7 @@ public class Runner : MonoBehaviour {
             DialogManager _dialogManager = runnerManager.GetComponent<DialogManager>();
             _dialogManager.LaunchDialog(0);
             runnerManager.DialogManager = _dialogManager;
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -220f, transform.localEulerAngles.z);
             StartCoroutine(runnerManager.RescueAlertTimer());
         }
     }
@@ -109,7 +110,7 @@ public class Runner : MonoBehaviour {
 
         anim.SetBool("IsRunning", false);
         anim.SetTrigger("ArrestCardiacFriendView");
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -75f, transform.localEulerAngles.z);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, -220f, transform.localEulerAngles.z);
         runnerManager.ActiveDefibrilator(true);
     }
 }

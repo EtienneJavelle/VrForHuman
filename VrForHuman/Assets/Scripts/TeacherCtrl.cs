@@ -1,4 +1,9 @@
 public class TeacherCtrl : Etienne.Singleton<TeacherCtrl> {
+
+    private void Start() {
+        TestDebug.Instance.ResetCallRescueSteps();
+    }
+
     public void CallRescueStep01Button() {
         TestDebug.Instance.CallRescueStep01Completed();
     }

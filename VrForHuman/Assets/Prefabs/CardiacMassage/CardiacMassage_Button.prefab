@@ -472,7 +472,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   pushThreshold: 0.1
   TestChestBone: {fileID: 0}
-  totalDurationSimulation: 180
+  totalDurationSimulation: 150
   DialogManager: {fileID: 552228433630468658}
 --- !u!114 &8047237479332188405
 MonoBehaviour:
@@ -601,13 +601,7 @@ MonoBehaviour:
   dialogs:
   - texts:
     - Commencer le massage cardiaque
-    dialogSound:
-      clip: {fileID: 0}
-      parameters:
-        volume: 0
-        pitch: 0
-        loop: 0
-        spacialBlend: 0
+    dialogSounds: []
     OnCompleted:
       m_PersistentCalls:
         m_Calls: []

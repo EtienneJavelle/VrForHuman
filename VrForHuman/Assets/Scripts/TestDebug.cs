@@ -130,6 +130,12 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
         }
     }
 
+    public void ResetCallRescueSteps() {
+        callRescueStep01Completed = false;
+        callRescueStep02Completed = false;
+        callRescueStep03Completed = false;
+    }
+
     public void CallRescueStep01Completed() {
         if(phoneCtrl.phoneDialogManager.GetDialog(0).dialogCompleted && callRescueStep01Completed == false) {
             Debug.Log("Call Rescue Step 01 Completed");
@@ -179,8 +185,6 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
 #endif
         }
 
-#if UNITY_EDITOR
-
         GameModeDebug();
 
         ScoreDebug();
@@ -188,6 +192,5 @@ public class TestDebug : Etienne.Singleton<TestDebug> {
         RecordDebug();
 
         CallRescueStepsDebug();
-#endif
     }
 }
