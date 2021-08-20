@@ -1,14 +1,15 @@
-using Etienne;
 using UnityEngine;
 
-[Requirement(typeof(AudioManager))]
-public class TEST : MonoBehaviourWithRequirement {
-    public TMPro.VertexGradient uuu;
-    public Cue cue = new Cue(null);
+public class TEST : MonoBehaviour {
+    private void OnDestroy() {
+        Debug.Log("<color=red>Destroyed</color>", transform.parent.gameObject);
+    }
+    private void OnDisable() {
+        Debug.Log("<color=red>Disabled</color>", gameObject);
+    }
 
-    [ContextMenu("TEST")]
-    private void MyMethod() {
-        AudioManager.Play(cue);
+    private void OnEnable() {
+        Debug.Log("<color=green>Enabled</color>", transform.parent.gameObject);
     }
 
 }

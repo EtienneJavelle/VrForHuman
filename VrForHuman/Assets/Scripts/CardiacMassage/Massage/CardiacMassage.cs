@@ -95,10 +95,13 @@ namespace CardiacMassage {
 
             if(GameManager.Instance.arrestCardiacStarted) {
                 AddCountTime(Time.deltaTime);
+                if(countTime >= totalDurationSimulation) {
+                    GameManager.Instance.EndSimulation();
+                    GameManager.Instance.arrestCardiacStarted = false;
+                }
+
             }
-            if(countTime >= totalDurationSimulation) {
-                GameManager.Instance.EndSimulation();
-            }
+
         }
 
         [ContextMenu("Start Massage")]

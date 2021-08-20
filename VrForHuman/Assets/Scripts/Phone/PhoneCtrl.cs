@@ -149,6 +149,7 @@ public class PhoneCtrl : InteractableSticker {
             phoneDialogManager.SetBoxDialogActive(false);
             screenCall.SetActive(false);
             runnerManager.ActiveCardiacMassage(true);
+            GameManager.Instance.CardiacMassage.ActiveCardiacMassageDialog();
         }
     }
 

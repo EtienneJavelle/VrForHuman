@@ -123,7 +123,8 @@ PrefabInstance:
     - target: {fileID: 4451024188956023345, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
         type: 3}
       propertyPath: dialogs.Array.data[3].texts.Array.data[0]
-      value: C'est compris, nous envoyons une ambulance du SAMU, ne bougez pas
+      value: C'est compris, nous envoyons une ambulance du SAMU, vous pouvez commencer
+        le massage
       objectReference: {fileID: 0}
     - target: {fileID: 4451024188956023345, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
         type: 3}
@@ -164,7 +165,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogs.Array.data[3].dialogSounds.Array.data[0].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 5913ca839c94e644592ec382fd491075, type: 3}
+      objectReference: {fileID: 8300000, guid: 89c566a3064a650439a0c1e2bee558ac, type: 3}
     - target: {fileID: 4451024188956023345, guid: 4b658ae02ca4e154f80cea2d74db1ef1,
         type: 3}
       propertyPath: dialogs.Array.data[0].dialogSounds.Array.data[0].parameters.pitch

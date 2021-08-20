@@ -123,18 +123,22 @@ public class GameManager : Etienne.Singleton<GameManager> {
     }
 
     public void EndSimulation() {
+        if(VideoCaptureCtrl.Instance.status == VideoCaptureCtrl.StatusType.STARTED) {
+            VideoCaptureCtrl.Instance.StopCapture();
+            UnityEngine.Debug.Log("STOP");
+        }
+        /*if(RecordManager != null) {
+            RecordManager.StopRecord();
+        } else {
+            Debug.LogWarning("Not RecordManager Found");
+        }*/
+
         AudioManager.Play(ambulanceSound);
 
         if(PlayerCanvasManager != null) {
             PlayerCanvasManager.ActiveEndSimlulationDisplay(true);
         } else {
             Debug.LogWarning("Not PlayerCanvasManager Found");
-        }
-
-        if(RecordManager != null) {
-            RecordManager.StopRecord();
-        } else {
-            Debug.LogWarning("Not RecordManager Found");
         }
 
         if(IsArcadeMode) {
